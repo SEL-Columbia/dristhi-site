@@ -2,5 +2,9 @@
 
 angular.module('drishtiSiteApp')
   .controller('MainCtrl', function ($scope) {
-    $scope.message = "It Works!";
+    $scope.awesomeThings = [
+      'HTML5 Boilerplate',
+      'AngularJS',
+      'Karma'
+    ];
   });

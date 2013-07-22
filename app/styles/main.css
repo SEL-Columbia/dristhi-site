@@ -1,22 +1,83 @@
+
 body {
-    background: #fafafa;
+    background: #fff;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #333;
+    padding-top: 13px;
+    padding-bottom: 40px;
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
+.navbar {
+    background-color: #f7f7f7;
+    border: #d9d9d9 0.5px solid;
+    margin: 25px auto 0 auto;
+    height: 60px;
     font-size: 18px;
     font-weight: 200;
-    line-height: 30px;
-    background-color: #eee;
-    border-radius: 6px;
-    padding: 60px;
+    vertical-align: middle;
+
 }
 
-.hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+.em {
+   font-family: Georgia;
+}
+
+.div-th {
+  font-weight: bold;
+
+}
+
+.tr-border {
+    border-bottom: 1px #d9d9d9 solid;
+}
+
+.span-nav {
+    margin-top: 20px;
+}
+.m10 {
+    margin-top: 8px;
+    font-size: 15px;
+}
+.m10 a {
+    font-family: georgia;
+}
+
+.span2 {
+    margin-top: 20px ;
+}
+
+.media-heading {
+    margin-top: 15px;
+}
+
+.section-header{
+    font-size: 18px;
+    margin-top: 10px;
+}
+.pull-right {
+    margin-right: 10px;
+}
+.btn-large {
+    font-size: 15px !important;
+    padding: 10px 15px !important;
+}
+
+.btn-group {
+ margin-top: 0px !important;
+}
+
+.ratio {
+    font-size: 12px;
+    font-weight: 200;
+}
+
+.btn-warning {
+    background-color: #800080 !important;
+}
+.btn {
+    margin-top: 9px !important;
+}
+
+.masthead {
+    margin-top: 10px;
 }
