@@ -25,7 +25,7 @@ $ npm install
 $ bower install
 ```
 
-> NOTE: if you get timeout errors from the above command, you will need to have got replace git:// urls with http:// by running
+> NOTE: if you get timeout errors from the above command, you will need to have git replace git:// urls with https:// by running
 
 ```
 $ git config --global url."https://".insteadOf git://
