@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('drishtiSiteApp', [])
+angular.module('drishtiSiteApp', ['ngCookies'])
     .config(function ($routeProvider) {
         $routeProvider
             .when('/', {
@@ -19,7 +19,19 @@ angular.module('drishtiSiteApp', [])
                 templateUrl: 'views/registers.html',
                 controller: 'MainCtrl'
             })
+            .when('/login', {
+                templateUrl: 'views/login.html',
+                controller: 'LoginCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
-    });
+    })
+    .run(function($rootScope, $location){
+        $rootScope.$on('$locationChangeStart', function(evt, newUrl, currentUrl){
+        });
+
+        $rootScope.$on('$locationChangeSuccess', function(evt, newUrl, currentUrl){
+        })
+    })
+    .constant('AUTH_URL', 'https://drishti.modilabs.org/authenticate-user');
