@@ -5,6 +5,26 @@ angular.module('drishtiSiteApp')
         fp: {
             name: "Family Planning Services",
             services: ['IUD', 'CONDOM', 'OCP', 'MALE_STERILIZATION', 'FEMALE_STERILIZATION']
+        },
+        anc: {
+            name: "ANC Services",
+            services: ['EARLY_ANC_REGISTRATIONS', 'ANC_REGISTRATIONS', 'SUB_TT', 'TT1', 'TT2', 'TTB', 'ANC4']
+        },
+        'pregnancy-outcomes': {
+            name: "Pregnancy Outcomes",
+            services: ['LIVE_BIRTH', 'STILL_BIRTH', 'EARLY_ABORTIONS', 'LATE_ABORTIONS', 'SPONTANEOUS_ABORTION', 'DELIVERY', 'INSTITUTIONAL_DELIVERY', 'D_HOM', 'D_SC', 'D_PHC', 'D_CHC', 'D_SDH', 'D_DH', 'D_PRI']
+        },
+        pnc: {
+            name: "PNC Services",
+            services: ['PNC3']
+        },
+        mortality: {
+            name: "Mortality",
+            services: ['ENM', 'NM', 'LNM', 'INFANT_MORTALITY', 'CHILD_MORTALITY', 'MMA', 'MMD', 'MMP', 'MM']
+        },
+        'child-services': {
+            name: "Child Services",
+            services: ['DPT3_OR_OPV3', 'DPT_BOOSTER_OR_OPV_BOOSTER', 'DPT_BOOSTER2', 'HEP', 'OPV', 'MEASLES', 'BCG', 'LBW', 'BF_POST_BIRTH', 'WEIGHED_AT_BIRTH', 'VIT_A_1', 'VIT_A_2']
         }
     })
     .service('Authentication', function($cookieStore, BasicAuth){

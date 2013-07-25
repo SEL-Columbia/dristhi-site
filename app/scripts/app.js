@@ -14,9 +14,9 @@ angular.module('drishtiSiteApp', ['ngCookies'])
                 templateUrl: 'views/indicators-month.html',
                 controller: 'IndicatorMonthCtrl'
             })
-            .when('/indicators-cumulative', {
+            .when('/indicators-cumulative/:indicator', {
                 templateUrl: 'views/indicators-cumulative.html',
-                controller: 'MainCtrl'
+                controller: 'IndicatorCumulativeCtrl'
             })
             .when('/registers', {
                 templateUrl: 'views/registers.html',

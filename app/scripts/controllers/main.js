@@ -111,7 +111,8 @@ angular.module('drishtiSiteApp')
         ];
     })
     .controller('IndicatorMonthCtrl', function($scope, $routeParams, ReportsDefinitions, BambooAPI, REPORT_DATASET){
-        var def = ReportsDefinitions[$routeParams.indicator];
+        $scope.indicator = $routeParams.indicator;
+        var def = ReportsDefinitions[$scope.indicator];
         var promise = BambooAPI.querySummary(REPORT_DATASET, {'indicator':1}, 'service_provider');
         $scope.services_provided = def.services;
         promise.then(function(data){
@@ -141,4 +142,7 @@ angular.module('drishtiSiteApp')
             });
             $scope.data.totals.all = total_sum;
         });
+    })
+    .controller('IndicatorCumulativeCtrl', function($scope, $routeParams, ReportsDefinitions, BambooAPI, REPORT_DATASET){
+        $scope.indicator = $routeParams.indicator;
     });
