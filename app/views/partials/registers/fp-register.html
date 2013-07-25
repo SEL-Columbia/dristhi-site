@@ -2,50 +2,48 @@
 <body>
 <span class="section-header" xmlns="http://www.w3.org/1999/html">FP Register</span>
 
-        <table border="1" cellspacing="5" cellpadding="5">
-            <tr>
-                <th rowspan="2">S/No.</th>
-                <th rowspan="2">Registration Date</th>
-                <th rowspan="2">EC No.</th>
-                <th rowspan="2">Beneficiary Name and Address</th>
-                <th rowspan="2">Wife Age</th>
-                <th rowspan="2">Husband Age</th>
-                <th rowspan="2">Caste/ Religion</th>
-                <th colspan="2">No. of Living Children</th>
-                <th rowspan="2">LMP</th>
-                <th rowspan="2">UPT</th>
-                <th colspan="2">Education</th>
-                <th rowspan="2">IUD Date and Place</th>
-                <th rowspan="2">IUD Inserter Name</th>
-                <th rowspan="2">Remarks</th>
-            </tr>
+<table border="1" cellspacing="5" cellpadding="5">
+    <tr>
+        <th rowspan="2">S/No.</th>
+        <th rowspan="2">Registration Date</th>
+        <th rowspan="2">EC No.</th>
+        <th rowspan="2">Beneficiary Name and Address</th>
+        <th rowspan="2">Wife Age</th>
+        <th rowspan="2">Husband Age</th>
+        <th rowspan="2">Caste/ Religion</th>
+        <th colspan="2">No. of Living Children</th>
+        <th rowspan="2">LMP</th>
+        <th rowspan="2">UPT</th>
+        <th colspan="2">Education</th>
+        <th rowspan="2">IUD Date and Place</th>
+        <th rowspan="2">IUD Inserter Name</th>
+        <th rowspan="2">Remarks</th>
+    </tr>
 
-            <tr>
-                <th>Male</th>
-                <th>Female</th>
-                <th>Husband</th>
-                <th>Wife</th>
-            </tr>
-            <tr ng-repeat="(key, value) in iudUsers">
-                <td>{{ key + 1 }}</td>
-                <td>{{ value.registrationDate }}</td>
-                <td>{{ value.ecNumber }}</td>
-                <td>{{ value.wifeName }} w/o {{ value.husbandName }} C/o {{ value.village }}</td>
-                <td>{{ value.womanDOB }}</td>
-                <td>{{ value.husbandDOB}}</td>
-                <td>{{ value.caste }}/{{ value.religion }}</td>
-                <td>{{ value.maleChildren }}</td>
-                <td>{{ value.femaleChildren }}</td>
-                <td>{{ value.lmp }}</td>
-                <td>{{ value.upt }}</td>
-                <td>{{ value.husbandEducationLevel }}</td>
-                <td>{{ value.wifeEducationLevel }}</td>
-                <td>{{ value.iudDateOfInsertion }} {{ value.iudPlaceOfInsertion }}</td>
-                <td>{{ value.iudInserterName }}</td>
-                <td>{{ value.remarks }}</td>
-            </tr>
-        </table>
-    </tab>
-</tabset>
+    <tr>
+        <th>Male</th>
+        <th>Female</th>
+        <th>Husband</th>
+        <th>Wife</th>
+    </tr>
+    <tr ng-repeat="(key, value) in iudUsers">
+        <td>{{ key + 1 }}</td>
+        <td>{{ value.registrationDate }}</td>
+        <td>{{ value.ecNumber }}</td>
+        <td>{{ value.wifeName }} w/o {{ value.husbandName }} C/o {{ value.village }}</td>
+        <td>{{ value.womanDOB }}</td>
+        <td>{{ value.husbandDOB}}</td>
+        <td>{{ value.caste }}/{{ value.religion }}</td>
+        <td>{{ value.maleChildren }}</td>
+        <td>{{ value.femaleChildren }}</td>
+        <td>{{ value.lmp }}</td>
+        <td>{{ value.upt }}</td>
+        <td>{{ value.husbandEducationLevel }}</td>
+        <td>{{ value.wifeEducationLevel }}</td>
+        <td>{{ value.iudDateOfInsertion }} {{ value.iudPlaceOfInsertion }}</td>
+        <td>{{ value.iudInserterName }}</td>
+        <td>{{ value.remarks }}</td>
+    </tr>
+</table>
 </body>
 </html>
