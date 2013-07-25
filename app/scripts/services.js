@@ -33,7 +33,7 @@ angular.module('drishtiSiteApp')
                 BasicAuth.setCredentials(username, password);
             },
             isAuthenticated: function() {
-                return $cookieStore.get('authdata') !== null;
+                return !!$cookieStore.get('authdata');
             }
         }
     })
