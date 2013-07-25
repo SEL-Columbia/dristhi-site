@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('drishtiSiteApp')
-    .controller('LoginCtrl', function($scope, $location, $http, $window, BasicAuth, AUTH_URL){
+    .controller('LoginCtrl', function($scope, $location, $http, $window, Authentication, BasicAuth, AUTH_URL){
         $scope.loginUser = function(){
             /*var promise = $http.post(AUTH_URL);
             promise.success(function(){
@@ -20,6 +20,7 @@ angular.module('drishtiSiteApp')
             })*/
             if($scope.username === 'c' && $scope.password === '1')
             {
+                Authentication.setAuthenticated(true);
                 $location.path('#/');
                 if(!$scope.$$phase) {
                     //this will kickstart angular if to notice the change

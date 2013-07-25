@@ -1,6 +1,17 @@
 'use strict';
 
 angular.module('drishtiSiteApp')
+    .service('Authentication', function(){
+        var _isAuthenticated = false;
+        return {
+            isAuthenticated: function() {
+                return _isAuthenticated;
+            },
+            setAuthenticated: function(value){
+                _isAuthenticated = !!(value === true);
+            }
+        }
+    })
     .service('BasicAuth', ['Base64', '$cookieStore', '$http', function (Base64, $cookieStore, $http) {
         // initialize to whatever is in the cookie, if anything
         $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');

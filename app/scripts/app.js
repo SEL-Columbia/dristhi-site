@@ -24,11 +24,24 @@ angular.module('drishtiSiteApp', ['ngCookies'])
                 controller: 'LoginCtrl'
             })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '/login'
             });
     })
-    .run(function($rootScope, $location){
+    .run(function($rootScope, $location, $window, Authentication){
         $rootScope.$on('$locationChangeStart', function(evt, newUrl, currentUrl){
+            if(!Authentication.isAuthenticated() && newUrl.match(/\/login/) === null)
+            {
+                //evt.preventDefault();
+                $location.path('/login');
+                if(!$rootScope.$$phase) {
+                    //this will kickstart angular if to notice the change
+                    $rootScope.$apply();
+                }
+                else
+                {
+                    $window.location = '#/login';
+                }
+            }
         });
 
         $rootScope.$on('$locationChangeSuccess', function(evt, newUrl, currentUrl){
