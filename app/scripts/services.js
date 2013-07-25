@@ -1,14 +1,13 @@
 'use strict';
 
 angular.module('drishtiSiteApp')
-    .service('Authentication', function(){
-        var _isAuthenticated = false;
+    .service('Authentication', function($cookieStore, BasicAuth){
         return {
-            isAuthenticated: function() {
-                return _isAuthenticated;
+            authenticate: function(username, password){
+                BasicAuth.setCredentials(username, password);
             },
-            setAuthenticated: function(value){
-                _isAuthenticated = !!(value === true);
+            isAuthenticated: function() {
+                return $cookieStore.get('authdata') !== null;
             }
         }
     })

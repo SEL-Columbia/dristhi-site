@@ -20,7 +20,7 @@ angular.module('drishtiSiteApp')
             })*/
             if($scope.username === 'c' && $scope.password === '1')
             {
-                Authentication.setAuthenticated(true);
+                Authentication.authenticate($scope.username, $scope.password);
                 $location.path('#/');
                 if(!$scope.$$phase) {
                     //this will kickstart angular if to notice the change
