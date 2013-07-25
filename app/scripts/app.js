@@ -10,9 +10,9 @@ angular.module('drishtiSiteApp', ['ngCookies'])
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl'
             })
-            .when('/indicators-month', {
+            .when('/indicators-month/:indicator', {
                 templateUrl: 'views/indicators-month.html',
-                controller: 'MainCtrl'
+                controller: 'IndicatorMonthCtrl'
             })
             .when('/indicators-cumulative', {
                 templateUrl: 'views/indicators-cumulative.html',
@@ -27,7 +27,7 @@ angular.module('drishtiSiteApp', ['ngCookies'])
                 controller: 'LoginCtrl'
             })
             .otherwise({
-                redirectTo: '/login'
+                redirectTo: '/'
             });
     })
     .run(function($rootScope, $location, $window, Authentication){

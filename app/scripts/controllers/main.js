@@ -1,29 +1,14 @@
 'use strict';
 
 angular.module('drishtiSiteApp')
-    .controller('LoginCtrl', function($scope, $location, $http, $window, Authentication, BasicAuth, AUTH_URL){
+    .controller('LoginCtrl', function($scope, $location, $http, $window, Authentication){
         $scope.loginUser = function(){
-            /*var promise = $http.post(AUTH_URL);
-            promise.success(function(){
-                console.log("--------Success--------");
-                console.log(arguments);
-            });
-
-            promise.error(function(){
-                console.log("--------Error--------");
-                console.log(arguments);
-            })
-
-            promise.then(function(){
-                console.log("--------Then--------");
-                console.log(arguments);
-            })*/
             if($scope.username === 'c' && $scope.password === '1')
             {
                 Authentication.authenticate($scope.username, $scope.password);
                 $location.path('#/');
                 if(!$scope.$$phase) {
-                    //this will kickstart angular if to notice the change
+                    //this will kickstart angular to notice the change
                     $scope.$apply();
                 }
                 else
@@ -34,4 +19,7 @@ angular.module('drishtiSiteApp')
         };
     })
     .controller('MainCtrl', function ($scope) {
+    })
+    .controller('IndicatorMonthCtrl', function($scope, $routeParams, ReportsDefinitions){
+        var def = ReportsDefinitions[$routeParams.indicator];
     });

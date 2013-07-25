@@ -1,6 +1,12 @@
 'use strict';
 
 angular.module('drishtiSiteApp')
+    .value('ReportsDefinitions', {
+        fp: {
+            name: "Family Planning Services",
+            services: ['IUD', 'CONDOM', 'OCP', 'MALE_STERILIZATION', 'FEMALE_STERILIZATION']
+        }
+    })
     .service('Authentication', function($cookieStore, BasicAuth){
         return {
             authenticate: function(username, password){
