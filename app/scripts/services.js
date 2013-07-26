@@ -27,13 +27,20 @@ angular.module('drishtiSiteApp')
             services: ['DPT3_OR_OPV3', 'DPT_BOOSTER_OR_OPV_BOOSTER', 'DPT_BOOSTER2', 'HEP', 'OPV', 'MEASLES', 'BCG', 'LBW', 'BF_POST_BIRTH', 'WEIGHED_AT_BIRTH', 'VIT_A_1', 'VIT_A_2']
         }
     })
-    .service('Authentication', function($cookieStore, BasicAuth){
+    .service('Authentication', function($rootScope, $cookieStore, BasicAuth, Base64){
         return {
             authenticate: function(username, password){
                 BasicAuth.setCredentials(username, password);
             },
+            logout: function(){
+                BasicAuth.clearCredentials();
+            },
             isAuthenticated: function() {
-                return !!$cookieStore.get('authdata');
+                var authdata = $cookieStore.get('authdata');
+                if(!authdata)
+                    return false;
+                $rootScope.username = Base64.decode(authdata).split(':')[0];
+                return true;
             }
         }
     })

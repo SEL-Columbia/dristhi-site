@@ -26,8 +26,16 @@ angular.module('drishtiSiteApp', ['ngCookies'])
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
             })
+            .when('/logout', {
+                templateUrl: 'views/login.html',
+                controller: 'LogoutCtrl'
+            })
+            .when('/404', {
+                templateUrl: 'views/404.html',
+                controller: 'MainCtrl'
+            })
             .otherwise({
-                redirectTo: '/'
+                redirectTo: '404'
             });
     })
     .run(function($rootScope, $location, $window, Authentication){

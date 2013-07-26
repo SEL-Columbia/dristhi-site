@@ -7,7 +7,7 @@ body {
     padding-bottom: 40px;
 }
 
-.navbar {
+/*.navbar {
     background-color: #f7f7f7;
     border: #d9d9d9 0.5px solid;
     margin: 25px auto 0 auto;
@@ -16,6 +16,38 @@ body {
     font-weight: 200;
     vertical-align: middle;
 
+}*/
+
+.header .navbar-inner {
+    background-color: #ffffff;
+}
+
+.header a.navbar-link {
+    text-decoration: underline;
+}
+
+.subnav {
+    font-size: 18px;
+}
+
+.subnav .navbar-inner {
+    border-width: 1px 0;
+}
+
+.subnav-tall {
+    top: 77px;
+}
+
+.subnav-short {
+    top: 42px;
+}
+
+.container-tall {
+    margin-top: 126px;
+}
+
+.container-short {
+    margin-top: 84px;
 }
 
 .em {
@@ -32,7 +64,7 @@ body {
 }
 
 .span-nav {
-    margin-top: 20px;
+    margin: 20px 20px 20px 0;
 }
 .m10 {
     margin-top: 8px;
@@ -102,4 +134,8 @@ body {
 
 .form-signin.form-horizontal .controls {
     margin-left: 80px;
+}
+
+footer {
+    margin-top: 30px;
 }

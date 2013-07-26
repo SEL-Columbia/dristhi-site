@@ -16,6 +16,17 @@ angular.module('drishtiSiteApp')
             }
         };
     })
+    .controller('LogoutCtrl', function ($scope, $location, $http, $window, Authentication) {
+        Authentication.logout();
+        $location.path('#/');
+        if (!$scope.$$phase) {
+            //this will kickstart angular to notice the change
+            $scope.$apply();
+        }
+        else {
+            $window.location = '#/';
+        }
+    })
     .controller('MainCtrl', function ($scope) {
 
     })
