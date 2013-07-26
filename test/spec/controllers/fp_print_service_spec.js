@@ -35,8 +35,7 @@ describe('Service: FPPrintRegisterService', function () {
                         "iudInserterName": "bhagya",
                         "remarks": ""
                     }
-                },
-                "wifeAge": 29
+                }
             },
             {
                 "registrationDate": "2013-01-01",
@@ -63,8 +62,7 @@ describe('Service: FPPrintRegisterService', function () {
                         ],
                         "remarks": "Need to supply Condom to this couple"
                     }
-                },
-                "wifeAge": 25
+                }
             },
             {
                 "registrationDate": "2013-02-01",
@@ -91,8 +89,7 @@ describe('Service: FPPrintRegisterService', function () {
                         ],
                         "remarks": ""
                     }
-                },
-                "wifeAge": 33
+                }
             },
             {
                 "registrationDate": "2013-04-02",
@@ -123,8 +120,7 @@ describe('Service: FPPrintRegisterService', function () {
                         ],
                         "remarks": ""
                     }
-                },
-                "wifeAge": 31
+                }
             },
             {
                 "registrationDate": "2013-05-12",
@@ -155,8 +151,7 @@ describe('Service: FPPrintRegisterService', function () {
                         ],
                         "remarks": ""
                     }
-                },
-                "wifeAge": 27
+                }
             }
         ];
 
@@ -187,7 +182,8 @@ describe('Service: FPPrintRegisterService', function () {
                             "remarks": ""
                         }
                     },
-                    "wifeAge": 29
+                    "wifeAge": 29,
+                    "husbandAge": 30
                 }
             ],
             condomUsers: [
@@ -217,7 +213,8 @@ describe('Service: FPPrintRegisterService', function () {
                             "remarks": "Need to supply Condom to this couple"
                         }
                     },
-                    "wifeAge": 25
+                    "wifeAge": 25,
+                    "husbandAge": 27
                 }
             ],
             ocpUsers: [
@@ -247,7 +244,8 @@ describe('Service: FPPrintRegisterService', function () {
                             "remarks": ""
                         }
                     },
-                    "wifeAge": 33
+                    "wifeAge": 33,
+                    "husbandAge": 38
                 }
             ],
             maleSterilizationUsers: [
@@ -281,7 +279,8 @@ describe('Service: FPPrintRegisterService', function () {
                             "remarks": ""
                         }
                     },
-                    "wifeAge": 31
+                    "wifeAge": 31,
+                    "husbandAge": 32
                 }
             ],
             femaleSterilizationUsers: [
@@ -315,7 +314,8 @@ describe('Service: FPPrintRegisterService', function () {
                             "remarks": ""
                         }
                     },
-                    "wifeAge": 27
+                    "wifeAge": 27,
+                    "husbandAge": 29
                 }
             ]
         };
