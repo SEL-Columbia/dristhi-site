@@ -40,7 +40,7 @@
 
             <tr ng-repeat="(key, user) in fpUsers.iudUsers">
                 <td>{{ key + 1 }}</td>
-                <td>{{ user.registrationDate }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
                 <td>{{ user.ecNumber }}</td>
                 <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
                 <td>{{ user.wifeAge }}</td>
@@ -48,11 +48,11 @@
                 <td>{{ user.caste }}/{{ user.religion }}</td>
                 <td>{{ user.maleChildren }}</td>
                 <td>{{ user.femaleChildren }}</td>
-                <td>{{ user.lmp }}</td>
+                <td>{{ user.lmp | date:'dd MMM yyyy' }}</td>
                 <td>{{ user.upt }}</td>
                 <td>{{ user.husbandEducationLevel }}</td>
                 <td>{{ user.wifeEducationLevel }}</td>
-                <td>{{ user.fpDetails.details.iudDateOfInsertion }} {{ user.fpDetails.details.iudPlaceOfInsertion }}</td>
+                <td>{{ user.fpDetails.details.iudDateOfInsertion | date:'dd MMM yyyy' }} at {{ user.fpDetails.details.iudPlaceOfInsertion }}</td>
                 <td>{{ user.fpDetails.details.iudInserterName }}</td>
                 <td>{{ user.fpDetails.details.remarks }}</td>
             </tr>
@@ -93,7 +93,7 @@
             </tr>
             <tr ng-repeat="(key, user) in fpUsers.condomUsers">
                 <td>{{ key + 1 }}</td>
-                <td>{{ user.registrationDate }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
                 <td>{{ user.ecNumber }}</td>
                 <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
                 <td>{{ user.wifeAge }}</td>
@@ -103,7 +103,7 @@
                 <td>{{ user.femaleChildren }}</td>
                 <td>{{ user.husbandEducationLevel }}</td>
                 <td>{{ user.wifeEducationLevel }}</td>
-                <td ng-repeat="(dateKey, refillDate) in user.fpDetails.details.refillDates">{{ refillDate }}</td>
+                <td ng-repeat="(dateKey, refillDate) in user.fpDetails.details.refillDates">{{ refillDate | date:'dd MMM' }}</td>
             </tr>
         </table>
     </div>
@@ -143,19 +143,19 @@
             </tr>
             <tr ng-repeat="(key, user) in fpUsers.ocpUsers">
                 <td>{{ key + 1 }}</td>
-                <td>{{ user.registrationDate }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
                 <td>{{ user.ecNumber }}</td>
                 <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
-                <td>{{ user.wifeDOB }}</td>
-                <td>{{ user.husbandDOB}}</td>
+                <td>{{ user.wifeAge }}</td>
+                <td>{{ user.husbandAge}}</td>
                 <td>{{ user.caste }}/{{ user.religion }}</td>
                 <td>{{ user.maleChildren }}</td>
                 <td>{{ user.femaleChildren }}</td>
-                <td>{{ user.lmp }}</td>
+                <td>{{ user.lmp | date:'dd MMM yyyy' }}</td>
                 <td>{{ user.upt }}</td>
                 <td>{{ user.husbandEducationLevel }}</td>
                 <td>{{ user.wifeEducationLevel }}</td>
-                <td ng-repeat="(dateKey, refillDate) in user.fpDetails.details.refillDates">{{ refillDate }}</td>
+                <td ng-repeat="(dateKey, refillDate) in user.fpDetails.details.refillDates">{{ refillDate | date:'dd MMM' }}</td>
             </tr>
         </table>
     </div>
@@ -189,11 +189,11 @@
             </tr>
             <tr ng-repeat="(key, user) in fpUsers.maleSterilizationUsers">
                 <td>{{ key + 1 }}</td>
-                <td>{{ user.registrationDate }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
                 <td>{{ user.ecNumber }}</td>
                 <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
-                <td>{{ user.wifeDOB }}</td>
-                <td>{{ user.husbandDOB}}</td>
+                <td>{{ user.wifeAge }}</td>
+                <td>{{ user.husbandAge}}</td>
                 <td>{{ user.caste }}/{{ user.religion }}</td>
                 <td>{{ user.maleChildren }}</td>
                 <td>{{ user.femaleChildren }}</td>
@@ -201,8 +201,8 @@
                 <td>{{ user.wifeEducationLevel }}</td>
                 <td>{{ user.fpDetails.details.doctorName }}</td>
                 <td>{{ user.fpDetails.details.typeOfSterilization }}</td>
-                <td>{{ user.fpDetails.details.sterilizationDate }}</td>
-                <td ng-repeat="(datekey, refillDate) in user.fpDetails.details.followupVisitDates">{{ refillDate }}</td>
+                <td>{{ user.fpDetails.details.sterilizationDate | date:'dd MMM yyyy' }}</td>
+                <td ng-repeat="(datekey, refillDate) in user.fpDetails.details.followupVisitDates">{{ refillDate | date:'dd MMM' }}</td>
                 <td>{{ user.fpDetails.details.remarks }}</td>
             </tr>
         </table>
@@ -237,11 +237,11 @@
             </tr>
             <tr ng-repeat="(key, user) in fpUsers.femaleSterilizationUsers">
                 <td>{{ key + 1 }}</td>
-                <td>{{ user.registrationDate }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
                 <td>{{ user.ecNumber }}</td>
                 <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
-                <td>{{ user.wifeDOB }}</td>
-                <td>{{ user.husbandDOB}}</td>
+                <td>{{ user.wifeAge }}</td>
+                <td>{{ user.husbandAge}}</td>
                 <td>{{ user.caste }}/{{ user.religion }}</td>
                 <td>{{ user.maleChildren }}</td>
                 <td>{{ user.femaleChildren }}</td>
@@ -249,8 +249,8 @@
                 <td>{{ user.wifeEducationLevel }}</td>
                 <td>{{ user.fpDetails.details.doctorName }}</td>
                 <td>{{ user.fpDetails.details.typeOfSterilization }}</td>
-                <td>{{ user.fpDetails.details.sterilizationDate }}</td>
-                <td ng-repeat="(datekey, refillDate) in user.fpDetails.details.followupVisitDates">{{ refillDate }}</td>
+                <td>{{ user.fpDetails.details.sterilizationDate | date:'dd MMM yyyy' }}</td>
+                <td ng-repeat="(datekey, refillDate) in user.fpDetails.details.followupVisitDates">{{ Date.parse(refillDate) | date:'dd MMM' }}</td>
                 <td>{{ user.fpDetails.details.remarks }}</td>
             </tr>
         </table>

@@ -271,6 +271,8 @@ angular.module('drishtiSiteApp')
             allECs.forEach(function (ec) {
                 ec.wifeAge =
                     Math.floor((new Date() - new Date(Date.parse(ec.wifeDOB))) / 1000 / 60 / 60 / 24 / 365);
+                ec.husbandAge =
+                    Math.floor((new Date() - new Date(Date.parse(ec.husbandDOB))) / 1000 / 60 / 60 / 24 / 365);
                 if (ec.fpDetails.method === "iud") {
                     fpUsers.iudUsers.push(ec);
                 } else if (ec.fpDetails.method === "condom") {
