@@ -1,49 +1,262 @@
 <html>
 <body>
-<span class="section-header" xmlns="http://www.w3.org/1999/html">FP Register</span>
+<p>
 
-<table border="1" cellspacing="5" cellpadding="5">
-    <tr>
-        <th rowspan="2">S/No.</th>
-        <th rowspan="2">Registration Date</th>
-        <th rowspan="2">EC No.</th>
-        <th rowspan="2">Beneficiary Name and Address</th>
-        <th rowspan="2">Wife Age</th>
-        <th rowspan="2">Husband Age</th>
-        <th rowspan="2">Caste/ Religion</th>
-        <th colspan="2">No. of Living Children</th>
-        <th rowspan="2">LMP</th>
-        <th rowspan="2">UPT</th>
-        <th colspan="2">Education</th>
-        <th rowspan="2">IUD Date and Place</th>
-        <th rowspan="2">IUD Inserter Name</th>
-        <th rowspan="2">Remarks</th>
-    </tr>
+</p>
+<div class="tabbable">
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#iud" data-toggle="tab">IUD</a></li>
+    <li><a href="#condom" data-toggle="tab">Condom</a></li>
+    <li><a href="#ocp" data-toggle="tab">OCP</a></li>
+    <li><a href="#malesterlization" data-toggle="tab">Male Sterlization</a></li>
+    <li><a href="#femalesterlization" data-toggle="tab">Female Sterlization</a></li>
+</ul>
 
-    <tr>
-        <th>Male</th>
-        <th>Female</th>
-        <th>Husband</th>
-        <th>Wife</th>
-    </tr>
-    <tr ng-repeat="(key, value) in iudUsers">
-        <td>{{ key + 1 }}</td>
-        <td>{{ value.registrationDate }}</td>
-        <td>{{ value.ecNumber }}</td>
-        <td>{{ value.wifeName }} w/o {{ value.husbandName }} C/o {{ value.village }}</td>
-        <td>{{ value.womanDOB }}</td>
-        <td>{{ value.husbandDOB}}</td>
-        <td>{{ value.caste }}/{{ value.religion }}</td>
-        <td>{{ value.maleChildren }}</td>
-        <td>{{ value.femaleChildren }}</td>
-        <td>{{ value.lmp }}</td>
-        <td>{{ value.upt }}</td>
-        <td>{{ value.husbandEducationLevel }}</td>
-        <td>{{ value.wifeEducationLevel }}</td>
-        <td>{{ value.iudDateOfInsertion }} {{ value.iudPlaceOfInsertion }}</td>
-        <td>{{ value.iudInserterName }}</td>
-        <td>{{ value.remarks }}</td>
-    </tr>
-</table>
+<div class="tab-content">
+    <div id="iud" class="tab-pane active">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tr>
+                <th rowspan="2">S/No.</th>
+                <th rowspan="2">Registration Date</th>
+                <th rowspan="2">EC No.</th>
+                <th rowspan="2">Beneficiary Name and Address</th>
+                <th rowspan="2">Wife Age</th>
+                <th rowspan="2">Husband Age</th>
+                <th rowspan="2">Caste/ Religion</th>
+                <th colspan="2">No. of Living Children</th>
+                <th rowspan="2">LMP</th>
+                <th rowspan="2">UPT</th>
+                <th colspan="2">Education</th>
+                <th rowspan="2">IUD Date and Place</th>
+                <th rowspan="2">IUD Inserter Name</th>
+                <th rowspan="2">Remarks</th>
+            </tr>
+            <tr>
+                <th>Male</th>
+                <th>Female</th>
+                <th>Husband</th>
+                <th>Wife</th>
+            </tr>
+
+            <tr ng-repeat="(key, user) in fpUsers.iudUsers">
+                <td>{{ key + 1 }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
+                <td>{{ user.ecNumber }}</td>
+                <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
+                <td>{{ user.wifeAge }}</td>
+                <td>{{ user.husbandAge}}</td>
+                <td>{{ user.caste }}/{{ user.religion }}</td>
+                <td>{{ user.maleChildren }}</td>
+                <td>{{ user.femaleChildren }}</td>
+                <td>{{ user.lmp | date:'dd MMM yyyy' }}</td>
+                <td>{{ user.upt }}</td>
+                <td>{{ user.husbandEducationLevel }}</td>
+                <td>{{ user.wifeEducationLevel }}</td>
+                <td>{{ user.fpDetails.details.iudDateOfInsertion | date:'dd MMM yyyy' }} at {{ user.fpDetails.details.iudPlaceOfInsertion }}</td>
+                <td>{{ user.fpDetails.details.iudInserterName }}</td>
+                <td>{{ user.fpDetails.details.remarks }}</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="condom" class="tab-pane">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tr>
+                <th rowspan="2">S/No.</th>
+                <th rowspan="2">Registration Date</th>
+                <th rowspan="2">EC No.</th>
+                <th rowspan="2">Beneficiary Name and Address</th>
+                <th rowspan="2">Wife Age</th>
+                <th rowspan="2">Husband Age</th>
+                <th rowspan="2">Caste/ Religion</th>
+                <th colspan="2">No. of Living Children</th>
+                <th colspan="2">Education</th>
+                <th rowspan="2">Apr</th>
+                <th rowspan="2">May</th>
+                <th rowspan="2">Jun</th>
+                <th rowspan="2">Jul</th>
+                <th rowspan="2">Aug</th>
+                <th rowspan="2">Sep</th>
+                <th rowspan="2">Oct</th>
+                <th rowspan="2">Nov</th>
+                <th rowspan="2">Dec</th>
+                <th rowspan="2">Jan</th>
+                <th rowspan="2">Feb</th>
+                <th rowspan="2">Mar</th>
+            </tr>
+            <tr>
+                <th>Male</th>
+                <th>Female</th>
+                <th>Husband</th>
+                <th>Wife</th>
+            </tr>
+            <tr ng-repeat="(key, user) in fpUsers.condomUsers">
+                <td>{{ key + 1 }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
+                <td>{{ user.ecNumber }}</td>
+                <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
+                <td>{{ user.wifeAge }}</td>
+                <td>{{ user.husbandAge}}</td>
+                <td>{{ user.caste }} / {{ user.religion }}</td>
+                <td>{{ user.maleChildren }}</td>
+                <td>{{ user.femaleChildren }}</td>
+                <td>{{ user.husbandEducationLevel }}</td>
+                <td>{{ user.wifeEducationLevel }}</td>
+                <td ng-repeat="(dateKey, refillDate) in user.fpDetails.details.refillDates">{{ refillDate | date:'dd MMM' }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="ocp" class="tab-pane">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tr>
+                <th rowspan="2">S/No.</th>
+                <th rowspan="2">Registration Date</th>
+                <th rowspan="2">EC No.</th>
+                <th rowspan="2">Beneficiary Name and Address</th>
+                <th rowspan="2">Wife Age</th>
+                <th rowspan="2">Husband Age</th>
+                <th rowspan="2">Caste/ Religion</th>
+                <th colspan="2">No. of Living Children</th>
+                <th rowspan="2">LMP</th>
+                <th rowspan="2">UPT</th>
+                <th colspan="2">Education</th>
+                <th rowspan="2">Apr</th>
+                <th rowspan="2">May</th>
+                <th rowspan="2">Jun</th>
+                <th rowspan="2">Jul</th>
+                <th rowspan="2">Aug</th>
+                <th rowspan="2">Sep</th>
+                <th rowspan="2">Oct</th>
+                <th rowspan="2">Nov</th>
+                <th rowspan="2">Dec</th>
+                <th rowspan="2">Jan</th>
+                <th rowspan="2">Feb</th>
+                <th rowspan="2">Mar</th>
+            </tr>
+            <tr>
+                <th>Male</th>
+                <th>Female</th>
+                <th>Husband</th>
+                <th>Wife</th>
+            </tr>
+            <tr ng-repeat="(key, user) in fpUsers.ocpUsers">
+                <td>{{ key + 1 }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
+                <td>{{ user.ecNumber }}</td>
+                <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
+                <td>{{ user.wifeAge }}</td>
+                <td>{{ user.husbandAge}}</td>
+                <td>{{ user.caste }}/{{ user.religion }}</td>
+                <td>{{ user.maleChildren }}</td>
+                <td>{{ user.femaleChildren }}</td>
+                <td>{{ user.lmp | date:'dd MMM yyyy' }}</td>
+                <td>{{ user.upt }}</td>
+                <td>{{ user.husbandEducationLevel }}</td>
+                <td>{{ user.wifeEducationLevel }}</td>
+                <td ng-repeat="(dateKey, refillDate) in user.fpDetails.details.refillDates">{{ refillDate | date:'dd MMM' }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="malesterlization" class="tab-pane">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tr>
+                <th rowspan="2">S/No.</th>
+                <th rowspan="2">Registration Date</th>
+                <th rowspan="2">EC No.</th>
+                <th rowspan="2">Beneficiary Name and Address</th>
+                <th rowspan="2">Wife Age</th>
+                <th rowspan="2">Husband Age</th>
+                <th rowspan="2">Caste/ Religion</th>
+                <th colspan="2">No. of Living Children</th>
+                <th colspan="2">Education</th>
+                <th rowspan="2">Sterilization Doctor Name</th>
+                <th rowspan="2">Sterilization Type</th>
+                <th rowspan="2">Date of Sterilization</th>
+                <th colspan="3">Followup Visits</th>
+                <th rowspan="2">Remarks</th>
+            </tr>
+            <tr>
+                <th>Male</th>
+                <th>Female</th>
+                <th>Husband</th>
+                <th>Wife</th>
+                <th>1st Visit</th>
+                <th>2nd Visit</th>
+                <th>3rd Visit</th>
+            </tr>
+            <tr ng-repeat="(key, user) in fpUsers.maleSterilizationUsers">
+                <td>{{ key + 1 }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
+                <td>{{ user.ecNumber }}</td>
+                <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
+                <td>{{ user.wifeAge }}</td>
+                <td>{{ user.husbandAge}}</td>
+                <td>{{ user.caste }}/{{ user.religion }}</td>
+                <td>{{ user.maleChildren }}</td>
+                <td>{{ user.femaleChildren }}</td>
+                <td>{{ user.husbandEducationLevel }}</td>
+                <td>{{ user.wifeEducationLevel }}</td>
+                <td>{{ user.fpDetails.details.doctorName }}</td>
+                <td>{{ user.fpDetails.details.typeOfSterilization }}</td>
+                <td>{{ user.fpDetails.details.sterilizationDate | date:'dd MMM yyyy' }}</td>
+                <td ng-repeat="(datekey, refillDate) in user.fpDetails.details.followupVisitDates">{{ refillDate | date:'dd MMM' }}</td>
+                <td>{{ user.fpDetails.details.remarks }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="femalesterlization" class="tab-pane">
+        <table border="1" cellspacing="5" cellpadding="5">
+            <tr>
+                <th rowspan="2">S/No.</th>
+                <th rowspan="2">Registration Date</th>
+                <th rowspan="2">EC No.</th>
+                <th rowspan="2">Beneficiary Name and Address</th>
+                <th rowspan="2">Wife Age</th>
+                <th rowspan="2">Husband Age</th>
+                <th rowspan="2">Caste/ Religion</th>
+                <th colspan="2">No. of Living Children</th>
+                <th colspan="2">Education</th>
+                <th rowspan="2">Sterilization Doctor Name</th>
+                <th rowspan="2">Sterilization Type</th>
+                <th rowspan="2">Date of Sterilization</th>
+                <th colspan="3">Followup Visits</th>
+                <th rowspan="2">Remarks</th>
+            </tr>
+            <tr>
+                <th>Male</th>
+                <th>Female</th>
+                <th>Husband</th>
+                <th>Wife</th>
+                <th>1st Visit</th>
+                <th>2nd Visit</th>
+                <th>3rd Visit</th>
+            </tr>
+            <tr ng-repeat="(key, user) in fpUsers.femaleSterilizationUsers">
+                <td>{{ key + 1 }}</td>
+                <td>{{ user.registrationDate | date:'dd MMM yyyy' }}</td>
+                <td>{{ user.ecNumber }}</td>
+                <td>{{ user.wifeName }} w/o {{ user.husbandName }} C/o {{ user.village }}</td>
+                <td>{{ user.wifeAge }}</td>
+                <td>{{ user.husbandAge}}</td>
+                <td>{{ user.caste }}/{{ user.religion }}</td>
+                <td>{{ user.maleChildren }}</td>
+                <td>{{ user.femaleChildren }}</td>
+                <td>{{ user.husbandEducationLevel }}</td>
+                <td>{{ user.wifeEducationLevel }}</td>
+                <td>{{ user.fpDetails.details.doctorName }}</td>
+                <td>{{ user.fpDetails.details.typeOfSterilization }}</td>
+                <td>{{ user.fpDetails.details.sterilizationDate | date:'dd MMM yyyy' }}</td>
+                <td ng-repeat="(datekey, refillDate) in user.fpDetails.details.followupVisitDates">{{ Date.parse(refillDate) | date:'dd MMM' }}</td>
+                <td>{{ user.fpDetails.details.remarks }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+
 </body>
 </html>

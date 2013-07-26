@@ -20,7 +20,7 @@ angular.module('drishtiSiteApp', ['ngCookies'])
             })
             .when('/registers', {
                 templateUrl: 'views/registers.html',
-                controller: 'MainCtrl'
+                controller: 'PrintRegisterCtrl'
             })
             .when('/login', {
                 templateUrl: 'views/login.html',
