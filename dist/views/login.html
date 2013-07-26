@@ -1,26 +1,28 @@
-<div class="row-fluid">
-    <div class="span8">
-        <form class="form-horizontal" data-ng-submit="loginUser()">
-            <div class="control-group">
-                <label class="control-label" for="inputUser">Username</label>
-                <div class="controls">
-                    <input type="text" id="inputUser" placeholder="Username" data-ng-model="username" required="">
-                </div>
+<div class="container-fluid">
+    <form class="form-signin form-horizontal" data-ng-submit="loginUser()">
+        <div><img src="images/logo-tall.png" alt=""> </div>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="control-group">
+            <label class="control-label" for="inputUser">Username</label>
+
+            <div class="controls">
+                <input type="text" id="inputUser" placeholder="Username" data-ng-model="username" required="">
             </div>
-            <div class="control-group">
-                <label class="control-label" for="inputPassword">Password</label>
-                <div class="controls">
-                    <input type="password" id="inputPassword" placeholder="Password" data-ng-model="password" required="">
-                </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Password</label>
+
+            <div class="controls">
+                <input type="password" id="inputPassword" placeholder="Password" data-ng-model="password" required="">
             </div>
-            <div class="control-group">
-                <div class="controls">
-                    <label class="checkbox">
-                        <input type="checkbox"> Remember me
-                    </label>
-                    <button type="submit" class="btn">Sign in</button>
-                </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn">Sign in</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
