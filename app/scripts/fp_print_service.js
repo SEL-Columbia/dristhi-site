@@ -24,7 +24,8 @@ angular.module('drishtiSiteApp')
                     "details": {
                         "refillDates": [
                             "2013-01-03",
-                            "2013-02-05"
+                            "2013-02-05",
+                            "","","","","","","","","",""
                         ],
                         "remarks": "Need to supply Condom to this couple"
                     }
@@ -64,20 +65,21 @@ angular.module('drishtiSiteApp')
                 "village": "Gauribidanur",
                 "wifeDOB": "1980-01-03",
                 "husbandDOB": "1975-04-02",
-                "caste": "",
+                "caste": "sc",
                 "religion": "hindu",
-                "wifeEducationLevel": "",
-                "husbandEducationLevel": "",
+                "wifeEducationLevel": "illiterate",
+                "husbandEducationLevel": "illiterate",
                 "lmp": "",
-                "upt": "",
-                "maleChildren": "",
-                "femaleChildren": "",
+                "upt": "-ve",
+                "maleChildren": "1",
+                "femaleChildren": "1",
                 "fpDetails": {
                     "method": "ocp",
                     "details": {
                         "refillDates": [
                             "2013-02-01",
-                            "2013-02-04"
+                            "2013-02-04",
+                            "","","","","","","","","",""
                         ],
                         "remarks": ""
                     }
@@ -93,12 +95,12 @@ angular.module('drishtiSiteApp')
                 "husbandDOB": "1981-01-02",
                 "caste": "",
                 "religion": "muslim",
-                "wifeEducationLevel": "",
-                "husbandEducationLevel": "",
+                "wifeEducationLevel": "graduate",
+                "husbandEducationLevel": "graduate",
                 "lmp": "",
                 "upt": "",
-                "maleChildren": "",
-                "femaleChildren": "",
+                "maleChildren": "1",
+                "femaleChildren": "1",
                 "fpDetails": {
                     "method": "male_sterilization",
                     "details": {
@@ -128,8 +130,8 @@ angular.module('drishtiSiteApp')
                 "husbandEducationLevel": "",
                 "lmp": "",
                 "upt": "",
-                "maleChildren": "",
-                "femaleChildren": "",
+                "maleChildren": "1",
+                "femaleChildren": "0",
                 "fpDetails": {
                     "method": "female_sterilization",
                     "details": {
