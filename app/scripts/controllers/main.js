@@ -1,7 +1,7 @@
-'use strict';
-
 angular.module('drishtiSiteApp')
     .controller('LoginCtrl', function ($scope, $location, $http, $window, Authentication) {
+        'use strict';
+
         $scope.loginUser = function () {
             if ($scope.username === 'c' && $scope.password === '1') {
                 Authentication.authenticate($scope.username, $scope.password);
@@ -17,6 +17,8 @@ angular.module('drishtiSiteApp')
         };
     })
     .controller('LogoutCtrl', function ($scope, $location, $http, $window, Authentication) {
+        'use strict';
+
         Authentication.logout();
         $location.path('#/');
         if (!$scope.$$phase) {
@@ -27,42 +29,46 @@ angular.module('drishtiSiteApp')
             $window.location = '#/';
         }
     })
-    .controller('MainCtrl', function ($scope) {
+    .controller('MainCtrl', function () {
 
     })
     .controller('IndicatorMonthCtrl', function ($scope, $routeParams, ReportsDefinitions, BambooAPI, REPORT_DATASET) {
+        'use strict';
+
         $scope.indicator = $routeParams.indicator;
         var def = ReportsDefinitions[$scope.indicator];
         var promise = BambooAPI.querySummary(REPORT_DATASET, {'indicator': 1}, 'service_provider');
-        $scope.services_provided = def.services;
+        $scope.servicesProvided = def.services;
         promise.then(function (data) {
-            $scope.service_providers = Object.keys(data.service_provider);
+            $scope.serviceProviders = Object.keys(data.service_provider);
             $scope.data = data.service_provider;
-            $scope.data.totals = {service_providers: {}, services_provided: {}, all: 0};
+            $scope.data.totals = {serviceProviders: {}, servicesProvided: {}, all: 0};
 
             /// sum numbers per service provider
-            $scope.service_providers.forEach(function (service_provider_key) {
+            $scope.serviceProviders.forEach(function (serviceProviderKey) {
                 var sum = 0;
-                var summary = data.service_provider[service_provider_key].indicator.summary;
-                $scope.services_provided.forEach(function (service_provided) {
-                    sum += summary[service_provided] || 0;
+                var summary = data.service_provider[serviceProviderKey].indicator.summary;
+                $scope.servicesProvided.forEach(function (serviceProvided) {
+                    sum += summary[serviceProvided] || 0;
                 });
-                $scope.data.totals.service_providers[service_provider_key] = sum;
+                $scope.data.totals.serviceProviders[serviceProviderKey] = sum;
             });
 
             // sum numbers per service provided
-            var total_sum = 0;
-            $scope.services_provided.forEach(function (service_provided) {
+            var totalSum = 0;
+            $scope.servicesProvided.forEach(function (serviceProvided) {
                 var sum = 0;
-                $scope.service_providers.forEach(function (service_provider_key) {
-                    sum += data.service_provider[service_provider_key].indicator.summary[service_provided] || 0
+                $scope.serviceProviders.forEach(function (serviceProviderKey) {
+                    sum += data.service_provider[serviceProviderKey].indicator.summary[serviceProvided] || 0
                 });
-                $scope.data.totals.services_provided[service_provided] = sum;
-                total_sum += sum;
+                $scope.data.totals.servicesProvided[serviceProvided] = sum;
+                totalSum += sum;
             });
-            $scope.data.totals.all = total_sum;
+            $scope.data.totals.all = totalSum;
         });
     })
-    .controller('IndicatorCumulativeCtrl', function ($scope, $routeParams, ReportsDefinitions, BambooAPI, REPORT_DATASET) {
+    .controller('IndicatorCumulativeCtrl', function ($scope, $routeParams) {
+        'use strict';
+
         $scope.indicator = $routeParams.indicator;
     });

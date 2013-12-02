@@ -1,12 +1,12 @@
-'use strict';
-
 angular.module('drishtiSiteApp')
     .controller('ANMDataSummaryCtrl', function ($scope, $http) {
+        'use strict';
+
         var getANMs = function () {
             var url = 'http://localhost:4567/anms';
             $http({method: 'GET', url: url}).success(function (data) {
                 $scope.anms = data;
-            }).error(function (data, status, headers, config) {
+            }).error(function () {
                     $scope.error = true;
                 });
         };
@@ -21,7 +21,7 @@ angular.module('drishtiSiteApp')
             http.success(function (data) {
                 $scope.jsonReportForANM = data;
                 return $scope.jsonReportForANM;
-            }).error(function (data, status, headers, config) {
+            }).error(function () {
                     $scope.error = true;
                 });
         };
