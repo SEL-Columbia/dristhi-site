@@ -1,10 +1,10 @@
-'use strict';
-
 angular.module('drishtiSiteApp', ['ngCookies'])
     .constant('AUTH_URL', 'https://drishti.modilabs.org/authenticate-user')
     //.constant('FP_DATASET_URL', 'http://ubuntu-server:8080/datasets/6e258415430b48989c9c90f6fa13a581')
     .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
     .config(function ($routeProvider) {
+        'use strict';
+
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
@@ -39,7 +39,9 @@ angular.module('drishtiSiteApp', ['ngCookies'])
             });
     })
     .run(function ($rootScope, $location, $window, Authentication, $http) {
-        $rootScope.$on('$locationChangeStart', function (evt, newUrl, currentUrl) {
+        'use strict';
+
+        $rootScope.$on('$locationChangeStart', function (evt, newUrl) {
             if (!Authentication.isAuthenticated() && newUrl.match(/\/login/) === null) {
                 //evt.preventDefault();
                 $location.path('/login');
@@ -52,9 +54,6 @@ angular.module('drishtiSiteApp', ['ngCookies'])
                 }
             }
             delete $http.defaults.headers.common['X-Requested-With'];
-            delete $http.defaults.headers.common["Authorization"];
+            delete $http.defaults.headers.common.Authorization;
         });
-
-        $rootScope.$on('$locationChangeSuccess', function (evt, newUrl, currentUrl) {
-        })
     });

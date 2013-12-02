@@ -1,8 +1,8 @@
 // Generated on 2013-07-18 using generator-angular 0.3.0
-'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var mountFolder = function (connect, dir) {
+    'use strict';
     return connect.static(require('path').resolve(dir));
 };
 
@@ -13,6 +13,7 @@ var mountFolder = function (connect, dir) {
 // 'test/spec/**/*.js'
 
 module.exports = function (grunt) {
+    'use strict';
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 

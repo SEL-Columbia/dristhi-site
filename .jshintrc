@@ -1,5 +1,4 @@
 {
-    "node": true,
     "browser": true,
     "esnext": true,
     "bitwise": true,
@@ -7,7 +6,6 @@
     "curly": true,
     "eqeqeq": true,
     "immed": true,
-    "indent": 2,
     "latedef": true,
     "newcap": true,
     "noarg": true,
@@ -19,6 +17,8 @@
     "trailing": true,
     "smarttabs": true,
     "globals": {
-        "angular": false
+        "angular": false,
+        "require": false,
+        "module": false
     }
 }
