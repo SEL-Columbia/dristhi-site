@@ -38,23 +38,23 @@ angular.module('drishtiSiteApp', ['ngCookies'])
                 redirectTo: '404'
             });
     })
-    .run(function($rootScope, $location, $window, Authentication){
-        $rootScope.$on('$locationChangeStart', function(evt, newUrl, currentUrl){
-            if(!Authentication.isAuthenticated() && newUrl.match(/\/login/) === null)
-            {
+    .run(function ($rootScope, $location, $window, Authentication, $http) {
+        $rootScope.$on('$locationChangeStart', function (evt, newUrl, currentUrl) {
+            if (!Authentication.isAuthenticated() && newUrl.match(/\/login/) === null) {
                 //evt.preventDefault();
                 $location.path('/login');
-                if(!$rootScope.$$phase) {
+                if (!$rootScope.$$phase) {
                     //this will kickstart angular if to notice the change
                     $rootScope.$apply();
                 }
-                else
-                {
+                else {
                     $window.location = '#/login';
                 }
             }
+            delete $http.defaults.headers.common['X-Requested-With'];
+            delete $http.defaults.headers.common["Authorization"];
         });
 
-        $rootScope.$on('$locationChangeSuccess', function(evt, newUrl, currentUrl){
+        $rootScope.$on('$locationChangeSuccess', function (evt, newUrl, currentUrl) {
         })
     });

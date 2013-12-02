@@ -30,10 +30,10 @@ angular.module('drishtiSiteApp')
     .controller('MainCtrl', function ($scope) {
 
     })
-    .controller('IndicatorMonthCtrl', function($scope, $routeParams, ReportsDefinitions, BambooAPI, REPORT_DATASET){
+    .controller('IndicatorMonthCtrl', function ($scope, $routeParams, ReportsDefinitions, BambooAPI, REPORT_DATASET) {
         $scope.indicator = $routeParams.indicator;
         var def = ReportsDefinitions[$scope.indicator];
-        var promise = BambooAPI.querySummary(REPORT_DATASET, {'indicator':1}, 'service_provider');
+        var promise = BambooAPI.querySummary(REPORT_DATASET, {'indicator': 1}, 'service_provider');
         $scope.services_provided = def.services;
         promise.then(function (data) {
             $scope.service_providers = Object.keys(data.service_provider);
@@ -63,6 +63,6 @@ angular.module('drishtiSiteApp')
             $scope.data.totals.all = total_sum;
         });
     })
-    .controller('IndicatorCumulativeCtrl', function($scope, $routeParams, ReportsDefinitions, BambooAPI, REPORT_DATASET){
+    .controller('IndicatorCumulativeCtrl', function ($scope, $routeParams, ReportsDefinitions, BambooAPI, REPORT_DATASET) {
         $scope.indicator = $routeParams.indicator;
     });
