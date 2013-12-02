@@ -265,6 +265,10 @@ module.exports = function (grunt) {
             unit: {
                 configFile: 'karma.conf.js',
                 singleRun: true
+            },
+            debug: {
+                configFile: 'karma.conf.js',
+                singleRun: false
             }
         },
         cdnify: {
@@ -313,7 +317,7 @@ module.exports = function (grunt) {
         'clean:server',
         'concurrent:test',
         'connect:test',
-        'karma'
+        'karma:unit'
     ]);
 
     grunt.registerTask('build', [

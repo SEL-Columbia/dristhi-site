@@ -213,7 +213,7 @@ describe('Service: FPPrintRegisterService', function () {
                             "remarks": "Need to supply Condom to this couple"
                         }
                     },
-                    "wifeAge": 25,
+                    "wifeAge": 26,
                     "husbandAge": 27
                 }
             ],
