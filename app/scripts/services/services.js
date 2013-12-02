@@ -27,17 +27,17 @@ angular.module('drishtiSiteApp')
             services: ['DPT3_OR_OPV3', 'DPT_BOOSTER_OR_OPV_BOOSTER', 'DPT_BOOSTER2', 'HEP', 'OPV', 'MEASLES', 'BCG', 'LBW', 'BF_POST_BIRTH', 'WEIGHED_AT_BIRTH', 'VIT_A_1', 'VIT_A_2']
         }
     })
-    .service('Authentication', function($rootScope, $cookieStore, BasicAuth, Base64){
+    .service('Authentication', function ($rootScope, $cookieStore, BasicAuth, Base64) {
         return {
-            authenticate: function(username, password){
+            authenticate: function (username, password) {
                 BasicAuth.setCredentials(username, password);
             },
-            logout: function(){
+            logout: function () {
                 BasicAuth.clearCredentials();
             },
-            isAuthenticated: function() {
+            isAuthenticated: function () {
                 var authdata = $cookieStore.get('authdata');
-                if(!authdata)
+                if (!authdata)
                     return false;
                 $rootScope.username = Base64.decode(authdata).split(':')[0];
                 return true;
@@ -61,7 +61,7 @@ angular.module('drishtiSiteApp')
             }
         };
     }])
-    .service('Base64', function() {
+    .service('Base64', function () {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
             'QRSTUVWXYZabcdef' +
             'ghijklmnopqrstuv' +
@@ -146,8 +146,8 @@ angular.module('drishtiSiteApp')
         };
     })
     .service('BambooAPI', ['$q', '$rootScope', function ($q, $rootScope) {
-        var applyScopeSafe = function(func){
-            if(!$rootScope.$$phase) {
+        var applyScopeSafe = function (func) {
+            if (!$rootScope.$$phase) {
                 $rootScope.$apply(func);
             }
             else {
@@ -159,19 +159,19 @@ angular.module('drishtiSiteApp')
             queryInfo: function (dataset_id) {
                 var deferred = $q.defer();
                 var dataset = new bamboo.Dataset({id: dataset_id});
-                dataset.query_info(function(result){
-                    applyScopeSafe(function(){
+                dataset.query_info(function (result) {
+                    applyScopeSafe(function () {
                         deferred.resolve(result);
                     });
                 });
                 return deferred.promise;
             },
 
-            querySummary: function(dataset_id, select, group) {
+            querySummary: function (dataset_id, select, group) {
                 var deferred = $q.defer();
                 var dataset = new bamboo.Dataset({id: dataset_id});
-                dataset.summary(select, group, function(result){
-                    applyScopeSafe(function(){
+                dataset.summary(select, group, function (result) {
+                    applyScopeSafe(function () {
                         deferred.resolve(result);
                     });
                 });
@@ -181,8 +181,8 @@ angular.module('drishtiSiteApp')
             queryCalculations: function (dataset_id) {
                 var deferred = $q.defer();
                 var dataset = new bamboo.Dataset({id: dataset_id});
-                dataset.query_calculations(function(result){
-                    applyScopeSafe(function(){
+                dataset.query_calculations(function (result) {
+                    applyScopeSafe(function () {
                         deferred.resolve(result);
                     });
                 });
@@ -192,8 +192,8 @@ angular.module('drishtiSiteApp')
             addCalculation: function (dataset_id, name, formula) {
                 var deferred = $q.defer();
                 var dataset = new bamboo.Dataset({id: dataset_id});
-                dataset.add_calculation(name, formula, function(result){
-                    applyScopeSafe(function(){
+                dataset.add_calculation(name, formula, function (result) {
+                    applyScopeSafe(function () {
                         deferred.resolve(result);
                     });
                 });

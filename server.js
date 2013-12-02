@@ -6,16 +6,16 @@ var express = require("express"),
 
 server.listen(PORT);
 
-app.configure(function(){
+app.configure(function () {
     app.set('views', __dirname);
     app.use(express.static(__dirname));
 });
 
 //routing
-app.get('/', function(req, res, err) {
+app.get('/', function (req, res, err) {
     res.sendfile(__dirname + '/index.html');
 });
-app.get('/test.html', function(req, res, err) {
+app.get('/test.html', function (req, res, err) {
     res.sendfile(__dirname + '/views/test.html');
 });
 //app.get('/demo', function(req, res) {

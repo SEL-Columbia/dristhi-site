@@ -1,15 +1,20 @@
 fieldsets = []
-demo = (name, cb)-> fieldsets.push new DemoFieldset(name, cb)
+demo = (name, cb)->
+  fieldsets.push new DemoFieldset(name, cb)
 class DemoFieldset
-  constructor: (@name, @launch_cb)-> launch_cb.call @
+  constructor: (@name, @launch_cb)->
+    launch_cb.call @
   build: (into)->
-    pre = $('<pre>', {text:@code})
+    pre = $('<pre>', {text: @code})
     if @run?
-      $('<a>', {href:'#', text:'Run', class: 'btn btn-primary'})
-        .css(float: 'right')
-        .click((e)=> @run.call(@); e.preventDefault()).appendTo(pre)
-    into.append($('<legend>', {text:@name})).append(pre)
-$ -> c = $('#main').empty(); fs.build(c) for fs in fieldsets
+      $('<a>', {href: '#', text: 'Run', class: 'btn btn-primary'})
+      .css(float: 'right')
+      .click((e)=>
+          @run.call(@);
+          e.preventDefault()).appendTo(pre)
+    into.append($('<legend>', {text: @name})).append(pre)
+$ -> c = $('#main').empty();
+  fs.build(c) for fs in fieldsets
 
 demo "New Dataset", ()->
   @code = "var dataset = new bamboo.Dataset({url: 'http://bitly.com/ZfzBwP'});"
@@ -22,7 +27,7 @@ demo "Get info", ()->
 
 demo "Add calculation", ()->
   @code = """
-    dataset.add_calculation("above_3rd_grade", "grade > 3");
-    dataset.query_dataset();
-    console.log(dataset.data);
-    """
+          dataset.add_calculation("above_3rd_grade", "grade > 3");
+          dataset.query_dataset();
+          console.log(dataset.data);
+          """

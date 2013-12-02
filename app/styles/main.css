@@ -1,4 +1,3 @@
-
 body {
     background: #fff;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -51,11 +50,11 @@ body {
 }
 
 .em {
-   font-family: Georgia;
+    font-family: Georgia;
 }
 
 .div-th {
-  font-weight: bold;
+    font-weight: bold;
 
 }
 
@@ -66,36 +65,40 @@ body {
 .span-nav {
     margin: 20px 20px 20px 0;
 }
+
 .m10 {
     margin-top: 8px;
     font-size: 15px;
 }
+
 .m10 a {
     font-family: georgia;
 }
 
 .span2 {
-    margin-top: 20px ;
+    margin-top: 20px;
 }
 
 .media-heading {
     margin-top: 15px;
 }
 
-.section-header{
+.section-header {
     font-size: 18px;
     margin-top: 10px;
 }
+
 .pull-right {
     margin-right: 10px;
 }
+
 .btn-large {
     font-size: 15px !important;
     padding: 10px 15px !important;
 }
 
 .btn-group {
- margin-top: 0px !important;
+    margin-top: 0px !important;
 }
 
 .ratio {
@@ -106,6 +109,7 @@ body {
 .btn-warning {
     background-color: #800080 !important;
 }
+
 .btn {
     margin-top: 9px !important;
 }
@@ -123,9 +127,9 @@ body {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    box-shadow: 0 1px 2px rgba(0,0,0,.05);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
 }
 
 .form-signin.form-horizontal .control-label {

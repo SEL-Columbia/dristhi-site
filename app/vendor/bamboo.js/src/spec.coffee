@@ -1,5 +1,5 @@
 test_data =
-  csv_file : "https://raw.github.com/modilabs/bamboo.js/master/public/csv/sample_dataset_school_survey.csv"
+  csv_file: "https://raw.github.com/modilabs/bamboo.js/master/public/csv/sample_dataset_school_survey.csv"
   csv_file_merge: "https://raw.github.com/modilabs/bamboo.js/master/public/csv/sample_merge.csv"
   csv_file_join: "https://raw.github.com/modilabs/bamboo.js/master/public/csv/sample_join.csv"
 
@@ -31,12 +31,12 @@ callAjax = (xhrSettings) ->
   return
 
 # poll dataset's ready state MAX_READY_RETRIES times
-data_ready_callback  = (response)->
+data_ready_callback = (response)->
   if response.state is "pending" and retry_count++ < MAX_READY_RETRIES
     # query info again, wait
     setTimeout =>
       @query_info data_ready_callback
-    , Math.round(wait_time/MAX_READY_RETRIES)# distrubute calls by retries and wait time
+    , Math.round(wait_time / MAX_READY_RETRIES)# distrubute calls by retries and wait time
   else
     # reset retry count
     retry_count = 0
@@ -48,7 +48,7 @@ aggregations_ready_callback = (response)->
     # query aggregations
     setTimeout =>
       @query_aggregations data_ready_callback
-    , Math.round(wait_time/MAX_READY_RETRIES)# distrubute calls by retries and wait time
+    , Math.round(wait_time / MAX_READY_RETRIES)# distrubute calls by retries and wait time
   else
     # reset retry count
     retry_count = 0
@@ -165,12 +165,12 @@ describe "Bamboo API", ->
         return
 
       it "can select from dataset", ->
-        select = dataset.select({grade:1})
+        select = dataset.select({grade: 1})
         expect(select.length).toBe(14)
         return
 
       it "can run a filter query", ->
-        query1 = dataset.query({grade:4})
+        query1 = dataset.query({grade: 4})
         expect(query1.length).toBe(7)
         return
 
