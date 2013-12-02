@@ -6,7 +6,6 @@ angular.module('drishtiSiteApp')
             var url = 'http://localhost:4567/anms';
             $http({method: 'GET', url: url}).success(function (data) {
                 $scope.anms = data;
-                return $scope.anms;
             }).error(function (data, status, headers, config) {
                     $scope.error = true;
                 });
