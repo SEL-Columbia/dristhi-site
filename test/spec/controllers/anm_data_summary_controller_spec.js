@@ -17,9 +17,9 @@ describe('Controller: ANMDataSummaryCtrl', function () {
 
     it('should get list of ANMs from server and set it on scope', function () {
         var expectedANMs = [
-            {"username": "c", "subcenter": "bherya - a", "role": "anm"},
-            {"username": "demo1", "subcenter": "bherya - b", "role": "anm"},
-            {"username": "admin", "subcenter": "klp 2", "role": "anm"}
+            {"identifier": "c", "subCenter": "bherya - a"},
+            {"identifier": "demo1", "subCenter": "bherya - b"},
+            {"identifier": "admin", "subCenter": "klp 2"}
         ];
         httpBackend.expectGET('http://localhost:4567/anms').respond(expectedANMs);
         createController();

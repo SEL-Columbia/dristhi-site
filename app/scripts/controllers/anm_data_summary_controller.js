@@ -1,22 +1,23 @@
 angular.module('drishtiSiteApp')
-    .controller('ANMDataSummaryCtrl', function ($scope, $http) {
+    .controller('ANMDataSummaryCtrl', function ($scope, $http, DRISHTI_BASE_URL) {
         'use strict';
 
         var getANMs = function () {
-            var url = 'http://localhost:4567/anms';
-            $http({method: 'GET', url: url}).success(function (data) {
-                $scope.anms = data;
-            }).error(function () {
+            var url = DRISHTI_BASE_URL + '/anms';
+            $http({method: 'GET', url: url
+            }).success(function (data) {
+                    $scope.anms = data;
+                }).error(function () {
                     $scope.error = true;
                 });
         };
 
         var getXLS = function (anm) {
-            return 'http://localhost:4567/anms/' + anm.username + '/excelreport';
+            return DRISHTI_BASE_URL + '/anms/' + anm.username + '/excelreport';
         };
 
         var getJSONReportForANM = function (anm) {
-            var url = 'http://localhost:4567/anms/' + anm.username + '/jsonReport';
+            var url = DRISHTI_BASE_URL + '/anms/' + anm.username + '/jsonReport';
             var http = $http({method: 'GET', url: url});
             http.success(function (data) {
                 $scope.jsonReportForANM = data;

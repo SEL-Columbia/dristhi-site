@@ -1,5 +1,6 @@
 angular.module('drishtiSiteApp', ['ngCookies'])
     .constant('AUTH_URL', 'https://drishti.modilabs.org/authenticate-user')
+    .constant('DRISHTI_BASE_URL', 'http://localhost:9979')
     //.constant('FP_DATASET_URL', 'http://ubuntu-server:8080/datasets/6e258415430b48989c9c90f6fa13a581')
     .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
     .config(function ($routeProvider) {
