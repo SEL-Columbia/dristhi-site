@@ -3,22 +3,12 @@
 
     <div class="row-fluid m10 div-th tr-border">
         <div class="span3"></div>
-        <div class="span1">EC</div>
-        <div class="span1">FP</div>
-        <div class="span1">ANC</div>
-        <div class="span1">PNC</div>
-        <div class="span1">Child</div>
         <div class="span4">NRHM Reports</div>
     </div>
     <div ng-repeat="anm in anms" class="row-fluid m10 tr-border">
         <div class="span3">
             <b>{{ anm.identifier }}</b><br> {{ anm.subCenter | uppercase}}
         </div>
-        <div class="span1"><a href="#registers">546</a></div>
-        <div class="span1"><a href="#registers">87</a></div>
-        <div class="span1"><a href="#registers">212</a></div>
-        <div class="span1"><a href="#registers">33</a></div>
-        <div class="span1"><a href="#registers">53</a></div>
         <div class="span4"><a href="{{ excelReportsForANM(anm) }}">Download 06/2013</a> | <a href="#registers">Past
             Reports</a></div>
 
