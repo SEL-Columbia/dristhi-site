@@ -9,8 +9,15 @@
         <div class="span3">
             <b>{{ anm.identifier }}</b><br> {{ anm.subCenter | uppercase}}
         </div>
-        <div class="span4"><a href="{{ excelReportsForANM(anm) }}">Download 06/2013</a> | <a href="#registers">Past
-            Reports</a></div>
+        <div class="span4">
+            <span ng-switch on="anm.downloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing report.</span>
+                <a ng-switch-when="ready" ng-click="downloadExcelReportsForANM(anm)">Excel</a>
+                <a ng-switch-default ng-click="excelReportsForANM(anm)">Download</a>
+            </span>
+            <span>|</span>
+            <a href="#registers">Past Reports</a>
+        </div>
 
     </div>
 </div>

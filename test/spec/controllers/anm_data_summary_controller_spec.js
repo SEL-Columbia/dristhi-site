@@ -9,21 +9,118 @@ describe('Controller: ANMDataSummaryCtrl', function () {
         scope = $rootScope.$new();
         httpBackend = $httpBackend;
         createController = function () {
-            var controller = $controller('ANMDataSummaryCtrl', {'$scope': scope });
-            httpBackend.flush();
+            var controller = $controller(
+                'ANMDataSummaryCtrl', {
+                    '$scope': scope,
+                    DRISHTI_BASE_URL: 'http://drishti-server',
+                    JSON_TO_XLS_URL: 'http://xls.ona.io/xls/token1'
+                });
             return controller;
         };
     }));
 
-    it('should get list of ANMs from server and set it on scope', function () {
-        var expectedANMs = [
-            {"identifier": "c", "subCenter": "bherya - a"},
-            {"identifier": "demo1", "subCenter": "bherya - b"},
-            {"identifier": "admin", "subCenter": "klp 2"}
-        ];
-        httpBackend.expectGET('http://localhost:9979/anms').respond(expectedANMs);
-        createController();
-        expect(scope.anms).toEqual(expectedANMs);
+    describe('Display list of ANMs', function () {
+        it('should get list of ANMs from server and set it on scope', function () {
+            var expectedANMs = [
+                {"identifier": "c", "subCenter": "bherya - a"},
+                {"identifier": "demo1", "subCenter": "bherya - b"},
+                {"identifier": "admin", "subCenter": "klp 2"}
+            ];
+            httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
+
+            createController();
+
+            httpBackend.flush();
+            expect(scope.anms).toEqual(expectedANMs);
+        });
+    });
+
+    describe('NRHM report excel', function () {
+        it('should be able to download current month NRHM report excel for an ANM', function () {
+            var anm =
+            {
+                'identifier': 'demo1',
+                'subCenter': 'bherya - b'
+            };
+            var expectedANMs = [
+                {"identifier": "c", "subCenter": "bherya - a"},
+                {"identifier": "demo1", "subCenter": "bherya - b"},
+                {"identifier": "admin", "subCenter": "klp 2"}
+            ];
+            var expectedAggregatedReports = {
+                'ind': {
+                    "anc": "1",
+                    "anc_12": "2"
+                }
+            };
+            var expectedExcelReport = [0x7f, 0x8f];
+            httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
+            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12')
+                .respond(200, expectedAggregatedReports);
+            httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(200, expectedExcelReport);
+
+            createController();
+            scope.excelReportsForANM(anm, '12');
+
+            httpBackend.flush();
+            expect(scope.excelreport).toEqual(expectedExcelReport);
+            expect(anm.downloadStatus).toEqual('ready');
+        });
+
+        it('should change downloadStatus back to start when excel is not returned from json-to-xls service', function () {
+            var anm =
+            {
+                'identifier': 'demo1',
+                'subCenter': 'bherya - b'
+            };
+            var expectedANMs = [
+                {"identifier": "c", "subCenter": "bherya - a"},
+                {"identifier": "demo1", "subCenter": "bherya - b"},
+                {"identifier": "admin", "subCenter": "klp 2"}
+            ];
+            var expectedAggregatedReports = {
+                'ind': {
+                    "anc": "1",
+                    "anc_12": "2"
+                }
+            };
+            httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
+            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12')
+                .respond(200, expectedAggregatedReports);
+            httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(400, null);
+
+
+            createController();
+            scope.excelReportsForANM(anm, '12');
+
+            httpBackend.flush();
+            expect(anm.downloadStatus).toEqual('start');
+
+        });
+
+        it('should change downloadStatus back to start when aggregated reports is not being returned from server', function () {
+            var anm =
+            {
+                'identifier': 'demo1',
+                'subCenter': 'bherya - b'
+            };
+            var expectedANMs = [
+                {"identifier": "c", "subCenter": "bherya - a"},
+                {"identifier": "demo1", "subCenter": "bherya - b"},
+                {"identifier": "admin", "subCenter": "klp 2"}
+            ];
+            httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
+            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12')
+                .respond(400, null);
+
+
+            createController();
+            scope.excelReportsForANM(anm, '12');
+
+            httpBackend.flush();
+            expect(anm.downloadStatus).toEqual('start');
+
+        });
     });
 
     afterEach(function () {
