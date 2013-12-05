@@ -21,7 +21,7 @@ describe('Controller: ANMDataSummaryCtrl', function () {
             {"identifier": "demo1", "subCenter": "bherya - b"},
             {"identifier": "admin", "subCenter": "klp 2"}
         ];
-        httpBackend.expectGET('http://localhost:4567/anms').respond(expectedANMs);
+        httpBackend.expectGET('http://localhost:9979/anms').respond(expectedANMs);
         createController();
         expect(scope.anms).toEqual(expectedANMs);
     });
