@@ -13,7 +13,7 @@
             <span ng-switch on="anm.downloadStatus">
                 <span ng-switch-when="preparing">Please wait, preparing report.</span>
                 <a ng-switch-when="ready" ng-click="downloadExcelReportsForANM(anm)">Excel</a>
-                <a ng-switch-default ng-click="excelReportsForANM(anm)">Download</a>
+                <a ng-switch-default ng-click="excelReportsForANM(anm,12,2013)">Download</a>
             </span>
             <span>|</span>
             <a href="#registers">Past Reports</a>

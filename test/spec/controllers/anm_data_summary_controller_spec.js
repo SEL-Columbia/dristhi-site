@@ -55,12 +55,12 @@ describe('Controller: ANMDataSummaryCtrl', function () {
             };
             var expectedExcelReport = [0x7f, 0x8f];
             httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
-            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12')
+            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(200, expectedAggregatedReports);
             httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(200, expectedExcelReport);
 
             createController();
-            scope.excelReportsForANM(anm, '12');
+            scope.excelReportsForANM(anm, '12', '2013');
 
             httpBackend.flush();
             expect(scope.excelreport).toEqual(expectedExcelReport);
@@ -85,13 +85,13 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                 }
             };
             httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
-            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12')
+            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(200, expectedAggregatedReports);
             httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(400, null);
 
 
             createController();
-            scope.excelReportsForANM(anm, '12');
+            scope.excelReportsForANM(anm, '12', '2013');
 
             httpBackend.flush();
             expect(anm.downloadStatus).toEqual('start');
@@ -110,12 +110,12 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                 {"identifier": "admin", "subCenter": "klp 2"}
             ];
             httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
-            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12')
+            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(400, null);
 
 
             createController();
-            scope.excelReportsForANM(anm, '12');
+            scope.excelReportsForANM(anm, '12', '2013');
 
             httpBackend.flush();
             expect(anm.downloadStatus).toEqual('start');

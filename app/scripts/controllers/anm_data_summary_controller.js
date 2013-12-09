@@ -25,9 +25,9 @@ angular.module('drishtiSiteApp')
 
         getANMs();
 
-        $scope.excelReportsForANM = function (anm, month) {
+        $scope.excelReportsForANM = function (anm, month, year) {
             anm.downloadStatus = 'preparing';
-            var drishti_url = DRISHTI_BASE_URL + '/aggregated-reports?anm-id=' + anm.identifier + '&month=' + month;
+            var drishti_url = DRISHTI_BASE_URL + '/aggregated-reports?anm-id=' + anm.identifier + '&month=' + month + '&year=' + year;
             $http({method: 'GET', url: drishti_url
             }).success(function (aggregatedReports) {
                     $http({method: 'POST', url: JSON_TO_XLS_URL, data: aggregatedReports
