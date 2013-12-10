@@ -1,8 +1,11 @@
 angular.module('drishtiSiteApp', ['ngCookies'])
-    .constant('AUTH_URL', 'https://drishti.modilabs.org/authenticate-user')
-    .constant('DRISHTI_BASE_URL', 'http://localhost:9979')
-    .constant('JSON_TO_XLS_URL', 'http://xls.ona.io/xls/9c547b21f08b4c718bebb4957205597c')
-    //.constant('FP_DATASET_URL', 'http://ubuntu-server:8080/datasets/6e258415430b48989c9c90f6fa13a581')
+    .constant('AUTH_URL', 'https://smartregistries.org/authenticate-user')
+    .constant('DRISHTI_BASE_URL', 'https://smartregistries.org')
+    .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io:9090')
+    .constant('NRHM_REPORT_TOKEN', 'ca00b812938c476eba40478ff5191afb')
+//    .constant('DRISHTI_BASE_URL', 'http://localhost:9979')
+//    .constant('JSON_TO_XLS_BASE_URL', 'http://localhost:8080')
+//    .constant('NRHM_REPORT_TOKEN', '3941835f1ab4475389c300bd189ea181')
     .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
     .config(function ($routeProvider) {
         'use strict';

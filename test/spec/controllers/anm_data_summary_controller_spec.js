@@ -13,7 +13,8 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                 'ANMDataSummaryCtrl', {
                     '$scope': scope,
                     DRISHTI_BASE_URL: 'http://drishti-server',
-                    JSON_TO_XLS_URL: 'http://xls.ona.io/xls/token1'
+                    JSON_TO_XLS_BASE_URL: 'http://xls.ona.io',
+                    NRHM_REPORT_TOKEN: 'token1'
                 });
             return controller;
         };
@@ -53,17 +54,17 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                     "anc_12": "2"
                 }
             };
-            var expectedExcelReport = [0x7f, 0x8f];
+            var expectedExcelDownloadURL = '/download_url';
             httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
             httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(200, expectedAggregatedReports);
-            httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(200, expectedExcelReport);
+            httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(201, expectedExcelDownloadURL);
 
             createController();
             scope.excelReportsForANM(anm, '12', '2013');
 
             httpBackend.flush();
-            expect(scope.excelreport).toEqual(expectedExcelReport);
+            expect(anm.excelReport).toEqual('http://xls.ona.io' + expectedExcelDownloadURL);
             expect(anm.downloadStatus).toEqual('ready');
         });
 

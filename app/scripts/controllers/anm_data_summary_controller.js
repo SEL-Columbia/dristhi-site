@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .controller('ANMDataSummaryCtrl', function ($scope, $http, DRISHTI_BASE_URL, JSON_TO_XLS_URL) {
+    .controller('ANMDataSummaryCtrl', function ($scope, $http, DRISHTI_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
         'use strict';
 
         var getANMs = function () {
@@ -30,15 +30,14 @@ angular.module('drishtiSiteApp')
             var drishti_url = DRISHTI_BASE_URL + '/aggregated-reports?anm-id=' + anm.identifier + '&month=' + month + '&year=' + year;
             $http({method: 'GET', url: drishti_url
             }).success(function (aggregatedReports) {
-                    $http({method: 'POST', url: JSON_TO_XLS_URL, data: aggregatedReports
+                    $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + NRHM_REPORT_TOKEN, data: aggregatedReports
                     }).success(function (data) {
                             anm.downloadStatus = 'ready';
-                            $scope.excelreport = data;
+                            anm.excelReport = JSON_TO_XLS_BASE_URL + data;
                         }).error(function () {
                             anm.downloadStatus = 'start';
                             console.log('Error when getting excel from json-to-xls service');
                         });
-
                 }).error(function () {
                     anm.downloadStatus = 'start';
                     console.log('Error when getting aggregated reports.');
@@ -47,5 +46,9 @@ angular.module('drishtiSiteApp')
 
         $scope.jsonReportsForANM = function (anm) {
             return getJSONReportForANM(anm);
+        };
+
+        $scope.goBackToReadyState = function (anm) {
+            delete anm.downloadStatus;
         };
     });
