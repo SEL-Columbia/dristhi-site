@@ -130,20 +130,20 @@ describe('Controller: ANMDataSummaryCtrl', function () {
 
             createController();
             Timecop.freeze(Date.parse('2012-12-26'));
-            expect(scope.currentMonth()).toEqual(1);
-            expect(scope.currentYear()).toEqual(2013);
+            expect(scope.currentReportMonth()).toEqual(1);
+            expect(scope.currentReportYear()).toEqual(2013);
             Timecop.freeze(Date.parse('2012-12-30'));
-            expect(scope.currentMonth()).toEqual(1);
-            expect(scope.currentYear()).toEqual(2013);
+            expect(scope.currentReportMonth()).toEqual(1);
+            expect(scope.currentReportYear()).toEqual(2013);
             Timecop.freeze(Date.parse('2013-01-01'));
-            expect(scope.currentMonth()).toEqual(1);
-            expect(scope.currentYear()).toEqual(2013);
+            expect(scope.currentReportMonth()).toEqual(1);
+            expect(scope.currentReportYear()).toEqual(2013);
             Timecop.freeze(Date.parse('2013-01-26'));
-            expect(scope.currentMonth()).toEqual(2);
-            expect(scope.currentYear()).toEqual(2013);
+            expect(scope.currentReportMonth()).toEqual(2);
+            expect(scope.currentReportYear()).toEqual(2013);
             Timecop.freeze(Date.parse('2013-01-25'));
-            expect(scope.currentMonth()).toEqual(1);
-            expect(scope.currentYear()).toEqual(2013);
+            expect(scope.currentReportMonth()).toEqual(1);
+            expect(scope.currentReportYear()).toEqual(2013);
 
             httpBackend.flush();
             Timecop.returnToPresent();

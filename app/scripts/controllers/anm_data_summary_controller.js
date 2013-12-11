@@ -68,11 +68,11 @@ angular.module('drishtiSiteApp')
 
         };
 
-        $scope.currentMonth = function () {
-            return endOfCurrentReportMonth().getMonth()+1;
+        $scope.currentReportMonth = function () {
+            return endOfCurrentReportMonth().getMonth() + 1;
         };
 
-        $scope.currentYear = function () {
+        $scope.currentReportYear = function () {
             return endOfCurrentReportMonth().getUTCFullYear();
         };
     });
