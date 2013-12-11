@@ -68,7 +68,7 @@ describe('Controller: ANMDataSummaryCtrl', function () {
             expect(anm.downloadStatus).toEqual('ready');
         });
 
-        it('should change downloadStatus back to start when excel is not returned from json-to-xls service', function () {
+        it('should remove downloadStatus when excel is not returned from json-to-xls service', function () {
             var anm =
             {
                 'identifier': 'demo1',
@@ -90,16 +90,15 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                 .respond(200, expectedAggregatedReports);
             httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(400, null);
 
-
             createController();
             scope.excelReportsForANM(anm, '12', '2013');
 
             httpBackend.flush();
-            expect(anm.downloadStatus).toEqual('start');
+            expect(anm.downloadStatus).toBeUndefined();
 
         });
 
-        it('should change downloadStatus back to start when aggregated reports is not being returned from server', function () {
+        it('should remove downloadStatus when aggregated reports is not being returned from server', function () {
             var anm =
             {
                 'identifier': 'demo1',
@@ -119,8 +118,36 @@ describe('Controller: ANMDataSummaryCtrl', function () {
             scope.excelReportsForANM(anm, '12', '2013');
 
             httpBackend.flush();
-            expect(anm.downloadStatus).toEqual('start');
+            expect(anm.downloadStatus).toBeUndefined();
 
+        });
+    });
+
+    describe("Current report month and year", function () {
+        it('should compute the current report month and year', function () {
+            Timecop.install();
+            httpBackend.expectGET('http://drishti-server/anms').respond([]);
+
+            createController();
+            Timecop.freeze(Date.parse('2012-12-26'));
+            expect(scope.currentMonth()).toEqual(1);
+            expect(scope.currentYear()).toEqual(2013);
+            Timecop.freeze(Date.parse('2012-12-30'));
+            expect(scope.currentMonth()).toEqual(1);
+            expect(scope.currentYear()).toEqual(2013);
+            Timecop.freeze(Date.parse('2013-01-01'));
+            expect(scope.currentMonth()).toEqual(1);
+            expect(scope.currentYear()).toEqual(2013);
+            Timecop.freeze(Date.parse('2013-01-26'));
+            expect(scope.currentMonth()).toEqual(2);
+            expect(scope.currentYear()).toEqual(2013);
+            Timecop.freeze(Date.parse('2013-01-25'));
+            expect(scope.currentMonth()).toEqual(1);
+            expect(scope.currentYear()).toEqual(2013);
+
+            httpBackend.flush();
+            Timecop.returnToPresent();
+            Timecop.uninstall();
         });
     });
 

@@ -10,6 +10,7 @@ files = [
     'app/bower_components/angular/angular.js',
     'app/bower_components/angular-*/*.min.js',
     'app/bower_components/angular-mocks/angular-mocks.js',
+    'app/bower_components/timecop/timecop-*.js',
     'app/scripts/*.js',
     'app/scripts/**/*.js',
     'test/spec/**/*.js'
