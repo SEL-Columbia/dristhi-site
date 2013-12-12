@@ -1,12 +1,13 @@
 angular.module('drishtiSiteApp', ['ngCookies'])
     .constant('AUTH_URL', 'https://smartregistries.org/authenticate-user')
-    .constant('DRISHTI_BASE_URL', 'https://smartregistries.org')
+    .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
+    .constant('DRISHTI_REPORT_BASE_URL', 'https://smartregistries.org/drishti-reporting')
     .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io:9090')
     .constant('NRHM_REPORT_TOKEN', 'ca00b812938c476eba40478ff5191afb')
 //    .constant('DRISHTI_BASE_URL', 'http://localhost:9979')
+//    .constant('DRISHTI_REPORT_BASE_URL', 'http://localhost:9980')
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://localhost:8080')
-//    .constant('NRHM_REPORT_TOKEN', 'b6eb1836b7ae46b7ba2d751f5f726342')
-    .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
+//    .constant('NRHM_REPORT_TOKEN', 'db899ee1472f482991fd0aa6f638d0fe')
     .config(function ($routeProvider) {
         'use strict';
 

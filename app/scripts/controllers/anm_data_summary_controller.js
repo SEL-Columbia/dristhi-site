@@ -1,9 +1,13 @@
 angular.module('drishtiSiteApp')
-    .controller('ANMDataSummaryCtrl', function ($scope, $http, DRISHTI_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
+    .controller('ANMDataSummaryCtrl', function ($scope, $http, DRISHTI_REPORT_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
         'use strict';
 
+        var REPORT_MONTH_END_DAY = 25;
+        var JANUARY = 0;
+        var DECEMBER = 11;
+
         var getANMs = function () {
-            var url = DRISHTI_BASE_URL + '/anms';
+            var url = DRISHTI_REPORT_BASE_URL + '/anms';
             $http({method: 'GET', url: url})
                 .success(function (data) {
                     $scope.anms = data;
@@ -12,22 +16,11 @@ angular.module('drishtiSiteApp')
                 });
         };
 
-        var getJSONReportForANM = function (anm) {
-            var url = DRISHTI_BASE_URL + '/anms/' + anm.username + '/jsonReport';
-            var http = $http({method: 'GET', url: url});
-            http.success(function (data) {
-                $scope.jsonReportForANM = data;
-                return $scope.jsonReportForANM;
-            }).error(function () {
-                    $scope.error = true;
-                });
-        };
-
         getANMs();
 
         $scope.excelReportsForANM = function (anm, month, year) {
             anm.downloadStatus = 'preparing';
-            var drishti_url = DRISHTI_BASE_URL + '/aggregated-reports?anm-id=' + anm.identifier + '&month=' + month + '&year=' + year;
+            var drishti_url = DRISHTI_REPORT_BASE_URL + '/report/aggregated-reports?anm-id=' + anm.identifier + '&month=' + month + '&year=' + year;
             $http({method: 'GET', url: drishti_url})
                 .success(function (aggregatedReports) {
                     $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + NRHM_REPORT_TOKEN, data: aggregatedReports})
@@ -44,28 +37,8 @@ angular.module('drishtiSiteApp')
                 });
         };
 
-        $scope.jsonReportsForANM = function (anm) {
-            return getJSONReportForANM(anm);
-        };
-
         $scope.goBackToReadyState = function (anm) {
             delete anm.downloadStatus;
-        };
-
-        var endOfCurrentReportMonth = function () {
-            var date = new Date();
-            var report_month_end_day = 25;
-            var january = 0;
-            if (date.getDate() > report_month_end_day) {
-                if ((date.getMonth()) == 11) {
-                    return new Date(date.getUTCFullYear() + 1, january, report_month_end_day);
-                } else {
-                    return new Date(date.getUTCFullYear(), date.getMonth() + 1, report_month_end_day);
-                }
-            } else {
-                return new Date(date.getUTCFullYear(), date.getMonth(), report_month_end_day);
-            }
-
         };
 
         $scope.currentReportMonth = function () {
@@ -74,5 +47,26 @@ angular.module('drishtiSiteApp')
 
         $scope.currentReportYear = function () {
             return endOfCurrentReportMonth().getUTCFullYear();
+        };
+
+        var endOfCurrentReportMonth = function () {
+            var today = new Date();
+            if (today.getDate() > REPORT_MONTH_END_DAY) {
+                if ((today.getMonth()) == DECEMBER) {
+                    return new Date(nextYear(today), JANUARY, REPORT_MONTH_END_DAY);
+                } else {
+                    return new Date(today.getUTCFullYear(), nextMonth(today), REPORT_MONTH_END_DAY);
+                }
+            } else {
+                return new Date(today.getUTCFullYear(), today.getMonth(), REPORT_MONTH_END_DAY);
+            }
+        };
+
+        var nextYear = function (today) {
+            return today.getUTCFullYear() + 1;
+        };
+
+        var nextMonth = function (today) {
+            return today.getMonth() + 1;
         };
     });

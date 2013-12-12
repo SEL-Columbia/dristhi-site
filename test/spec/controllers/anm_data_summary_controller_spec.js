@@ -12,7 +12,7 @@ describe('Controller: ANMDataSummaryCtrl', function () {
             var controller = $controller(
                 'ANMDataSummaryCtrl', {
                     '$scope': scope,
-                    DRISHTI_BASE_URL: 'http://drishti-server',
+                    DRISHTI_REPORT_BASE_URL: 'http://drishti-reporting',
                     JSON_TO_XLS_BASE_URL: 'http://xls.ona.io',
                     NRHM_REPORT_TOKEN: 'token1'
                 });
@@ -27,7 +27,7 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                 {"identifier": "demo1", "subCenter": "bherya - b"},
                 {"identifier": "admin", "subCenter": "klp 2"}
             ];
-            httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
+            httpBackend.expectGET('http://drishti-reporting/anms').respond(expectedANMs);
 
             createController();
 
@@ -55,8 +55,8 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                 }
             };
             var expectedExcelDownloadURL = '/download_url';
-            httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
-            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12&year=2013')
+            httpBackend.expectGET('http://drishti-reporting/anms').respond(expectedANMs);
+            httpBackend.expectGET('http://drishti-reporting/report/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(200, expectedAggregatedReports);
             httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(201, expectedExcelDownloadURL);
 
@@ -85,8 +85,8 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                     "anc_12": "2"
                 }
             };
-            httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
-            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12&year=2013')
+            httpBackend.expectGET('http://drishti-reporting/anms').respond(expectedANMs);
+            httpBackend.expectGET('http://drishti-reporting/report/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(200, expectedAggregatedReports);
             httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(400, null);
 
@@ -109,8 +109,8 @@ describe('Controller: ANMDataSummaryCtrl', function () {
                 {"identifier": "demo1", "subCenter": "bherya - b"},
                 {"identifier": "admin", "subCenter": "klp 2"}
             ];
-            httpBackend.expectGET('http://drishti-server/anms').respond(expectedANMs);
-            httpBackend.expectGET('http://drishti-server/aggregated-reports?anm-id=demo1&month=12&year=2013')
+            httpBackend.expectGET('http://drishti-reporting/anms').respond(expectedANMs);
+            httpBackend.expectGET('http://drishti-reporting/report/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(400, null);
 
 
@@ -126,7 +126,7 @@ describe('Controller: ANMDataSummaryCtrl', function () {
     describe("Current report month and year", function () {
         it('should compute the current report month and year', function () {
             Timecop.install();
-            httpBackend.expectGET('http://drishti-server/anms').respond([]);
+            httpBackend.expectGET('http://drishti-reporting/anms').respond([]);
 
             createController();
             Timecop.freeze(Date.parse('2012-12-26'));
