@@ -267,6 +267,11 @@ module.exports = function (grunt) {
                 singleRun: true,
                 browsers: ['PhantomJS']
             },
+            chrome: {
+                configFile: 'karma.conf.js',
+                singleRun: true,
+                browsers: ['Chrome']
+            },
             debug: {
                 configFile: 'karma.conf.js',
                 singleRun: false
@@ -319,6 +324,13 @@ module.exports = function (grunt) {
         'concurrent:test',
         'connect:test',
         'karma:unit'
+    ]);
+
+    grunt.registerTask('testChrome', [
+        'clean:server',
+        'concurrent:test',
+        'connect:test',
+        'karma:chrome'
     ]);
 
     grunt.registerTask('build', [

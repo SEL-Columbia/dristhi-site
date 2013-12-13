@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ANMDataSummaryCtrl', function () {
+describe('Controller: ', function () {
 
     var scope, httpBackend, createController;
 

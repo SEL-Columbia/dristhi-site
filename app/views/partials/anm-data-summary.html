@@ -7,7 +7,7 @@
     </div>
     <div ng-repeat="anm in anms" class="row-fluid m10 tr-border">
         <div class="span3">
-            <b>{{ anm.identifier }}</b><br> {{ anm.subCenter | uppercase}}
+            <b>{{ anm.name }}</b><br> {{ anm.subcenter | humanizeAndTitleize}}
         </div>
         <div class="span4">
             <span ng-switch on="anm.downloadStatus">

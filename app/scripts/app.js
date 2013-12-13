@@ -1,4 +1,5 @@
-angular.module('drishtiSiteApp', ['ngCookies'])
+angular.module('drishtiSiteApp.filters', []);
+angular.module('drishtiSiteApp', ['ngCookies', 'drishtiSiteApp.filters'])
     .constant('AUTH_URL', 'https://smartregistries.org/authenticate-user')
     .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
     .constant('DRISHTI_REPORT_BASE_URL', 'https://smartregistries.org/drishti-reporting')
@@ -63,3 +64,4 @@ angular.module('drishtiSiteApp', ['ngCookies'])
             delete $http.defaults.headers.common.Authorization;
         });
     });
+_.mixin(_.str.exports());
