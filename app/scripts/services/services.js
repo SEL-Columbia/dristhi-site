@@ -1,33 +1,35 @@
-'use strict';
+/*jshint bitwise: false */
 
 angular.module('drishtiSiteApp')
     .value('ReportsDefinitions', {
         fp: {
-            name: "Family Planning Services",
+            name: 'Family Planning Services',
             services: ['IUD', 'CONDOM', 'OCP', 'MALE_STERILIZATION', 'FEMALE_STERILIZATION']
         },
         anc: {
-            name: "ANC Services",
+            name: 'ANC Services',
             services: ['EARLY_ANC_REGISTRATIONS', 'ANC_REGISTRATIONS', 'SUB_TT', 'TT1', 'TT2', 'TTB', 'ANC4']
         },
         'pregnancy-outcomes': {
-            name: "Pregnancy Outcomes",
+            name: 'Pregnancy Outcomes',
             services: ['LIVE_BIRTH', 'STILL_BIRTH', 'EARLY_ABORTIONS', 'LATE_ABORTIONS', 'SPONTANEOUS_ABORTION', 'DELIVERY', 'INSTITUTIONAL_DELIVERY', 'D_HOM', 'D_SC', 'D_PHC', 'D_CHC', 'D_SDH', 'D_DH', 'D_PRI']
         },
         pnc: {
-            name: "PNC Services",
+            name: 'PNC Services',
             services: ['PNC3']
         },
         mortality: {
-            name: "Mortality",
+            name: 'Mortality',
             services: ['ENM', 'NM', 'LNM', 'INFANT_MORTALITY', 'CHILD_MORTALITY', 'MMA', 'MMD', 'MMP', 'MM']
         },
         'child-services': {
-            name: "Child Services",
+            name: 'Child Services',
             services: ['DPT3_OR_OPV3', 'DPT_BOOSTER_OR_OPV_BOOSTER', 'DPT_BOOSTER2', 'HEP', 'OPV', 'MEASLES', 'BCG', 'LBW', 'BF_POST_BIRTH', 'WEIGHED_AT_BIRTH', 'VIT_A_1', 'VIT_A_2']
         }
     })
     .service('Authentication', function ($rootScope, $cookieStore, BasicAuth, Base64) {
+        'use strict';
+
         return {
             authenticate: function (username, password) {
                 BasicAuth.setCredentials(username, password);
@@ -37,16 +39,19 @@ angular.module('drishtiSiteApp')
             },
             isAuthenticated: function () {
                 var authdata = $cookieStore.get('authdata');
-                if (!authdata)
+                if (!authdata) {
                     return false;
+                }
                 $rootScope.username = Base64.decode(authdata).split(':')[0];
                 return true;
             }
-        }
+        };
     })
     .service('BasicAuth', ['Base64', '$cookieStore', '$http', function (Base64, $cookieStore, $http) {
+        'use strict';
+
         // initialize to whatever is in the cookie, if anything
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + $cookieStore.get('authdata');
+        $http.defaults.headers.common.Authorization = 'Basic ' + $cookieStore.get('authdata');
 
         return {
             setCredentials: function (username, password) {
@@ -55,13 +60,15 @@ angular.module('drishtiSiteApp')
                 $cookieStore.put('authdata', encoded);
             },
             clearCredentials: function () {
-                document.execCommand("ClearAuthenticationCache");
+                document.execCommand('ClearAuthenticationCache');
                 $cookieStore.remove('authdata');
                 $http.defaults.headers.common.Authorization = 'Basic ';
             }
         };
     }])
     .service('Base64', function () {
+        'use strict';
+
         var keyStr = 'ABCDEFGHIJKLMNOP' +
             'QRSTUVWXYZabcdef' +
             'ghijklmnopqrstuv' +
@@ -69,9 +76,9 @@ angular.module('drishtiSiteApp')
             '=';
         return {
             encode: function (input) {
-                var output = "";
-                var chr1, chr2, chr3 = "";
-                var enc1, enc2, enc3, enc4 = "";
+                var output = '';
+                var chr1, chr2, chr3 = '';
+                var enc1, enc2, enc3, enc4 = '';
                 var i = 0;
 
                 do {
@@ -95,27 +102,27 @@ angular.module('drishtiSiteApp')
                         keyStr.charAt(enc2) +
                         keyStr.charAt(enc3) +
                         keyStr.charAt(enc4);
-                    chr1 = chr2 = chr3 = "";
-                    enc1 = enc2 = enc3 = enc4 = "";
+                    chr1 = chr2 = chr3 = '';
+                    enc1 = enc2 = enc3 = enc4 = '';
                 } while (i < input.length);
 
                 return output;
             },
 
             decode: function (input) {
-                var output = "";
-                var chr1, chr2, chr3 = "";
-                var enc1, enc2, enc3, enc4 = "";
+                var output = '';
+                var chr1, chr2, chr3 = '';
+                var enc1, enc2, enc3, enc4 = '';
                 var i = 0;
 
                 // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
                 var base64test = /[^A-Za-z0-9\+\/\=]/g;
                 if (base64test.exec(input)) {
-                    alert("There were invalid base64 characters in the input text.\n" +
-                        "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-                        "Expect errors in decoding.");
+                    alert('There were invalid base64 characters in the input text.\n' +
+                        'Valid base64 characters are A-Z, a-z, 0-9, \'+\', \'/\',and \'=\'\n' +
+                        'Expect errors in decoding.');
                 }
-                input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+                input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
 
                 do {
                     enc1 = keyStr.indexOf(input.charAt(i++));
@@ -129,15 +136,15 @@ angular.module('drishtiSiteApp')
 
                     output = output + String.fromCharCode(chr1);
 
-                    if (enc3 != 64) {
+                    if (enc3 !== 64) {
                         output = output + String.fromCharCode(chr2);
                     }
-                    if (enc4 != 64) {
+                    if (enc4 !== 64) {
                         output = output + String.fromCharCode(chr3);
                     }
 
-                    chr1 = chr2 = chr3 = "";
-                    enc1 = enc2 = enc3 = enc4 = "";
+                    chr1 = chr2 = chr3 = '';
+                    enc1 = enc2 = enc3 = enc4 = '';
 
                 } while (i < input.length);
 
@@ -146,6 +153,8 @@ angular.module('drishtiSiteApp')
         };
     })
     .service('BambooAPI', ['$q', '$rootScope', function ($q, $rootScope) {
+        'use strict';
+
         var applyScopeSafe = function (func) {
             if (!$rootScope.$$phase) {
                 $rootScope.$apply(func);
@@ -155,10 +164,11 @@ angular.module('drishtiSiteApp')
             }
         };
 
+        /*jshint camelcase: false*/
         return {
-            queryInfo: function (dataset_id) {
+            queryInfo: function (datasetId) {
                 var deferred = $q.defer();
-                var dataset = new bamboo.Dataset({id: dataset_id});
+                var dataset = new bamboo.Dataset({id: datasetId});
                 dataset.query_info(function (result) {
                     applyScopeSafe(function () {
                         deferred.resolve(result);
@@ -167,9 +177,9 @@ angular.module('drishtiSiteApp')
                 return deferred.promise;
             },
 
-            querySummary: function (dataset_id, select, group) {
+            querySummary: function (datasetId, select, group) {
                 var deferred = $q.defer();
-                var dataset = new bamboo.Dataset({id: dataset_id});
+                var dataset = new bamboo.Dataset({id: datasetId});
                 dataset.summary(select, group, function (result) {
                     applyScopeSafe(function () {
                         deferred.resolve(result);
@@ -178,9 +188,9 @@ angular.module('drishtiSiteApp')
                 return deferred.promise;
             },
 
-            queryCalculations: function (dataset_id) {
+            queryCalculations: function (datasetId) {
                 var deferred = $q.defer();
-                var dataset = new bamboo.Dataset({id: dataset_id});
+                var dataset = new bamboo.Dataset({id: datasetId});
                 dataset.query_calculations(function (result) {
                     applyScopeSafe(function () {
                         deferred.resolve(result);
@@ -189,9 +199,9 @@ angular.module('drishtiSiteApp')
                 return deferred.promise;
             },
 
-            addCalculation: function (dataset_id, name, formula) {
+            addCalculation: function (datasetId, name, formula) {
                 var deferred = $q.defer();
-                var dataset = new bamboo.Dataset({id: dataset_id});
+                var dataset = new bamboo.Dataset({id: datasetId});
                 dataset.add_calculation(name, formula, function (result) {
                     applyScopeSafe(function () {
                         deferred.resolve(result);
@@ -199,10 +209,10 @@ angular.module('drishtiSiteApp')
                 });
                 return deferred.promise;
             },
-
-            removeCalculation: function (dataset_id, name) {
-                var dataset = new bamboo.Dataset({id: dataset_id});
+            removeCalculation: function (datasetId, name) {
+                var dataset = new bamboo.Dataset({id: datasetId});
                 dataset.remove_calculation(name);
             }
-        }
+            /*jshint camelcase: true*/
+        };
     }]);

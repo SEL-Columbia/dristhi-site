@@ -20,8 +20,8 @@ angular.module('drishtiSiteApp')
 
         $scope.excelReportsForANM = function (anm, month, year) {
             anm.downloadStatus = 'preparing';
-            var drishti_url = DRISHTI_REPORT_BASE_URL + '/report/aggregated-reports?anm-id=' + anm.identifier + '&month=' + month + '&year=' + year;
-            $http({method: 'GET', url: drishti_url})
+            var drishtiUrl = DRISHTI_REPORT_BASE_URL + '/report/aggregated-reports?anm-id=' + anm.identifier + '&month=' + month + '&year=' + year;
+            $http({method: 'GET', url: drishtiUrl})
                 .success(function (aggregatedReports) {
                     $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + NRHM_REPORT_TOKEN, data: aggregatedReports})
                         .success(function (data) {
@@ -52,7 +52,7 @@ angular.module('drishtiSiteApp')
         var endOfCurrentReportMonth = function () {
             var today = new Date();
             if (today.getDate() > REPORT_MONTH_END_DAY) {
-                if ((today.getMonth()) == DECEMBER) {
+                if ((today.getMonth()) === DECEMBER) {
                     return new Date(nextYear(today), JANUARY, REPORT_MONTH_END_DAY);
                 } else {
                     return new Date(today.getUTCFullYear(), nextMonth(today), REPORT_MONTH_END_DAY);

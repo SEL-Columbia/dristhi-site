@@ -19,6 +19,10 @@
     "globals": {
         "angular": false,
         "require": false,
-        "module": false
+        "module": false,
+        "_": false,
+        "alert": false,
+        "bamboo": false,
+        "console": false
     }
 }

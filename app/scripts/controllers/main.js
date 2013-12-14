@@ -40,6 +40,8 @@ angular.module('drishtiSiteApp')
         var promise = BambooAPI.querySummary(REPORT_DATASET, {'indicator': 1}, 'service_provider');
         $scope.servicesProvided = def.services;
         promise.then(function (data) {
+            /*jshint camelcase: false*/
+
             $scope.serviceProviders = Object.keys(data.service_provider);
             $scope.data = data.service_provider;
             $scope.data.totals = {serviceProviders: {}, servicesProvided: {}, all: 0};
@@ -59,12 +61,13 @@ angular.module('drishtiSiteApp')
             $scope.servicesProvided.forEach(function (serviceProvided) {
                 var sum = 0;
                 $scope.serviceProviders.forEach(function (serviceProviderKey) {
-                    sum += data.service_provider[serviceProviderKey].indicator.summary[serviceProvided] || 0
+                    sum += data.service_provider[serviceProviderKey].indicator.summary[serviceProvided] || 0;
                 });
                 $scope.data.totals.servicesProvided[serviceProvided] = sum;
                 totalSum += sum;
             });
             $scope.data.totals.all = totalSum;
+            /*jshint camelcase: true*/
         });
     })
     .controller('IndicatorCumulativeCtrl', function ($scope, $routeParams) {

@@ -1,7 +1,7 @@
-'use strict';
-
 angular.module('drishtiSiteApp')
     .service('FPPrintRegisterService', function () {
+        'use strict';
+
         var getFPUsers = function (allECs) {
             var fpUsers = {
                 iudUsers: [],
@@ -15,15 +15,15 @@ angular.module('drishtiSiteApp')
                     Math.floor((new Date() - new Date(Date.parse(ec.wifeDOB))) / 1000 / 60 / 60 / 24 / 365);
                 ec.husbandAge =
                     Math.floor((new Date() - new Date(Date.parse(ec.husbandDOB))) / 1000 / 60 / 60 / 24 / 365);
-                if (ec.fpDetails.method === "iud") {
+                if (ec.fpDetails.method === 'iud') {
                     fpUsers.iudUsers.push(ec);
-                } else if (ec.fpDetails.method === "condom") {
+                } else if (ec.fpDetails.method === 'condom') {
                     fpUsers.condomUsers.push(ec);
-                } else if (ec.fpDetails.method === "ocp") {
+                } else if (ec.fpDetails.method === 'ocp') {
                     fpUsers.ocpUsers.push(ec);
-                } else if (ec.fpDetails.method === "male_sterilization") {
+                } else if (ec.fpDetails.method === 'male_sterilization') {
                     fpUsers.maleSterilizationUsers.push(ec);
-                } else if (ec.fpDetails.method === "female_sterilization") {
+                } else if (ec.fpDetails.method === 'female_sterilization') {
                     fpUsers.femaleSterilizationUsers.push(ec);
                 }
             });
@@ -32,7 +32,7 @@ angular.module('drishtiSiteApp')
 
         return {
             fpUsers: function (allECs) {
-                return getFPUsers(allECs)
+                return getFPUsers(allECs);
             }
-        }
+        };
     });
