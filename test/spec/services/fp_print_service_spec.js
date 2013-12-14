@@ -40,11 +40,11 @@ describe('Service: FPPrintRegisterService', function () {
             {
                 "registrationDate": "2013-01-01",
                 "ecNumber": "1",
-                "wifeName": "Maanu",
-                "husbandName": "Putta",
+                "wifeName": "Meenakshi",
+                "husbandName": "Parameshwara",
                 "village": "Bherya",
                 "wifeDOB": "1987-09-17",
-                "husbandDOB": "1985-12-20",
+                "husbandDOB": "1984-11-10",
                 "caste": "c_others",
                 "religion": "hindu",
                 "wifeEducationLevel": "graduate",
@@ -156,7 +156,7 @@ describe('Service: FPPrintRegisterService', function () {
         ];
 
         var expectedFPUsers = {
-            iudUsers: [
+            "iudUsers": [
                 {
                     "registrationDate": "2013-03-02",
                     "ecNumber": "2",
@@ -183,18 +183,18 @@ describe('Service: FPPrintRegisterService', function () {
                         }
                     },
                     "wifeAge": 29,
-                    "husbandAge": 30
+                    "husbandAge": 31
                 }
             ],
-            condomUsers: [
+            "condomUsers": [
                 {
                     "registrationDate": "2013-01-01",
                     "ecNumber": "1",
-                    "wifeName": "Maanu",
-                    "husbandName": "Putta",
-                    "village": "Bherya",
+                    "wifeName": "Meenakshi",
+                    "husbandName": "Parameshwara",
                     "wifeDOB": "1987-09-17",
-                    "husbandDOB": "1985-12-20",
+                    "village": "Bherya",
+                    "husbandDOB": "1984-11-10",
                     "caste": "c_others",
                     "religion": "hindu",
                     "wifeEducationLevel": "graduate",
@@ -214,10 +214,10 @@ describe('Service: FPPrintRegisterService', function () {
                         }
                     },
                     "wifeAge": 26,
-                    "husbandAge": 27
+                    "husbandAge": 29
                 }
             ],
-            ocpUsers: [
+            "ocpUsers": [
                 {
                     "registrationDate": "2013-02-01",
                     "ecNumber": "34",
@@ -244,11 +244,11 @@ describe('Service: FPPrintRegisterService', function () {
                             "remarks": ""
                         }
                     },
-                    "wifeAge": 33,
+                    "wifeAge": 34,
                     "husbandAge": 38
                 }
             ],
-            maleSterilizationUsers: [
+            "maleSterilizationUsers": [
                 {
                     "registrationDate": "2013-04-02",
                     "ecNumber": "54",
@@ -279,11 +279,11 @@ describe('Service: FPPrintRegisterService', function () {
                             "remarks": ""
                         }
                     },
-                    "wifeAge": 31,
-                    "husbandAge": 32
+                    "wifeAge": 32,
+                    "husbandAge": 33
                 }
             ],
-            femaleSterilizationUsers: [
+            "femaleSterilizationUsers": [
                 {
                     "registrationDate": "2013-05-12",
                     "ecNumber": "543",
@@ -319,7 +319,13 @@ describe('Service: FPPrintRegisterService', function () {
                 }
             ]
         };
+        Timecop.install();
+        Timecop.freeze(Date.parse('2014-01-01'));
 
-        expect(fpPrintRegisterService.fpUsers(allECs)).toEqual(expectedFPUsers);
+        var fpUsers = fpPrintRegisterService.fpUsers(allECs);
+
+        expect(fpUsers).toEqual(expectedFPUsers);
+        Timecop.returnToPresent();
+        Timecop.uninstall();
     });
 });
