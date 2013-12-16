@@ -58,8 +58,12 @@ body {
 
 }
 
-.tr-border {
+.th-border {
     border-bottom: 1px #d9d9d9 solid;
+}
+
+.tr-border {
+    border-bottom: 1px #ededed solid;
 }
 
 .span-nav {
