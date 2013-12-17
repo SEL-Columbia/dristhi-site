@@ -1,0 +1,34 @@
+<span ng-controller="ArchivesCtrl">
+        <script type="text/ng-template" id="archived-report-modal.html">
+            <div class="modal-header">
+                <h3>I'm a modal!</h3>
+            </div>
+            <div class="modal-body">
+                <span>Month:</span>
+                <span>
+                    <select>
+                        <option>Select Month</option>
+                        <option>Jan</option>
+                        <option>Feb</option>
+                        <option>Mar</option>
+                    </select>
+                </span>
+                <span>Year:</span>
+                <span>
+                    <select>
+                        <option>Select Year</option>
+                        <option>2013</option>
+                        <option>2014</option>
+                        <option>2015</option>
+                    </select>
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" ng-click="ok()">Download</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+         <a ng-click="open()">Archives</a>
+        <!--<div ng-show="selected">Selection from a modal: {{ selected }}</div>-->
+</span>
