@@ -11,6 +11,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ui.bootstrap', 'drishtiSiteApp.f
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://drishti.modilabs.org/drishti-reporting')
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io:9090')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
+    .constant('ARCHIVED_REPORTS_START_YEAR', 2013)
     .config(function ($routeProvider) {
         'use strict';
 
