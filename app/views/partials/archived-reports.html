@@ -5,20 +5,26 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
-                            <h4>Archived Reports</h4>
+                            <h4>Archives</h4>
                         </div>
                         <div class="modal-body">
                             <label class="small-text">Year:
-                                <select ng-model="selectedYear.year" ng-options="y as y for y in years"></select>
+                                <select autofocus ng-model="selectedYear.year" ng-options="y as y for y in years">
+                                    <option value="">-- select year --</option>
+                                </select>
                             </label>
                             <label class="small-text">Month:
                                 <select ng-disabled="!selectedYear.year" ng-model="selectedMonth.month"
-                                        ng-options="m for m in months()"></select>
+                                        ng-options="m for m in months()">
+                                    <option value="">-- select month --</option>
+                                </select>
                             </label>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-primary" ng-click="ok()">Download</button>
-                            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+                            <button ng-disabled="!(selectedYear.year && selectedMonth.month)" class="btn btn-primary"
+                                    ng-click="ok()">Download
+                            </button>
                         </div>
                     </div>
                 </div>
