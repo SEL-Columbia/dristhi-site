@@ -1,37 +1,45 @@
 'use strict';
 
-describe('Controller: ', function () {
+describe('ANM Data Summary Controller', function () {
 
-    var scope, httpBackend, createController;
+    var scope, httpBackend, createController, anmService, deferred, q;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function ($rootScope, $controller, $httpBackend) {
+    beforeEach(inject(function ($rootScope, $httpBackend, $q, $controller) {
         scope = $rootScope.$new();
         httpBackend = $httpBackend;
+        q = $q;
+        anmService = {
+            all: function () {
+                deferred = q.defer();
+                return deferred.promise;
+            }
+        };
         createController = function () {
-            var controller = $controller(
+            return $controller(
                 'ANMDataSummaryCtrl', {
                     '$scope': scope,
                     DRISHTI_REPORT_BASE_URL: 'http://drishti-reporting',
                     JSON_TO_XLS_BASE_URL: 'http://xls.ona.io',
-                    NRHM_REPORT_TOKEN: 'token1'
+                    NRHM_REPORT_TOKEN: 'token1',
+                    ANMService: anmService
                 });
-            return controller;
         };
     }));
 
-    describe('Display list of ANMs', function () {
+    describe('Display list of ANMs by getting data from ANMService', function () {
         it('should get list of ANMs from server and set it on scope', function () {
+            spyOn(anmService, 'all').andCallThrough();
             var expectedANMs = [
                 {"identifier": "c", "subCenter": "bherya - a"},
                 {"identifier": "demo1", "subCenter": "bherya - b"},
                 {"identifier": "admin", "subCenter": "klp 2"}
             ];
-            httpBackend.expectGET('http://drishti-reporting/anms').respond(expectedANMs);
 
             createController();
+            deferred.resolve({data: expectedANMs});
+            scope.$apply();
 
-            httpBackend.flush();
             expect(scope.anms).toEqual(expectedANMs);
         });
     });
@@ -55,7 +63,6 @@ describe('Controller: ', function () {
                 }
             };
             var expectedExcelDownloadURL = '/download_url';
-            httpBackend.expectGET('http://drishti-reporting/anms').respond(expectedANMs);
             httpBackend.expectGET('http://drishti-reporting/report/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(200, expectedAggregatedReports);
             httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(201, expectedExcelDownloadURL);
@@ -85,7 +92,6 @@ describe('Controller: ', function () {
                     "anc_12": "2"
                 }
             };
-            httpBackend.expectGET('http://drishti-reporting/anms').respond(expectedANMs);
             httpBackend.expectGET('http://drishti-reporting/report/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(200, expectedAggregatedReports);
             httpBackend.expectPOST('http://xls.ona.io/xls/token1', expectedAggregatedReports).respond(400, null);
@@ -109,7 +115,6 @@ describe('Controller: ', function () {
                 {"identifier": "demo1", "subCenter": "bherya - b"},
                 {"identifier": "admin", "subCenter": "klp 2"}
             ];
-            httpBackend.expectGET('http://drishti-reporting/anms').respond(expectedANMs);
             httpBackend.expectGET('http://drishti-reporting/report/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(400, null);
 
@@ -126,7 +131,6 @@ describe('Controller: ', function () {
     describe("Current report month and year", function () {
         it('should compute the current report month and year', function () {
             Timecop.install();
-            httpBackend.expectGET('http://drishti-reporting/anms').respond([]);
 
             createController();
             Timecop.freeze(Date.parse('2012-12-26'));
@@ -145,7 +149,6 @@ describe('Controller: ', function () {
             expect(scope.currentReportMonth()).toEqual(1);
             expect(scope.currentReportYear()).toEqual(2013);
 
-            httpBackend.flush();
             Timecop.returnToPresent();
             Timecop.uninstall();
         });

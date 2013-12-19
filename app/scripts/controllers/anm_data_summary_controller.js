@@ -1,22 +1,15 @@
 angular.module('drishtiSiteApp')
-    .controller('ANMDataSummaryCtrl', function ($scope, $http, DRISHTI_REPORT_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
+    .controller('ANMDataSummaryCtrl', function (ANMService, $scope, $http, DRISHTI_REPORT_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
         'use strict';
 
         var REPORT_MONTH_END_DAY = 25;
         var JANUARY = 0;
         var DECEMBER = 11;
 
-        var getANMs = function () {
-            var url = DRISHTI_REPORT_BASE_URL + '/anms';
-            $http({method: 'GET', url: url})
-                .success(function (data) {
-                    $scope.anms = data;
-                }).error(function () {
-                    console.log('Error when getting ANMs micro service.');
-                });
-        };
-
-        getANMs();
+        ANMService.all()
+            .then(function (result) {
+                $scope.anms = result.data;
+            });
 
         $scope.excelReportsForANM = function (anm, month, year) {
             anm.downloadStatus = 'preparing';
