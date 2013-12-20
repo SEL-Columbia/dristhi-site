@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('ANMService', function ($http, DRISHTI_REPORT_BASE_URL) {
+    .service('ANMService', function ($http, DRISHTI_REPORT_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
         'use strict';
 
         var getANMs = function () {
@@ -13,9 +13,33 @@ angular.module('drishtiSiteApp')
                 });
         };
 
+        var prepareReportFor = function (anmIdentifier, month, year) {
+            var drishtiUrl = DRISHTI_REPORT_BASE_URL + '/report/aggregated-reports?anm-id=' + anmIdentifier + '&month=' + month + '&year=' + year;
+
+            return $http({method: 'GET', url: drishtiUrl})
+                .then(function (result) {
+                    return result.data;
+                }, function () {
+                    console.log('Error when getting aggregated reports.');
+                    return false;
+                })
+                .then(function (aggregatedReports) {
+                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + NRHM_REPORT_TOKEN, data: aggregatedReports})
+                        .then(function (result) {
+                            return JSON_TO_XLS_BASE_URL + result.data;
+                        }, function () {
+                            console.log('Error when getting excel from json-to-xls service');
+                        });
+                }
+            );
+        };
+
         return {
             all: function () {
                 return getANMs();
+            },
+            prepareReportFor: function (anmIdentifier, month, year) {
+                return prepareReportFor(anmIdentifier, month, year);
             }
         };
     });
