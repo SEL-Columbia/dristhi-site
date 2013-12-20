@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .controller('ArchivedReportsModalCtrl', function ($scope, $modalInstance, ARCHIVED_REPORTS_START_YEAR) {
+    .controller('ArchivedReportsModalCtrl', function ($scope, $modalInstance, ARCHIVED_REPORTS_START_YEAR, ANMService) {
         'use strict';
 
         var allMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -20,11 +20,22 @@ angular.module('drishtiSiteApp')
         $scope.selectedYear = {};
         $scope.selectedMonth = {};
 
-        $scope.ok = function () {
-            $modalInstance.close({
-                'year': $scope.selectedYear.year,
-                'month': $scope.selectedMonth.month
-            });
+        $scope.downloadReport = function () {
+            $scope.downloadStatus = 'preparing';
+
+            ANMService
+                .prepareReportFor('demo1', allMonths.indexOf($scope.selectedMonth.month), $scope.selectedYear.year)
+                .then(function (data) {
+                    $scope.downloadStatus = 'ready';
+                    $scope.downloadURL = data;
+                }, function () {
+
+                }
+            );
+        };
+
+        $scope.close = function () {
+            $modalInstance.close();
         };
 
         $scope.cancel = function () {
