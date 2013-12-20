@@ -2,11 +2,12 @@
 
 describe('ANM Service', function () {
 
-    var httpBackend, service;
+    var httpBackend, q, service;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function ($httpBackend, ANMService) {
+    beforeEach(inject(function ($httpBackend, $q, ANMService) {
         httpBackend = $httpBackend;
+        q = $q;
         service = ANMService;
     }));
 
