@@ -12,6 +12,7 @@ describe('Controller: ', function () {
                 'ArchivedReportsModalCtrl', {
                     '$scope': scope,
                     '$modalInstance': null,
+                    'anm': {},
                     ARCHIVED_REPORTS_START_YEAR: 2000
                 });
         };

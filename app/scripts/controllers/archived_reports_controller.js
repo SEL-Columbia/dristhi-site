@@ -5,7 +5,12 @@ angular.module('drishtiSiteApp')
         $scope.open = function () {
             $modal.open({
                 templateUrl: 'archived-report-modal.html',
-                controller: 'ArchivedReportsModalCtrl'
+                controller: 'ArchivedReportsModalCtrl',
+                resolve: {
+                    anm: function () {
+                        return $scope.anm;
+                    }
+                }
             });
         };
     });
