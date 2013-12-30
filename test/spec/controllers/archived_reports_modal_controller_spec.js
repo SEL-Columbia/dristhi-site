@@ -2,18 +2,30 @@
 
 describe('Controller: ', function () {
 
-    var scope, createController;
+    var scope, createController, anmService, allANMsDeferredResponse, prepareReportForDeferredResponse, q;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function ($rootScope, $controller) {
+    beforeEach(inject(function ($rootScope, $controller, $q) {
         scope = $rootScope.$new();
+        q = $q;
+        anmService = {
+            all: function () {
+                allANMsDeferredResponse = q.defer();
+                return allANMsDeferredResponse.promise;
+            },
+            prepareReportFor: function () {
+                prepareReportForDeferredResponse = q.defer();
+                return prepareReportForDeferredResponse.promise;
+            }
+        };
         createController = function () {
             return $controller(
                 'ArchivedReportsModalCtrl', {
                     '$scope': scope,
                     '$modalInstance': null,
                     'anm': {},
-                    ARCHIVED_REPORTS_START_YEAR: 2000
+                    ARCHIVED_REPORTS_START_YEAR: 2000,
+                    ANMService: anmService
                 });
         };
     }));
@@ -72,6 +84,22 @@ describe('Controller: ', function () {
         afterEach(function () {
             Timecop.returnToPresent();
             Timecop.uninstall();
+        });
+    });
+
+    describe("downloadReport", function () {
+        it("should download report for selected month, year and ANM.", function () {
+            spyOn(anmService, 'prepareReportFor').andCallThrough();
+            scope.selectedMonth = 12;
+            scope.selectedYear = 2013;
+
+            createController();
+            scope.downloadReport();
+
+            prepareReportForDeferredResponse.resolve('/download_url');
+            scope.$apply();
+            expect(scope.downloadURL).toEqual('/download_url');
+            expect(scope.downloadStatus).toEqual('ready');
         });
     });
 });
