@@ -1,7 +1,7 @@
-drishti-site
+Drishti Backend Website
 ============
 
-drishti backend website
+[![Build Status](https://travis-ci.org/SEL-Columbia/drishti-site.png)](https://travis-ci.org/SEL-Columbia/drishti-site)
 
 Install
 ---------------
