@@ -13,18 +13,25 @@ describe('ANM Service', function () {
 
     describe('Display list of ANMs', function () {
         it('should get list of ANMs from dristhi report service', function () {
-            var expectedANMs = [
-                {"identifier": "c", "subCenter": "bherya - a"},
-                {"identifier": "demo1", "subCenter": "bherya - b"},
-                {"identifier": "admin", "subCenter": "klp 2"}
+            var response = [
+                {"identifier": "c", "name": "c name","subCenter": "bherya - a"},
+                {"identifier": "demo1", "name": "demo1 name", "subCenter": "bherya - b"},
+                {"identifier": "admin", "name": "admin name", "subCenter": "klp 2"}
             ];
-            httpBackend.expectGET('https://smartregistries.org/drishti-reporting/anms').respond(expectedANMs);
+            var expectedANMs = [
+                new ANM("c", "c name", "bherya - a"),
+                new ANM("demo1", "demo1 name", "bherya - b"),
+                new ANM("admin", "admin name", "klp 2")
+            ];
+            httpBackend.expectGET('https://smartregistries.org/drishti-reporting/anms').respond(response);
 
+            var anms = null;
             service.all().then(function (result) {
-                expect(result.data).toEqual(expectedANMs);
+                anms = result.data
             });
 
             httpBackend.flush();
+            expect(anms).toEqual(expectedANMs);
         });
     });
 
