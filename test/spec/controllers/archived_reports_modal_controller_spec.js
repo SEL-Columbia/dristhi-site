@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: ', function () {
+describe('Archived Reports Modal Controller: ', function () {
 
     var scope, createController, anmService, allANMsDeferredResponse, prepareReportForDeferredResponse, q;
 
@@ -99,7 +99,7 @@ describe('Controller: ', function () {
             prepareReportForDeferredResponse.resolve('/download_url');
             scope.$apply();
             expect(scope.downloadURL).toEqual('/download_url');
-            expect(scope.downloadStatus).toEqual('ready');
+            expect(scope.nrhmReportDownloadStatus).toEqual('ready');
         });
     });
 });

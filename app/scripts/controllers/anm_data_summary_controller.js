@@ -12,14 +12,14 @@ angular.module('drishtiSiteApp')
             });
 
         $scope.excelReportsForANM = function (anm, month, year) {
-            anm.downloadStatus = 'preparing';
+            anm.nrhmReportDownloadStatus = 'preparing';
             ANMService
                 .prepareReportFor(anm.identifier, month, year)
                 .then(function (data) {
-                    anm.downloadStatus = 'ready';
+                    anm.nrhmReportDownloadStatus = 'ready';
                     anm.excelReport = data;
                 }, function () {
-                    delete anm.downloadStatus;
+                    delete anm.nrhmReportDownloadStatus;
                 }
             );
         };

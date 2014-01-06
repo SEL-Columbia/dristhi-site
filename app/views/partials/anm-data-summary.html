@@ -10,9 +10,10 @@
             <b>{{ anm.name }}</b><br> {{ anm.subcenter | humanizeAndTitleize}}
         </div>
         <div class="span4">
-            <span ng-switch on="anm.downloadStatus">
+            <span ng-switch on="anm.nrhmReportDownloadStatus">
                 <span ng-switch-when="preparing">Please wait, preparing report.</span>
-                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm)" ng-href="{{anm.excelReport}}">Excel</a>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'nrhmReportDownloadStatus')"
+                   ng-href="{{anm.excelReport}}">Excel</a>
                 <a ng-switch-default ng-click="excelReportsForANM(anm, currentReportMonth(), currentReportYear())">Download
                     {{currentReportMonth()}}/{{currentReportYear()}}</a>
             </span>

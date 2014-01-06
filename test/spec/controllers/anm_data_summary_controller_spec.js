@@ -36,9 +36,9 @@ describe('ANM Data Summary Controller', function () {
         it('should get list of ANMs from server and set it on scope', function () {
             spyOn(anmService, 'all').andCallThrough();
             var expectedANMs = [
-                {"identifier": "c", "subCenter": "bherya - a"},
-                {"identifier": "demo1", "subCenter": "bherya - b"},
-                {"identifier": "admin", "subCenter": "klp 2"}
+                new ANM("c", "c name", "bherya - a"),
+                new ANM("demo1", "demo1 name", "bherya - b"),
+                new ANM("admin", "admin name", "klp 2")
             ];
 
             createController();
@@ -52,11 +52,7 @@ describe('ANM Data Summary Controller', function () {
     describe('NRHM report excel', function () {
         it('should be able to download current month NRHM report excel for an ANM using ANMService', function () {
             spyOn(anmService, 'prepareReportFor').andCallThrough();
-            var anm =
-            {
-                'identifier': 'demo1',
-                'subCenter': 'bherya - b'
-            };
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b');
 
             createController();
             scope.excelReportsForANM(anm, '12', '2013');
@@ -64,24 +60,20 @@ describe('ANM Data Summary Controller', function () {
             prepareReportForDeferredResponse.resolve('/download_url');
             scope.$apply();
             expect(anm.excelReport).toEqual('/download_url');
-            expect(anm.downloadStatus).toEqual('ready');
+            expect(anm.nrhmReportDownloadStatus).toEqual('ready');
         });
 
-
-        it('should remove downloadStatus when excel download url is not returned from ANM service', function () {
-            var anm =
-            {
-                'identifier': 'demo1',
-                'subCenter': 'bherya - b'
-            };
+        it('should remove nrhmReportDownloadStatus when excel download url is not returned from ANM service', function () {
             spyOn(anmService, 'prepareReportFor').andCallThrough();
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b');
+            anm.nrhmReportDownloadStatus = 'preparing';
 
             createController();
             scope.excelReportsForANM(anm, '12', '2013');
 
             prepareReportForDeferredResponse.reject();
             scope.$apply();
-            expect(anm.downloadStatus).toBeUndefined();
+            expect(anm.nrhmReportDownloadStatus).toBeUndefined();
 
         });
     });
@@ -112,9 +104,36 @@ describe('ANM Data Summary Controller', function () {
         });
     });
 
+    describe("Printable Registers", function () {
+        it('should be able to download Printable Register for selected ANM', function () {
+            spyOn(registerService, 'prepareRegisterFor').andCallThrough();
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b');
+
+            createController();
+            scope.getRegister(anm, 'anc');
+
+            prepareRegisterForDeferredResponse.resolve('/download_url');
+            scope.$apply();
+            expect(anm.ancRegister).toEqual('/download_url');
+            expect(anm.ancRegisterDownloadStatus).toEqual('ready');
+        });
+
+        it('should remove nrhmReportDownloadStatus when register download url is not returned from Register Service', function () {
+            spyOn(registerService, 'prepareRegisterFor').andCallThrough();
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b');
+
+            createController();
+            scope.getRegister(anm, 'anc');
+
+            prepareRegisterForDeferredResponse.reject();
+            scope.$apply();
+            expect(anm.ancRegisterDownloadStatus).toBeUndefined();
+
+        });
+    });
+
     afterEach(function () {
         httpBackend.verifyNoOutstandingExpectation();
         httpBackend.verifyNoOutstandingRequest();
     });
-
 });

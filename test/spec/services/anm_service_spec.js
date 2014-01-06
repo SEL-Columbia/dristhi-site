@@ -14,7 +14,7 @@ describe('ANM Service', function () {
     describe('Display list of ANMs', function () {
         it('should get list of ANMs from dristhi report service', function () {
             var response = [
-                {"identifier": "c", "name": "c name","subCenter": "bherya - a"},
+                {"identifier": "c", "name": "c name", "subCenter": "bherya - a"},
                 {"identifier": "demo1", "name": "demo1 name", "subCenter": "bherya - b"},
                 {"identifier": "admin", "name": "admin name", "subCenter": "klp 2"}
             ];
@@ -31,7 +31,7 @@ describe('ANM Service', function () {
             });
 
             httpBackend.flush();
-            expect(anms).toEqual(expectedANMs);
+            expect(JSON.stringify(anms)).toBe(JSON.stringify(expectedANMs));
         });
     });
 
