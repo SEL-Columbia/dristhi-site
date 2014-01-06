@@ -1,12 +1,12 @@
 'use strict';
 
-describe('Service: FPPrintRegisterService', function () {
+describe('Service: RegisterService', function () {
 
-    var fpPrintRegisterService;
+    var registerService;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function (FPPrintRegisterService) {
-        fpPrintRegisterService = FPPrintRegisterService;
+    beforeEach(inject(function (RegisterService) {
+        registerService = RegisterService;
     }));
 
     it('should return empty fpUsers', function () {
@@ -322,7 +322,7 @@ describe('Service: FPPrintRegisterService', function () {
         Timecop.install();
         Timecop.freeze(Date.parse('2014-01-01'));
 
-        var fpUsers = fpPrintRegisterService.fpUsers(allECs);
+        var fpUsers = registerService.fpUsers(allECs);
 
         expect(fpUsers).toEqual(expectedFPUsers);
         Timecop.returnToPresent();

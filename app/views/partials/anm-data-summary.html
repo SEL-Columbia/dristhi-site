@@ -14,15 +14,23 @@
         <div class="span3">
             <b>{{ anm.name }}</b><br> {{ anm.subcenter | humanizeAndTitleize}}
         </div>
-        <div class="span1"><a href="#registers">546</a></div>
-        <div class="span1"><a href="#registers">87</a></div>
-        <div class="span1"><a href="#registers">212</a></div>
-        <div class="span1"><a href="#registers">33</a></div>
-        <div class="span1"><a href="#registers">53</a></div>
+        <div class="span1"><a href="#registers">Download</a></div>
+        <div class="span1"><a href="#registers">Download</a></div>
+        <div class="span1">
+            <span ng-switch on="anm.ancRegisterDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing ANC register.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'ancRegisterDownloadStatus')"
+                   ng-href="{{anm.ancRegister}}">Excel</a>
+                <a ng-switch-default ng-click="getRegister(anm, 'anc')">Download</a>
+            </span>
+        </div>
+        <div class="span1"><a href="#registers">Download</a></div>
+        <div class="span1"><a href="#registers">Download</a></div>
         <div class="span4">
             <span ng-switch on="anm.downloadStatus">
                 <span ng-switch-when="preparing">Please wait, preparing report.</span>
-                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm)" ng-href="{{anm.excelReport}}">Excel</a>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'downloadStatus')"
+                   ng-href="{{anm.excelReport}}">Excel</a>
                 <a ng-switch-default ng-click="excelReportsForANM(anm, currentReportMonth(), currentReportYear())">Download
                     {{currentReportMonth()}}/{{currentReportYear()}}</a>
             </span>

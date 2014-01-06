@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .controller('ANMDataSummaryCtrl', function (ANMService, $scope) {
+    .controller('ANMDataSummaryCtrl', function ($scope, ANMService, RegisterService) {
         'use strict';
 
         var REPORT_MONTH_END_DAY = 25;
@@ -24,8 +24,21 @@ angular.module('drishtiSiteApp')
             );
         };
 
-        $scope.goBackToReadyState = function (anm) {
-            delete anm.downloadStatus;
+        $scope.getRegister = function (anm, type) {
+            anm.ancRegisterDownloadStatus = 'preparing';
+            RegisterService
+                .prepareRegisterFor(anm.identifier, type)
+                .then(function (data) {
+                    anm.ancRegisterDownloadStatus = 'ready';
+                    anm.ancRegister = data;
+                }, function () {
+                    delete anm.ancRegisterDownloadStatus;
+                }
+            );
+        };
+
+        $scope.goBackToReadyState = function (anm, status) {
+            delete anm[status];
         };
 
         $scope.currentReportMonth = function () {
