@@ -23,7 +23,7 @@ angular.module('drishtiSiteApp')
         $scope.downloadReport = function () {
             $scope.downloadStatus = 'preparing';
             ANMService
-                .prepareReportFor(anm.identifier, allMonths.indexOf($scope.selectedMonth.month), $scope.selectedYear.year)
+                .prepareReportFor(anm.identifier, allMonths.indexOf($scope.selectedMonth.month) + 1, $scope.selectedYear.year)
                 .then(function (data) {
                     $scope.downloadStatus = 'ready';
                     $scope.downloadURL = data;
