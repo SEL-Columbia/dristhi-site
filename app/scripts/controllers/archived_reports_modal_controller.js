@@ -21,11 +21,11 @@ angular.module('drishtiSiteApp')
         $scope.selectedMonth = {};
 
         $scope.downloadReport = function () {
-            $scope.nrhmReportDownloadStatus = 'preparing';
+            $scope.nrhmReportDownloadStatus = DownloadStatus.Preparing;
             ANMService
                 .prepareReportFor(anm.identifier, allMonths.indexOf($scope.selectedMonth.month) + 1, $scope.selectedYear.year)
                 .then(function (data) {
-                    $scope.nrhmReportDownloadStatus = 'ready';
+                    $scope.nrhmReportDownloadStatus = DownloadStatus.Ready;
                     $scope.downloadURL = data;
                 }, function () {
 

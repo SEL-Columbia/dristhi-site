@@ -12,11 +12,11 @@ angular.module('drishtiSiteApp')
             });
 
         $scope.excelReportsForANM = function (anm, month, year) {
-            anm.nrhmReportDownloadStatus = 'preparing';
+            anm.nrhmReportDownloadStatus = DownloadStatus.Preparing;
             ANMService
                 .prepareReportFor(anm.identifier, month, year)
                 .then(function (data) {
-                    anm.nrhmReportDownloadStatus = 'ready';
+                    anm.nrhmReportDownloadStatus = DownloadStatus.Ready;
                     anm.excelReport = data;
                 }, function () {
                     delete anm.nrhmReportDownloadStatus;
@@ -24,8 +24,21 @@ angular.module('drishtiSiteApp')
             );
         };
 
-        $scope.goBackToReadyState = function (anm) {
-            delete anm.downloadStatus;
+        $scope.getRegister = function (anm, type) {
+            anm.ancRegisterDownloadStatus = DownloadStatus.Preparing;
+            RegisterService
+                .prepareRegisterFor(anm.identifier, type)
+                .then(function (data) {
+                    anm.ancRegisterDownloadStatus = DownloadStatus.Ready;
+                    anm.ancRegister = data;
+                }, function () {
+                    delete anm.ancRegisterDownloadStatus;
+                }
+            );
+        };
+
+        $scope.goBackToReadyState = function (anm, status) {
+            delete anm[status];
         };
 
         $scope.currentReportMonth = function () {
