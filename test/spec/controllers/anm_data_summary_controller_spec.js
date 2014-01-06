@@ -3,8 +3,7 @@
 describe('ANM Data Summary Controller', function () {
 
     var scope, httpBackend, createController,
-        anmService, allANMsDeferredResponse, prepareReportForDeferredResponse, q,
-        registerService, prepareRegisterForDeferredResponse;
+        anmService, allANMsDeferredResponse, prepareReportForDeferredResponse, q;
 
     beforeEach(module('drishtiSiteApp'));
     beforeEach(inject(function ($rootScope, $httpBackend, $q, $controller) {
@@ -21,19 +20,14 @@ describe('ANM Data Summary Controller', function () {
                 return prepareReportForDeferredResponse.promise;
             }
         };
-        registerService = {
-            prepareRegisterFor: function () {
-                prepareRegisterForDeferredResponse = q.defer();
-                return prepareRegisterForDeferredResponse.promise;
-            }
-
-        };
         createController = function () {
             return $controller(
                 'ANMDataSummaryCtrl', {
-                    $scope: scope,
-                    ANMService: anmService,
-                    RegisterService: registerService
+                    '$scope': scope,
+                    DRISHTI_REPORT_BASE_URL: 'http://drishti-reporting',
+                    JSON_TO_XLS_BASE_URL: 'http://xls.ona.io',
+                    NRHM_REPORT_TOKEN: 'token1',
+                    ANMService: anmService
                 });
         };
     }));
@@ -73,13 +67,14 @@ describe('ANM Data Summary Controller', function () {
             expect(anm.downloadStatus).toEqual('ready');
         });
 
+
         it('should remove downloadStatus when excel download url is not returned from ANM service', function () {
-            spyOn(anmService, 'prepareReportFor').andCallThrough();
             var anm =
             {
                 'identifier': 'demo1',
                 'subCenter': 'bherya - b'
             };
+            spyOn(anmService, 'prepareReportFor').andCallThrough();
 
             createController();
             scope.excelReportsForANM(anm, '12', '2013');
@@ -114,42 +109,6 @@ describe('ANM Data Summary Controller', function () {
 
             Timecop.returnToPresent();
             Timecop.uninstall();
-        });
-    });
-
-    describe("Printable Registers", function () {
-        it('should be able to download Printable Register for selected ANM', function () {
-            spyOn(registerService, 'prepareRegisterFor').andCallThrough();
-            var anm =
-            {
-                'identifier': 'demo1',
-                'subCenter': 'bherya - b'
-            };
-
-            createController();
-            scope.getRegister(anm, 'anc');
-
-            prepareRegisterForDeferredResponse.resolve('/download_url');
-            scope.$apply();
-            expect(anm.ancRegister).toEqual('/download_url');
-            expect(anm.ancRegisterDownloadStatus).toEqual('ready');
-        });
-
-        it('should remove downloadStatus when register download url is not returned from Register Service', function () {
-            spyOn(registerService, 'prepareRegisterFor').andCallThrough();
-            var anm =
-            {
-                'identifier': 'demo1',
-                'subCenter': 'bherya - b'
-            };
-
-            createController();
-            scope.getRegister(anm, 'anc');
-
-            prepareRegisterForDeferredResponse.reject();
-            scope.$apply();
-            expect(anm.ancRegisterDownloadStatus).toBeUndefined();
-
         });
     });
 

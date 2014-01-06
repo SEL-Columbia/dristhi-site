@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('RegisterService', function ($q) {
+    .service('FPPrintRegisterService', function () {
         'use strict';
 
         var getFPUsers = function (allECs) {
@@ -33,11 +33,6 @@ angular.module('drishtiSiteApp')
         return {
             fpUsers: function (allECs) {
                 return getFPUsers(allECs);
-            },
-            prepareRegisterFor: function (anmIdentifier, type) {
-                var defer = $q.defer();
-                defer.resolve('anc_register_download_url' + anmIdentifier + type);
-                return defer.promise;
             }
         };
     });

@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .controller('PrintRegisterCtrl', function ($scope, RegisterService) {
+    .controller('PrintRegisterCtrl', function ($scope, FPPrintRegisterService) {
         'use strict';
 
         var allECs = [
@@ -320,6 +320,6 @@ angular.module('drishtiSiteApp')
         ];
 
         $scope.date = new Date();
-        $scope.fpUsers = RegisterService.fpUsers(allECs);
+        $scope.fpUsers = FPPrintRegisterService.fpUsers(allECs);
 
     });
