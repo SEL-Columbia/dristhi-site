@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .controller('ANMDataSummaryCtrl', function (ANMService, $scope) {
+    .controller('ANMDataSummaryCtrl', function ($scope, ANMService, RegisterService) {
         'use strict';
 
         var REPORT_MONTH_END_DAY = 25;

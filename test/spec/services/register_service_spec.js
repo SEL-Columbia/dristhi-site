@@ -1,12 +1,14 @@
 'use strict';
 
-describe('Service: FPPrintRegisterService', function () {
+describe('RegisterService: ', function () {
 
-    var fpPrintRegisterService;
+    var httpBackend, service, q;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function (FPPrintRegisterService) {
-        fpPrintRegisterService = FPPrintRegisterService;
+    beforeEach(inject(function ($httpBackend, $q, RegisterService) {
+        httpBackend = $httpBackend;
+        q = $q;
+        service = RegisterService;
     }));
 
     it('should return empty fpUsers', function () {
@@ -322,10 +324,61 @@ describe('Service: FPPrintRegisterService', function () {
         Timecop.install();
         Timecop.freeze(Date.parse('2014-01-01'));
 
-        var fpUsers = fpPrintRegisterService.fpUsers(allECs);
+        var fpUsers = service.fpUsers(allECs);
 
         expect(fpUsers).toEqual(expectedFPUsers);
         Timecop.returnToPresent();
         Timecop.uninstall();
     });
+
+    describe('Printable Registers: ', function () {
+        it('should be able to download register for an ANM', function () {
+            var expectedRegisters = {
+                'anc': [
+                    {
+                        "anc": "1",
+                        "thayi_card_no": "223434",
+                        "anc_visits": [
+                            {
+                                "anc_visit_date": "",
+                                "weight": "52"
+                            },
+                            {
+                                "anc_visit_date": "",
+                                "weight": "54"
+                            }
+                        ]
+                    },
+                    {
+                        "anc": "2",
+                        "thayi_card_no": "223435",
+                        "anc_visits": [
+                            {
+                                "anc_visit_date": "",
+                                "weight": "50"
+                            },
+                            {
+                                "anc_visit_date": "",
+                                "weight": "52"
+                            }
+                        ]
+                    }
+                ]
+            };
+            var expectedRegisterDownloadURL = '/register_download_url';
+            httpBackend.expectGET('https://smartregistries.org/registers?anm-id=demo1&type=anc')
+                .respond(200, expectedRegisters);
+            httpBackend.expectPOST('http://xls.ona.io/xls/e0739ade6dbb47a49c9115a93b3f433a', expectedRegisters).respond(201, expectedRegisterDownloadURL);
+
+            var url = null;
+            service.prepareRegisterFor('demo1', 'anc')
+                .then(function (result) {
+                    url = result
+                });
+
+            httpBackend.flush();
+            expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+        });
+    });
+
 });

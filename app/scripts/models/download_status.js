@@ -1,4 +1,4 @@
-var DownloadStatus = {
+DownloadStatus = {
     Preparing: 'preparing',
     Ready: 'ready'
 };

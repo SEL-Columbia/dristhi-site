@@ -3,12 +3,29 @@
 
     <div class="row-fluid m10 div-th th-border">
         <div class="span3"></div>
+        <div class="span1">EC</div>
+        <div class="span1">FP</div>
+        <div class="span1">ANC</div>
+        <div class="span1">PNC</div>
+        <div class="span1">Child</div>
         <div class="span4">NRHM Reports</div>
     </div>
     <div ng-repeat="anm in anms" class="row-fluid m10 tr-border">
         <div class="span3">
             <b>{{ anm.name }}</b><br> {{ anm.subcenter | humanizeAndTitleize}}
         </div>
+        <div class="span1"><a>Download</a></div>
+        <div class="span1"><a>Download</a></div>
+        <div class="span1">
+            <span ng-switch on="anm.ancRegisterDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing ANC register.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'ancRegisterDownloadStatus')"
+                   ng-href="{{anm.ancRegister}}">Excel</a>
+                <a ng-switch-default ng-click="getRegister(anm, 'anc')">Download</a>
+            </span>
+        </div>
+        <div class="span1"><a>Download</a></div>
+        <div class="span1"><a>Download</a></div>
         <div class="span4">
             <span ng-switch on="anm.nrhmReportDownloadStatus">
                 <span ng-switch-when="preparing">Please wait, preparing report.</span>

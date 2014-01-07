@@ -3,7 +3,8 @@
 describe('ANM Data Summary Controller', function () {
 
     var scope, httpBackend, createController,
-        anmService, allANMsDeferredResponse, prepareReportForDeferredResponse, q;
+        anmService, allANMsDeferredResponse, prepareReportForDeferredResponse, q,
+        registerService, prepareRegisterForDeferredResponse;
 
     beforeEach(module('drishtiSiteApp'));
     beforeEach(inject(function ($rootScope, $httpBackend, $q, $controller) {
@@ -20,14 +21,18 @@ describe('ANM Data Summary Controller', function () {
                 return prepareReportForDeferredResponse.promise;
             }
         };
+        registerService = {
+            prepareRegisterFor: function () {
+                prepareRegisterForDeferredResponse = q.defer();
+                return prepareRegisterForDeferredResponse.promise;
+            }
+        };
         createController = function () {
             return $controller(
                 'ANMDataSummaryCtrl', {
                     '$scope': scope,
-                    DRISHTI_REPORT_BASE_URL: 'http://drishti-reporting',
-                    JSON_TO_XLS_BASE_URL: 'http://xls.ona.io',
-                    NRHM_REPORT_TOKEN: 'token1',
-                    ANMService: anmService
+                    ANMService: anmService,
+                    RegisterService: registerService
                 });
         };
     }));
@@ -104,7 +109,7 @@ describe('ANM Data Summary Controller', function () {
         });
     });
 
-    describe("Printable Registers", function () {
+    describe("Printable Registers: ", function () {
         it('should be able to download Printable Register for selected ANM', function () {
             spyOn(registerService, 'prepareRegisterFor').andCallThrough();
             var anm = new ANM('demo1', 'demo1 name', 'bherya - b');

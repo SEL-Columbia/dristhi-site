@@ -8,7 +8,7 @@ angular.module('drishtiSiteApp')
             return $http({method: 'GET', url: url})
                 .success(function (data) {
                     return _.map(data, function (anm) {
-                        return new ANM(anm.identifier, anm.name, anm.subCenter)
+                        return new ANM(anm.identifier, anm.name, anm.subCenter);
                     });
                 }).error(function () {
                     console.log('Error when getting ANMs micro service.');

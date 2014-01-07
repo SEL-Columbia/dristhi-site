@@ -23,6 +23,9 @@
         "_": false,
         "alert": false,
         "bamboo": false,
-        "console": false
-    }
+        "console": false,
+        "DownloadStatus": true,
+        "ANM": false
+    },
+    "exported": ["ANM"]
 }
