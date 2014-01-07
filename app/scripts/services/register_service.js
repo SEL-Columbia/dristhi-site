@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('RegisterService', function ($http, $q, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, ANC_REGISTER_TOKEN) {
+    .service('RegisterService', function ($http, $q, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, REGISTER_TOKENS) {
         'use strict';
 
         var getFPUsers = function (allECs) {
@@ -31,9 +31,7 @@ angular.module('drishtiSiteApp')
         };
 
         var prepareRegisterFor = function (anmIdentifier, type) {
-            var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers?' +
-                'anm-id=' + anmIdentifier +
-                '&type=' + type;
+            var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers/' + type + '?anm-id=' + anmIdentifier;
 
             return $http({method: 'GET', url: getRegisterUrl})
                 .then(function (result) {
@@ -43,7 +41,7 @@ angular.module('drishtiSiteApp')
                     return $q.reject('Error when getting register for anm:' + anmIdentifier + ', type:' + type);
                 })
                 .then(function (register) {
-                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + ANC_REGISTER_TOKEN, data: register})
+                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS[type], data: register})
                         .then(function (result) {
                             return JSON_TO_XLS_BASE_URL + result.data;
                         }, function () {

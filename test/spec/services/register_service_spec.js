@@ -366,7 +366,7 @@ describe('RegisterService: ', function () {
                 ]
             };
             var expectedRegisterDownloadURL = '/register_download_url';
-            httpBackend.expectGET('https://smartregistries.org/registers?anm-id=demo1&type=anc')
+            httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
                 .respond(200, expectedRegisters);
             httpBackend.expectPOST('http://xls.ona.io/xls/e0739ade6dbb47a49c9115a93b3f433a', expectedRegisters).respond(201, expectedRegisterDownloadURL);
 

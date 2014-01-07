@@ -6,19 +6,29 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'ui.bootstrap', 'drish
     .constant('DRISHTI_WEB_BASE_URL', 'https://smartregistries.org')
     .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io')
     .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
-    .constant('ANC_REGISTER_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
+    .constant('REGISTER_TOKENS', {
+        'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
+        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
+    })
 
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://localhost:9980')
 //    .constant('DRISHTI_WEB_BASE_URL', 'https://localhost:9979')
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://localhost:8080')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
-//    .constant('ANC_REGISTER_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
+//    .constant('REGISTER_TOKENS', {
+//        'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
+//        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
+//    })
 
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://drishti.modilabs.org/drishti-reporting')
 //    .constant('DRISHTI_WEB_BASE_URL', 'https://drishti.modilabs.org')
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
-//    .constant('ANC_REGISTER_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
+//    .constant('REGISTER_TOKENS', {
+//        'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
+//        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
+//    })
+
     .constant('ARCHIVED_REPORTS_START_YEAR', 2013)
     .config(function ($routeProvider) {
         'use strict';
