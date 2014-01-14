@@ -41,6 +41,10 @@ angular.module('drishtiSiteApp')
                     return $q.reject('Error when getting register for anm:' + anmIdentifier + ', type:' + type);
                 })
                 .then(function (register) {
+                    register.ancRegisterEntries.forEach(function (entry) {
+                        createANCServicesList(entry);
+                        fillMissingValues(entry);
+                    });
                     return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS[type], data: register})
                         .then(function (result) {
                             return JSON_TO_XLS_BASE_URL + result.data;
@@ -52,6 +56,79 @@ angular.module('drishtiSiteApp')
             );
         };
 
+        var fillMissingValues = function (entry) {
+            var services = ['tt', 'ifa', 'ancVisits', 'remarks', 'contentHolder'];
+            var servicesLength = [];
+            services.forEach(function (service) {
+                if (!entry[service]) entry[service] = [];
+                servicesLength.push(entry[service].length);
+            });
+            entry['maxLength'] = _.max(servicesLength);
+            services.forEach(function (service) {
+                fillValuesToMatchLength(entry, service);
+            });
+            return entry;
+        };
+
+        var fillValuesToMatchLength = function (entry, service) {
+            entry[service] = entry[service].concat(_(entry['maxLength'] - entry[service].length).times(function () {
+                return {};
+            }));
+        };
+
+        var createANCServicesList = function (entry) {
+            entry['ancVisits'] = [
+                {
+                    "ancVisitDate": "23/5/2014",
+                    "weight": "34",
+                    "bp": "233",
+                    "hb": "567",
+                    "urineSugar": "23",
+                    "urineAlbumin": "11",
+                    "rti": "22",
+                    "sti": "33"
+                },
+                {
+                    "ancVisitDate": "23/6/2014",
+                    "weight": "343",
+                    "bp": "233",
+                    "hb": "567",
+                    "urineSugar": "23",
+                    "urineAlbumin": "11",
+                    "rti": "22",
+                    "sti": "33"
+                }
+            ];
+            entry['tt'] = [
+                {
+                    "dose": "TT1",
+                    "date": "23/5/2014"
+                },
+                {
+                    "dose": "TT2",
+                    "date": "23/5/2014"
+                },
+                {
+                    "dose": "TT3",
+                    "date": "23/5/2014"
+                }
+            ];
+            entry['ifa'] = [
+                {
+                    "numberOfTablets": "12",
+                    "date": "22/12/2015"
+                },
+                {
+                    "numberOfTablets": "12",
+                    "date": "22/12/2015"
+                }
+            ];
+            entry['remarks'] = [
+                {
+                    "remark": "Good"
+                }
+            ]
+        };
 
         return {
             fpUsers: function (allECs) {
@@ -59,6 +136,9 @@ angular.module('drishtiSiteApp')
             },
             prepareRegisterFor: function (anmIdentifier, type) {
                 return prepareRegisterFor(anmIdentifier, type);
+            },
+            fillMissingValues: function (register) {
+                return fillMissingValues(register);
             }
         };
     });

@@ -334,34 +334,97 @@ describe('RegisterService: ', function () {
     describe('Printable Registers: ', function () {
         it('should be able to download register for an ANM', function () {
             var expectedRegisters = {
-                'anc': [
+                "ancRegisterEntries": [
                     {
-                        "anc": "1",
-                        "thayi_card_no": "223434",
-                        "anc_visits": [
+                        "ancNumber": "5",
+                        "registrationDate": "2013-09-10",
+                        "ecNumber": "71",
+                        "thayiCardNumber": "8188514",
+                        "aadharCardNumber": null,
+                        "wifeName": "Kamala",
+                        "husbandName": "Manju Nayaka",
+                        "address": null,
+                        "wifeDOB": [
+                            1988,
+                            5,
+                            15
+                        ],
+                        "phoneNumber": null,
+                        "wifeEducationLevel": null,
+                        "husbandEducationLevel": null,
+                        "caste": "st",
+                        "religion": "Hindu",
+                        "economicStatus": "bpl",
+                        "bplCardNumber": null,
+                        "jsyBeneficiary": "yes",
+                        "gravida": "1",
+                        "parity": "1",
+                        "numberOfLivingChildren": "1",
+                        "numberOfStillBirths": "0",
+                        "numberOfAbortions": "0",
+                        "youngestChildDOB": null,
+                        "lmp": "2013-08-06",
+                        "edd": "Tue, 13 May 2014 00:00:00 GMT",
+                        "height": null,
+                        "bloodGroup": null,
+                        "isHRP": "no",
+                        "ancVisits": [
                             {
-                                "anc_visit_date": "",
-                                "weight": "52"
+                                "ancVisitDate": "23/5/2014",
+                                "weight": "34",
+                                "bp": "233",
+                                "hb": "567",
+                                "urineSugar": "23",
+                                "urineAlbumin": "11",
+                                "rti": "22",
+                                "sti": "33"
                             },
                             {
-                                "anc_visit_date": "",
-                                "weight": "54"
-                            }
-                        ]
-                    },
-                    {
-                        "anc": "2",
-                        "thayi_card_no": "223435",
-                        "anc_visits": [
+                                "ancVisitDate": "23/6/2014",
+                                "weight": "343",
+                                "bp": "233",
+                                "hb": "567",
+                                "urineSugar": "23",
+                                "urineAlbumin": "11",
+                                "rti": "22",
+                                "sti": "33"
+                            },
+                            {}
+                        ],
+                        "tt": [
                             {
-                                "anc_visit_date": "",
-                                "weight": "50"
+                                "dose": "TT1",
+                                "date": "23/5/2014"
                             },
                             {
-                                "anc_visit_date": "",
-                                "weight": "52"
+                                "dose": "TT2",
+                                "date": "23/5/2014"
+                            },
+                            {
+                                "dose": "TT3",
+                                "date": "23/5/2014"
                             }
-                        ]
+                        ],
+                        "ifa": [
+                            {
+                                "numberOfTablets": "12",
+                                "date": "22/12/2015"
+                            },
+                            {
+                                "numberOfTablets": "12",
+                                "date": "22/12/2015"
+                            },
+                            {}
+                        ],
+                        "remarks": [
+                            {
+                                "remark": "Good"
+                            },
+                            {},
+                            {}
+                        ],
+                        "maxLength": 3,
+                        "contentHolder": [{},{},{}]
                     }
                 ]
             };
@@ -379,6 +442,35 @@ describe('RegisterService: ', function () {
             httpBackend.flush();
             expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
         });
-    });
 
+        it('should fill all services with empty objects to match length', function () {
+            var entry = {
+                "remarks": [
+                    {
+                        "remark": "Remark 1"
+                    },
+                    {
+                        "remark": "Remark 2"
+                    }
+                ]
+            };
+            var expectedRegisters = {
+                "remarks": [
+                    {
+                        "remark": "Remark 1"
+                    },
+                    {
+                        "remark": "Remark 2"
+                    }
+                ],
+                "ancVisits": [{},{}],
+                tt: [{},{}],
+                ifa: [{},{}],
+                contentHolder: [{},{}],
+                maxLength: 2
+            };
+            var registersWithServicesFilled = service.fillMissingValues(entry);
+            expect(expectedRegisters).toEqual(registersWithServicesFilled);
+        });
+    });
 });
