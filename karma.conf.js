@@ -15,7 +15,8 @@ files = [
     'app/bower_components/underscore.string/dist/underscore.string.min.js',
     'app/scripts/*.js',
     'app/scripts/**/*.js',
-    'test/spec/**/*.js'
+    'test/spec/**/*.js',
+    'app/bower_components/momentjs/moment.js'
 ];
 
 // list of files to exclude
