@@ -27,7 +27,7 @@ angular.module('drishtiSiteApp')
         $scope.getRegister = function (anm, type) {
             anm.ancRegisterDownloadStatus = DownloadStatus.Preparing;
             RegisterService
-                .prepareRegisterFor(anm.identifier, type)
+                .prepareRegisterFor(anm, type)
                 .then(function (data) {
                     anm.ancRegisterDownloadStatus = DownloadStatus.Ready;
                     anm.ancRegister = data;

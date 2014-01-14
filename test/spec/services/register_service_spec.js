@@ -427,7 +427,13 @@ describe('RegisterService: ', function () {
                         "maxLength": 3,
                         "contentHolder": [{},{},{}]
                     }
-                ]
+                ],
+                "anmDetails": {
+                    "name": "Demo 1",
+                    "location": {
+                        "phc": "phc"
+                    }
+                }
             };
             var expectedRegisterDownloadURL = '/register_download_url';
             httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
@@ -435,7 +441,7 @@ describe('RegisterService: ', function () {
             httpBackend.expectPOST('http://xls.ona.io/xls/e0739ade6dbb47a49c9115a93b3f433a', expectedRegisters).respond(201, expectedRegisterDownloadURL);
 
             var url = null;
-            service.prepareRegisterFor('demo1', 'anc')
+            service.prepareRegisterFor({identifier: 'demo1', name:'Demo 1', location: { phc : "phc" }}, 'anc')
                 .then(function (result) {
                     url = result
                 });

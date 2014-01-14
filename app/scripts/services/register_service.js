@@ -30,17 +30,19 @@ angular.module('drishtiSiteApp')
             return fpUsers;
         };
 
-        var prepareRegisterFor = function (anmIdentifier, type) {
-            var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers/' + type + '?anm-id=' + anmIdentifier;
-
+        var prepareRegisterFor = function (anm, type) {
+            var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers/' + type + '?anm-id=' + anm.identifier;
             return $http({method: 'GET', url: getRegisterUrl})
                 .then(function (result) {
                     return result.data;
                 }, function () {
-                    console.log('Error when getting register for anm:' + anmIdentifier + ', type:' + type);
-                    return $q.reject('Error when getting register for anm:' + anmIdentifier + ', type:' + type);
+                    console.log('Error when getting register for anm:' + anm.identifier + ', type:' + type);
+                    return $q.reject('Error when getting register for anm:' + anm.identifier + ', type:' + type);
                 })
                 .then(function (register) {
+                    register['anmDetails'] = {};
+                    register['anmDetails']['location'] = anm.location;
+                    register['anmDetails']['name'] = anm.name;
                     register.ancRegisterEntries.forEach(function (entry) {
                         createANCServicesList(entry);
                         entry['wifeAge'] = calculateWifeAge(entry['wifeDOB']);
@@ -160,8 +162,8 @@ angular.module('drishtiSiteApp')
             fpUsers: function (allECs) {
                 return getFPUsers(allECs);
             },
-            prepareRegisterFor: function (anmIdentifier, type) {
-                return prepareRegisterFor(anmIdentifier, type);
+            prepareRegisterFor: function (anm, type) {
+                return prepareRegisterFor(anm, type);
             },
             fillMissingValues: function (register) {
                 return fillMissingValues(register);
