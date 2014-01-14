@@ -43,6 +43,9 @@ angular.module('drishtiSiteApp')
                 .then(function (register) {
                     register.ancRegisterEntries.forEach(function (entry) {
                         createANCServicesList(entry);
+                        entry['wifeAge'] = calculateWifeAge(entry['wifeDOB']);
+                        if(entry['youngestChildDOB'])
+                            entry['youngestChildAge'] = calculateChildAge(entry['youngestChildDOB']);
                         fillMissingValues(entry);
                     });
                     return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS[type], data: register})
@@ -54,6 +57,29 @@ angular.module('drishtiSiteApp')
                         });
                 }
             );
+        };
+
+        var calculateWifeAge = function(dateOfBirth) {
+            return moment().diff(moment(dateOfBirth), 'years');
+        };
+
+        var calculateChildAge = function(dateOfBirth) {
+            var personDOB = [dateOfBirth[0], dateOfBirth[1] - 1, dateOfBirth[2]];
+            var today = moment();
+            var days = today.diff(moment(personDOB), 'days');
+            if(days <= 28)
+                return days + " d.";
+            var weeks = today.diff(moment(personDOB), 'weeks');
+            if (weeks <= 14)
+                return weeks + " w.";
+            var months = today.diff(moment(personDOB), 'months');
+            if(months < 12)
+                return months + " m.";
+            var years = today.diff(moment(personDOB), 'years');
+            var remainingMonths = months - (years * 12);
+            if(remainingMonths != 0)
+                return years + " y. " + remainingMonths + " m.";
+            return years + " y.";
         };
 
         var fillMissingValues = function (entry) {
@@ -139,6 +165,12 @@ angular.module('drishtiSiteApp')
             },
             fillMissingValues: function (register) {
                 return fillMissingValues(register);
+            },
+            calculateChildAge: function (dateOfBirth) {
+                return calculateChildAge(dateOfBirth);
+            },
+            calculateWifeAge: function (dateOfBirth) {
+                return calculateWifeAge(dateOfBirth);
             }
         };
     });

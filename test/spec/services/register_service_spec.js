@@ -349,6 +349,7 @@ describe('RegisterService: ', function () {
                             5,
                             15
                         ],
+                        "wifeAge": 25,
                         "phoneNumber": null,
                         "wifeEducationLevel": null,
                         "husbandEducationLevel": null,
@@ -472,5 +473,54 @@ describe('RegisterService: ', function () {
             var registersWithServicesFilled = service.fillMissingValues(entry);
             expect(expectedRegisters).toEqual(registersWithServicesFilled);
         });
+
+        it('should calculate child age with the right units', function () {
+            Timecop.install();
+
+            Timecop.freeze(Date.parse('2014-01-14'));
+            var childDOB = [ 2014, 1, 1];
+            var expectedChildAge = "13 d.";
+            var childAge = service.calculateChildAge(childDOB);
+            expect(expectedChildAge).toEqual(childAge);
+
+            childDOB = [2013, 12, 1];
+            expectedChildAge = "6 w.";
+            childAge = service.calculateChildAge(childDOB);
+            expect(expectedChildAge).toEqual(childAge);
+
+            childDOB = [2013, 10, 1];
+            expectedChildAge = "3 m.";
+            childAge = service.calculateChildAge(childDOB);
+            expect(expectedChildAge).toEqual(childAge);
+
+            childDOB = [2013, 1, 1];
+            expectedChildAge = "1 y.";
+            childAge = service.calculateChildAge(childDOB);
+            expect(expectedChildAge).toEqual(childAge);
+
+            childDOB = [2012, 11, 1];
+            expectedChildAge = "1 y. 2 m.";
+            childAge = service.calculateChildAge(childDOB);
+            expect(expectedChildAge).toEqual(childAge);
+
+            Timecop.returnToPresent();
+            Timecop.uninstall();
+
+        });
+
+        it('should calculate wife age', function () {
+            Timecop.install();
+
+            Timecop.freeze(Date.parse('2014-01-14'));
+            var wifeDOB = [ 1988, 1, 1];
+            var expectedWifeAge = 25;
+            var wifeAge = service.calculateWifeAge(wifeDOB);
+            expect(expectedWifeAge).toEqual(wifeAge);
+
+            Timecop.returnToPresent();
+            Timecop.uninstall();
+
+        });
+
     });
 });
