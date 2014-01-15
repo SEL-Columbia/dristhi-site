@@ -63,25 +63,25 @@ angular.module('drishtiSiteApp')
         };
 
         var calculateWifeAge = function(dateOfBirth) {
-            return Moment().diff(Moment(dateOfBirth), 'years');
+            return new Moment().diff(new Moment(dateOfBirth), 'years');
         };
 
         var calculateChildAge = function(dateOfBirth) {
             var personDOB = [dateOfBirth[0], dateOfBirth[1] - 1, dateOfBirth[2]];
-            var today = Moment();
-            var days = today.diff(Moment(personDOB), 'days');
+            var today = new Moment();
+            var days = today.diff(new Moment(personDOB), 'days');
             if(days <= 28) {
                 return days + ' d.';
             }
-            var weeks = today.diff(Moment(personDOB), 'weeks');
+            var weeks = today.diff(new Moment(personDOB), 'weeks');
             if (weeks <= 14) {
                 return weeks + ' w.';
             }
-            var months = today.diff(Moment(personDOB), 'months');
+            var months = today.diff(new Moment(personDOB), 'months');
             if(months < 24) {
                 return months + ' m.';
             }
-            var years = today.diff(Moment(personDOB), 'years');
+            var years = today.diff(new Moment(personDOB), 'years');
             var remainingMonths = months - (years * 12);
             if(remainingMonths !== 0) {
                 return years + ' y. ' + remainingMonths + ' m.';
