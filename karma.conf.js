@@ -12,7 +12,8 @@ module.exports = function (config) {
                 'app/scripts/*.js',
                 'app/scripts/**/*.js',
                 'test/spec/**/*.js',
-                'app/bower_components/moment/moment.js'
+                'app/bower_components/moment/moment.js',
+                'app/bower_components/angular-momentjs/angular-momentjs.js'
             ],
             reporters: ['dots'],
             port: 8080,

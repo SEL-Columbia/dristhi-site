@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp.filters', []);
-angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'ui.bootstrap', 'drishtiSiteApp.filters'])
+angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'ui.bootstrap', 'drishtiSiteApp.filters'])
     .constant('AUTH_URL', 'https://smartregistries.org/authenticate-user')
     .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
     .constant('DRISHTI_REPORT_BASE_URL', 'https://smartregistries.org/drishti-reporting')
@@ -30,9 +30,11 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'ui.bootstrap', 'drish
 //    })
 
     .constant('ARCHIVED_REPORTS_START_YEAR', 2013)
-    .config(function ($routeProvider) {
+    .config(function ($routeProvider, MomentProvider) {
         'use strict';
-
+        MomentProvider
+            .asyncLoading(false)
+            .scriptUrl('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.3.1/moment.min.js');
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
