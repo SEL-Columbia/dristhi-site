@@ -19,14 +19,17 @@
         "grunt-contrib-watch": "~0.4.0",
         "grunt-usemin": "~0.1.11",
         "grunt-rev": "~0.1.0",
-        "grunt-karma": "~0.4.3",
+        "grunt-karma": "~0.6",
         "grunt-open": "~0.2.0",
         "grunt-concurrent": "~0.3.0",
         "matchdep": "~0.1.2",
         "connect-livereload": "~0.2.0",
         "grunt-google-cdn": "~0.2.0",
         "grunt-ngmin": "~0.0.2",
-        "phantomjs": "~1.8.2"
+        "karma": "~0.10.9",
+        "karma-jasmine": "~0.1.5",
+        "karma-phantomjs-launcher": "~0.1",
+        "karma-chrome-launcher": "~0.1"
     },
     "engines": {
         "node": ">=0.8.0"
