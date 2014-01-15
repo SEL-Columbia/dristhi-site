@@ -500,12 +500,17 @@ describe('RegisterService: ', function () {
             expect(expectedChildAge).toEqual(childAge);
 
             childDOB = [2013, 1, 1];
-            expectedChildAge = "1 y.";
+            expectedChildAge = "12 m.";
             childAge = service.calculateChildAge(childDOB);
             expect(expectedChildAge).toEqual(childAge);
 
             childDOB = [2012, 11, 1];
-            expectedChildAge = "1 y. 2 m.";
+            expectedChildAge = "14 m.";
+            childAge = service.calculateChildAge(childDOB);
+            expect(expectedChildAge).toEqual(childAge);
+
+            childDOB = [2011, 11, 1];
+            expectedChildAge = "2 y. 2 m.";
             childAge = service.calculateChildAge(childDOB);
             expect(expectedChildAge).toEqual(childAge);
 

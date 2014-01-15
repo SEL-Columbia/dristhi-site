@@ -75,7 +75,7 @@ angular.module('drishtiSiteApp')
             if (weeks <= 14)
                 return weeks + " w.";
             var months = today.diff(moment(personDOB), 'months');
-            if(months < 12)
+            if(months < 24)
                 return months + " m.";
             var years = today.diff(moment(personDOB), 'years');
             var remainingMonths = months - (years * 12);
