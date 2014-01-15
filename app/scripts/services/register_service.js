@@ -40,14 +40,15 @@ angular.module('drishtiSiteApp')
                     return $q.reject('Error when getting register for anm:' + anm.identifier + ', type:' + type);
                 })
                 .then(function (register) {
-                    register['anmDetails'] = {};
-                    register['anmDetails']['location'] = anm.location;
-                    register['anmDetails']['name'] = anm.name;
+                    register.anmDetails = {};
+                    register.anmDetails.location = anm.location;
+                    register.anmDetails.name = anm.name;
                     register.ancRegisterEntries.forEach(function (entry) {
                         createANCServicesList(entry);
-                        entry['wifeAge'] = calculateWifeAge(entry['wifeDOB']);
-                        if(entry['youngestChildDOB'])
-                            entry['youngestChildAge'] = calculateChildAge(entry['youngestChildDOB']);
+                        entry.wifeAge = calculateWifeAge(entry.wifeDOB);
+                        if(entry.youngestChildDOB) {
+                            entry.youngestChildAge = calculateChildAge(entry.youngestChildDOB);
+                        }
                         fillMissingValues(entry);
                     });
                     return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS[type], data: register})
@@ -69,29 +70,33 @@ angular.module('drishtiSiteApp')
             var personDOB = [dateOfBirth[0], dateOfBirth[1] - 1, dateOfBirth[2]];
             var today = moment();
             var days = today.diff(moment(personDOB), 'days');
-            if(days <= 28)
-                return days + " d.";
+            if(days <= 28) {
+                return days + ' d.';
+            }
             var weeks = today.diff(moment(personDOB), 'weeks');
-            if (weeks <= 14)
-                return weeks + " w.";
+            if (weeks <= 14) {
+                return weeks + ' w.';
+            }
             var months = today.diff(moment(personDOB), 'months');
-            if(months < 24)
-                return months + " m.";
+            if(months < 24) {
+                return months + ' m.';
+            }
             var years = today.diff(moment(personDOB), 'years');
             var remainingMonths = months - (years * 12);
-            if(remainingMonths != 0)
-                return years + " y. " + remainingMonths + " m.";
-            return years + " y.";
+            if(remainingMonths !== 0) {
+                return years + ' y. ' + remainingMonths + ' m.';
+            }
+            return years + ' y.';
         };
 
         var fillMissingValues = function (entry) {
             var services = ['tt', 'ifa', 'ancVisits', 'remarks', 'contentHolder'];
             var servicesLength = [];
             services.forEach(function (service) {
-                if (!entry[service]) entry[service] = [];
+                entry.service = entry.service || [];
                 servicesLength.push(entry[service].length);
             });
-            entry['maxLength'] = _.max(servicesLength);
+            entry.maxLength = _.max(servicesLength);
             services.forEach(function (service) {
                 fillValuesToMatchLength(entry, service);
             });
@@ -99,63 +104,63 @@ angular.module('drishtiSiteApp')
         };
 
         var fillValuesToMatchLength = function (entry, service) {
-            entry[service] = entry[service].concat(_(entry['maxLength'] - entry[service].length).times(function () {
+            entry[service] = entry[service].concat(_(entry.maxLength - entry[service].length).times(function () {
                 return {};
             }));
         };
 
         var createANCServicesList = function (entry) {
-            entry['ancVisits'] = [
+            entry.ancVisits = [
                 {
-                    "ancVisitDate": "23/5/2014",
-                    "weight": "34",
-                    "bp": "233",
-                    "hb": "567",
-                    "urineSugar": "23",
-                    "urineAlbumin": "11",
-                    "rti": "22",
-                    "sti": "33"
+                    'ancVisitDate': '23/5/2014',
+                    'weight': '34',
+                    'bp': '233',
+                    'hb': '567',
+                    'urineSugar': '23',
+                    'urineAlbumin': '11',
+                    'rti': '22',
+                    'sti': '33'
                 },
                 {
-                    "ancVisitDate": "23/6/2014",
-                    "weight": "343",
-                    "bp": "233",
-                    "hb": "567",
-                    "urineSugar": "23",
-                    "urineAlbumin": "11",
-                    "rti": "22",
-                    "sti": "33"
+                    'ancVisitDate': '23/6/2014',
+                    'weight': '343',
+                    'bp': '233',
+                    'hb': '567',
+                    'urineSugar': '23',
+                    'urineAlbumin': '11',
+                    'rti': '22',
+                    'sti': '33'
                 }
             ];
-            entry['tt'] = [
+            entry.tt = [
                 {
-                    "dose": "TT1",
-                    "date": "23/5/2014"
+                    'dose': 'TT1',
+                    'date': '23/5/2014'
                 },
                 {
-                    "dose": "TT2",
-                    "date": "23/5/2014"
+                    'dose': 'TT2',
+                    'date': '23/5/2014'
                 },
                 {
-                    "dose": "TT3",
-                    "date": "23/5/2014"
+                    'dose': 'TT3',
+                    'date': '23/5/2014'
                 }
             ];
-            entry['ifa'] = [
+            entry.ifa = [
                 {
-                    "numberOfTablets": "12",
-                    "date": "22/12/2015"
+                    'numberOfTablets': '12',
+                    'date': '22/12/2015'
                 },
                 {
-                    "numberOfTablets": "12",
-                    "date": "22/12/2015"
+                    'numberOfTablets': '12',
+                    'date': '22/12/2015'
                 }
             ];
-            entry['remarks'] = [
+            entry.remarks = [
                 {
-                    "remark": "Good"
+                    'remark': 'Good'
                 }
-            ]
+            ];
         };
 
         return {

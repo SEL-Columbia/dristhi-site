@@ -19,7 +19,6 @@ module.exports = function (config) {
             runnerPort: 9100,
             colors: true,
             autoWatch: false,
-//            browsers: ['Chrome'],
             captureTimeout: 5000,
             singleRun: false
         }
