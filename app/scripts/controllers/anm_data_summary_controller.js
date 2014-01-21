@@ -8,7 +8,7 @@ angular.module('drishtiSiteApp')
 
         ANMService.all()
             .then(function (result) {
-                $scope.anms = result.data;
+                $scope.anms = result.data.anmDetails;
             });
 
         $scope.excelReportsForANM = function (anm, month, year) {

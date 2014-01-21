@@ -1,14 +1,14 @@
 angular.module('drishtiSiteApp')
-    .service('ANMService', function ($http, $q, DRISHTI_REPORT_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
+    .service('ANMService', function ($http, $q, DRISHTI_REPORT_BASE_URL, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
         'use strict';
 
         var getANMs = function () {
-            var url = DRISHTI_REPORT_BASE_URL + '/anms';
+            var url = DRISHTI_WEB_BASE_URL + '/anms';
 
             return $http({method: 'GET', url: url})
                 .success(function (data) {
-                    return _.map(data, function (anm) {
-                        return new ANM(anm.identifier, anm.name, anm.subCenter);
+                    return _.map(data.anmDetails, function (anm) {
+                        return new ANM(anm.identifier, anm.name, anm.location, anm.ecCount, anm.fpCount, anm.ancCount, anm.pncCount, anm.childCount);
                     });
                 }).error(function () {
                     console.log('Error when getting ANMs micro service.');

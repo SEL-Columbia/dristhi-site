@@ -41,14 +41,14 @@ describe('ANM Data Summary Controller', function () {
         it('should get list of ANMs from server and set it on scope', function () {
             spyOn(anmService, 'all').andCallThrough();
             var expectedANMs = [
-                new ANM("c", "c name", "bherya - a"),
-                new ANM("demo1", "demo1 name", "bherya - b"),
-                new ANM("admin", "admin name", "klp 2")
+                new ANM("c", "c name", "bherya - a", 0, 0, 0, 0, 0),
+                new ANM("demo1", "demo1 name", "bherya - b", 0, 0, 0, 0, 0),
+                new ANM("admin", "admin name", "klp 2", 0, 0, 0, 0, 0)
             ];
 
             createController();
 
-            allANMsDeferredResponse.resolve({data: expectedANMs});
+            allANMsDeferredResponse.resolve({data: {anmDetails: expectedANMs}});
             scope.$apply();
             expect(scope.anms).toEqual(expectedANMs);
         });

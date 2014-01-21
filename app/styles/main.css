@@ -152,3 +152,14 @@ footer {
     display: inline;
     width: 120px;
 }
+
+.disabled-link {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+
+.enabled-link {
+    text-decoration: underline;
+    cursor: pointer;
+}

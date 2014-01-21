@@ -13,21 +13,21 @@ describe('ANM Service', function () {
 
     describe('Display list of ANMs', function () {
         it('should get list of ANMs from dristhi report service', function () {
-            var response = [
-                {"identifier": "c", "name": "c name", "subCenter": "bherya - a"},
-                {"identifier": "demo1", "name": "demo1 name", "subCenter": "bherya - b"},
-                {"identifier": "admin", "name": "admin name", "subCenter": "klp 2"}
-            ];
+            var response = {"anmDetails": [
+                {"identifier": "c", "name": "c name", "location": {"sub_center": "munjanahalli", "phc": "Bherya", "taluka": "K.R. Nagar", "district": "Mysore", "state": "Karnataka"}, "ecCount": 100, "fpCount": 57, "ancCount": 16, "pncCount": 5, "childCount": 13},
+                {"identifier": "demo1", "name": "demo1 name", "location": {"sub_center": "munjanahalli", "phc": "Bherya", "taluka": "K.R. Nagar", "district": "Mysore", "state": "Karnataka"}, "ecCount": 100, "fpCount": 57, "ancCount": 16, "pncCount": 5, "childCount": 13},
+                {"identifier": "admin", "name": "admin name", "location": {"sub_center": "munjanahalli", "phc": "Bherya", "taluka": "K.R. Nagar", "district": "Mysore", "state": "Karnataka"}, "ecCount": 100, "fpCount": 57, "ancCount": 16, "pncCount": 5, "childCount": 13}
+            ]};
             var expectedANMs = [
-                new ANM("c", "c name", "bherya - a"),
-                new ANM("demo1", "demo1 name", "bherya - b"),
-                new ANM("admin", "admin name", "klp 2")
+                new ANM("c", "c name", {"sub_center": "munjanahalli", "phc": "Bherya", "taluka": "K.R. Nagar", "district": "Mysore", "state": "Karnataka"}, 100, 57, 16, 5, 13),
+                new ANM("demo1", "demo1 name", {"sub_center": "munjanahalli", "phc": "Bherya", "taluka": "K.R. Nagar", "district": "Mysore", "state": "Karnataka"}, 100, 57, 16, 5, 13),
+                new ANM("admin", "admin name", {"sub_center": "munjanahalli", "phc": "Bherya", "taluka": "K.R. Nagar", "district": "Mysore", "state": "Karnataka"}, 100, 57, 16, 5, 13)
             ];
-            httpBackend.expectGET('https://smartregistries.org/drishti-reporting/anms').respond(response);
+            httpBackend.expectGET('https://smartregistries.org/anms').respond(response);
 
             var anms = null;
             service.all().then(function (result) {
-                anms = result.data
+                anms = result.data.anmDetails;
             });
 
             httpBackend.flush();
