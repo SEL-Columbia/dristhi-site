@@ -1,0 +1,27 @@
+{
+  "name": "angular-momentjs",
+  "version": "0.0.5",
+  "main": "angular-momentjs.js",
+  "ignore": [
+    "**/.*",
+    "*.yml",
+    "*.xml",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.0"
+  },
+  "homepage": "https://github.com/gdi2290/angular-momentjs",
+  "_release": "0.0.5",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.5",
+    "commit": "6a1bccc4f76a2ac790250060fddca100106a8a4c"
+  },
+  "_source": "git://github.com/gdi2290/angular-momentjs.git",
+  "_target": "~0.0.5",
+  "_originalSource": "angular-momentjs"
+}
