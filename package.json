@@ -29,7 +29,8 @@
         "karma": "~0.10.9",
         "karma-jasmine": "~0.1.5",
         "karma-phantomjs-launcher": "~0.1",
-        "karma-chrome-launcher": "~0.1"
+        "karma-chrome-launcher": "~0.1",
+        "angular-momentjs": "~0.1.5"
     },
     "engines": {
         "node": ">=0.8.0"
