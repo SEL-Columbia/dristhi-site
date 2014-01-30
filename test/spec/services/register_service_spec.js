@@ -332,7 +332,7 @@ describe('RegisterService: ', function () {
     });
 
     describe('Printable Registers: ', function () {
-        it('should be able to download register for an ANM', function () {
+        it('should be able to download ANC register for an ANM', function () {
             var expectedRegisters = {
                 "ancRegisterEntries": [
                     {
@@ -425,7 +425,11 @@ describe('RegisterService: ', function () {
                             {}
                         ],
                         "maxLength": 3,
-                        "contentHolder": [{},{},{}]
+                        "contentHolder": [
+                            {},
+                            {},
+                            {}
+                        ]
                     }
                 ],
                 "anmDetails": {
@@ -441,7 +445,106 @@ describe('RegisterService: ', function () {
             httpBackend.expectPOST('http://xls.ona.io/xls/e0739ade6dbb47a49c9115a93b3f433a', expectedRegisters).respond(201, expectedRegisterDownloadURL);
 
             var url = null;
-            service.prepareRegisterFor({identifier: 'demo1', name:'Demo 1', location: { phc : "phc" }}, 'anc')
+            service.prepareRegisterForANC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
+                .then(function (result) {
+                    url = result
+                });
+
+            httpBackend.flush();
+            expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+        });
+
+        it('should be able to download EC register for an ANM', function () {
+            var jsonResponse = {
+                "ecRegisterEntries": [
+                    {
+                        "registrationDate": "2013-05-15",
+                        "ecNumber": "90",
+                        "wifeName": "Sowmya",
+                        "husbandName": "Manjunatha",
+                        "householdAddress": null,
+                        "householdNumber": "77",
+                        "headOfHousehold": null,
+                        "village": "hosa_agrahara",
+                        "subCenter": "hosa_agrahara",
+                        "phc": "bherya",
+                        "wifeAge": "27",
+                        "husbandAge": "38",
+                        "wifeEducationLevel": null,
+                        "husbandEducationLevel": null,
+                        "caste": "c_others",
+                        "religion": "Hindu",
+                        "economicStatus": "bpl",
+                        "gravida": "2",
+                        "parity": "2",
+                        "numberOfLivingChildren": "2",
+                        "numberOfStillBirths": "0",
+                        "numberOfAbortions": "0",
+                        "numberOfLivingMaleChildren": "1",
+                        "numberOfLivingFemaleChildren": "1",
+                        "youngestChildAge": "24",
+                        "currentFPMethod": "female_sterilization",
+                        "currentFPMethodStartDate": "2009-04-28",
+                        "isPregnant": "no"
+                    }
+                ],
+                "anmDetails": {
+                    "name": "Demo 1",
+                    "location": {
+                        "phc": "phc"
+                    }
+                }
+            };
+
+            var expectedPayload = {
+                "ecRegisterEntries": [
+                    {
+                        "registrationDate": "2013-05-15",
+                        "ecNumber": "90",
+                        "wifeName": "Sowmya",
+                        "husbandName": "Manjunatha",
+                        "householdAddress": null,
+                        "householdNumber": "77",
+                        "headOfHousehold": null,
+                        "village": "Hosa Agrahara",
+                        "subCenter": "hosa_agrahara",
+                        "phc": "bherya",
+                        "wifeAge": "27",
+                        "husbandAge": "38",
+                        "wifeEducationLevel": null,
+                        "husbandEducationLevel": null,
+                        "caste": "Others",
+                        "religion": "Hindu",
+                        "economicStatus": "BPL",
+                        "gravida": "2",
+                        "parity": "2",
+                        "numberOfLivingChildren": "2",
+                        "numberOfStillBirths": "0",
+                        "numberOfAbortions": "0",
+                        "numberOfLivingMaleChildren": "1",
+                        "numberOfLivingFemaleChildren": "1",
+                        "youngestChildAge": "24",
+                        "currentFPMethod": "Female Sterilization",
+                        "currentFPMethodStartDate": "2009-04-28",
+                        "isPregnant": "no",
+                        "householdDetails": "77",
+                        "educationLevel": "",
+                        "ageDetails": "27 / 38"
+                    }
+                ],
+                "anmDetails": {
+                    "location": {
+                        "phc": "phc"
+                    },
+                    "name": "Demo 1"
+                }
+            };
+            var expectedRegisterDownloadURL = '/register_download_url';
+            httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
+            httpBackend.expectPOST('http://xls.ona.io/xls/1e89372d739f4a6b85fd104d18642372', expectedPayload).respond(201, expectedRegisterDownloadURL);
+
+            var url = null;
+            service.prepareRegisterForEC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
                 .then(function (result) {
                     url = result
                 });
@@ -470,10 +573,22 @@ describe('RegisterService: ', function () {
                         "remark": "Remark 2"
                     }
                 ],
-                "ancVisits": [{},{}],
-                tt: [{},{}],
-                ifa: [{},{}],
-                contentHolder: [{},{}],
+                "ancVisits": [
+                    {},
+                    {}
+                ],
+                tt: [
+                    {},
+                    {}
+                ],
+                ifa: [
+                    {},
+                    {}
+                ],
+                contentHolder: [
+                    {},
+                    {}
+                ],
                 maxLength: 2
             };
             var registersWithServicesFilled = service.fillMissingValues(entry);

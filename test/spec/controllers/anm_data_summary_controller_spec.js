@@ -22,7 +22,11 @@ describe('ANM Data Summary Controller', function () {
             }
         };
         registerService = {
-            prepareRegisterFor: function () {
+            prepareRegisterForANC: function () {
+                prepareRegisterForDeferredResponse = q.defer();
+                return prepareRegisterForDeferredResponse.promise;
+            },
+            prepareRegisterForEC: function () {
                 prepareRegisterForDeferredResponse = q.defer();
                 return prepareRegisterForDeferredResponse.promise;
             }
@@ -110,12 +114,12 @@ describe('ANM Data Summary Controller', function () {
     });
 
     describe("Printable Registers: ", function () {
-        it('should be able to download Printable Register for selected ANM', function () {
-            spyOn(registerService, 'prepareRegisterFor').andCallThrough();
-            var anm = new ANM('demo1', 'demo1 name', 'bherya - b');
+        it('should be able to download ANC Printable Register for selected ANM', function () {
+            spyOn(registerService, 'prepareRegisterForANC').andCallThrough();
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b', 0, 0, 0, 0, 0);
 
             createController();
-            scope.getRegister(anm, 'anc');
+            scope.getRegister(anm, 'ANC');
 
             prepareRegisterForDeferredResponse.resolve('/download_url');
             scope.$apply();
@@ -123,12 +127,25 @@ describe('ANM Data Summary Controller', function () {
             expect(anm.ancRegisterDownloadStatus).toEqual('ready');
         });
 
-        it('should remove nrhmReportDownloadStatus when register download url is not returned from Register Service', function () {
-            spyOn(registerService, 'prepareRegisterFor').andCallThrough();
-            var anm = new ANM('demo1', 'demo1 name', 'bherya - b');
+        it('should be able to download EC Printable Register for selected ANM', function () {
+            spyOn(registerService, 'prepareRegisterForEC').andCallThrough();
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b', 0, 0, 0, 0, 0);
 
             createController();
-            scope.getRegister(anm, 'anc');
+            scope.getRegister(anm, 'EC');
+
+            prepareRegisterForDeferredResponse.resolve('/download_url');
+            scope.$apply();
+            expect(anm.ecRegister).toEqual('/download_url');
+            expect(anm.ecRegisterDownloadStatus).toEqual('ready');
+        });
+
+        it('should remove nrhmReportDownloadStatus when register download url is not returned from Register Service', function () {
+            spyOn(registerService, 'prepareRegisterForANC').andCallThrough();
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b', 0, 0, 0, 0, 0);
+
+            createController();
+            scope.getRegister(anm, 'ANC');
 
             prepareRegisterForDeferredResponse.reject();
             scope.$apply();

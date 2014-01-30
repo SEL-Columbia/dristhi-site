@@ -25,14 +25,14 @@ angular.module('drishtiSiteApp')
         };
 
         $scope.getRegister = function (anm, type) {
-            anm.ancRegisterDownloadStatus = DownloadStatus.Preparing;
-            RegisterService
-                .prepareRegisterFor(anm, type)
-                .then(function (data) {
-                    anm.ancRegisterDownloadStatus = DownloadStatus.Ready;
-                    anm.ancRegister = data;
+            var downloadStatusForType = (type.toLowerCase() + 'RegisterDownloadStatus');
+            anm[downloadStatusForType] = DownloadStatus.Preparing;
+            RegisterService['prepareRegisterFor' + type](anm)
+            .then(function (data) {
+                    anm[type.toLowerCase() + 'RegisterDownloadStatus'] = DownloadStatus.Ready;
+                    anm[type.toLowerCase() + 'Register'] = data;
                 }, function () {
-                    delete anm.ancRegisterDownloadStatus;
+                    delete anm[type.toLowerCase() + 'RegisterDownloadStatus'];
                 }
             );
         };

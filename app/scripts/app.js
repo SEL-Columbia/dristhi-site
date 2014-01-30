@@ -7,6 +7,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io')
     .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
     .constant('REGISTER_TOKENS', {
+        'ec': '1e89372d739f4a6b85fd104d18642372',
         'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
         'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
     })
@@ -16,6 +17,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://localhost:8080')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
+//        'ec': '1e89372d739f4a6b85fd104d18642372',
 //        'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
 //    })
@@ -25,6 +27,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
+//        'ec': '1e89372d739f4a6b85fd104d18642372',
 //        'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
 //    })

@@ -30,28 +30,30 @@ angular.module('drishtiSiteApp')
             return fpUsers;
         };
 
-        var prepareRegisterFor = function (anm, type) {
-            var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers/' + type + '?anm-id=' + anm.identifier;
+        var prepareRegisterForEC = function (anm) {
+            var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers/ec?anm-id=' + anm.identifier;
             return $http({method: 'GET', url: getRegisterUrl})
                 .then(function (result) {
                     return result.data;
                 }, function () {
-                    console.log('Error when getting register for anm:' + anm.identifier + ', type:' + type);
-                    return $q.reject('Error when getting register for anm:' + anm.identifier + ', type:' + type);
+                    console.log('Error when getting EC register for anm:' + anm.identifier);
+                    return $q.reject('Error when getting EC register for anm:' + anm.identifier);
                 })
                 .then(function (register) {
-                    register.anmDetails = {};
-                    register.anmDetails.location = anm.location;
-                    register.anmDetails.name = anm.name;
-                    register.ancRegisterEntries.forEach(function (entry) {
-                        createANCServicesList(entry);
-                        entry.wifeAge = calculateWifeAge(entry.wifeDOB);
-                        if(entry.youngestChildDOB) {
-                            entry.youngestChildAge = calculateChildAge(entry.youngestChildDOB);
-                        }
-                        fillMissingValues(entry);
+                    updateRegisterWithLocation(register, anm);
+                    register.ecRegisterEntries.forEach(function (entry) {
+                        entry.village = humanizeAndTitleize(entry.village);
+                        entry.householdDetails = entry.householdNumber +
+                            (entry.householdAddress ? ", " + entry.householdAddress : "") +
+                            (entry.headOfHousehold ? ", " + entry.headOfHousehold : "");
+                        entry.economicStatus = (entry.economicStatus || "").toUpperCase();
+                        entry.educationLevel = (entry.wifeEducationLevel ? entry.wifeEducationLevel : "") +
+                            (entry.husbandEducationLevel ? " / " + entry.husbandEducationLevel : "");
+                        entry.ageDetails = entry.wifeAge + (entry.husbandAge ? " / " + entry.husbandAge : "");
+                        entry.caste = caste(entry.caste);
+                        entry.currentFPMethod = fpMethods(entry.currentFPMethod);
                     });
-                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS[type], data: register})
+                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS['ec'], data: register})
                         .then(function (result) {
                             return JSON_TO_XLS_BASE_URL + result.data;
                         }, function () {
@@ -62,15 +64,58 @@ angular.module('drishtiSiteApp')
             );
         };
 
-        var calculateWifeAge = function(dateOfBirth) {
+        var humanizeAndTitleize = function (input) {
+            try {
+                var str = input.split('_').join(' ');
+                return str.replace(/\w\S*/g, function (txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                });
+            }
+            catch (err) {
+                console.log("Error while humanising the string: " + err);
+                return input;
+            }
+        };
+
+        var prepareRegisterForANC = function (anm) {
+            var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers/anc?anm-id=' + anm.identifier;
+            return $http({method: 'GET', url: getRegisterUrl})
+                .then(function (result) {
+                    return result.data;
+                }, function (err) {
+                    console.log('Error when getting ANC register for anm:' + anm.identifier);
+                    return $q.reject('Error when getting ANC register for anm:' + anm.identifier);
+                })
+                .then(function (register) {
+                    updateRegisterWithLocation(register, anm);
+                    register.ancRegisterEntries.forEach(function (entry) {
+                        createANCServicesList(entry);
+                        entry.wifeAge = calculateWifeAge(entry.wifeDOB);
+                        if (entry.youngestChildDOB) {
+                            entry.youngestChildAge = calculateChildAge(entry.youngestChildDOB);
+                        }
+                        fillMissingValues(entry);
+                    });
+                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS['anc'], data: register})
+                        .then(function (result) {
+                            return JSON_TO_XLS_BASE_URL + result.data;
+                        }, function () {
+                            console.log('Error when getting register from json-to-xls service.');
+                            return $q.reject('Error when getting register from json-to-xls service.');
+                        });
+                }
+            );
+        };
+
+        var calculateWifeAge = function (dateOfBirth) {
             return new Moment().diff(new Moment(dateOfBirth), 'years');
         };
 
-        var calculateChildAge = function(dateOfBirth) {
+        var calculateChildAge = function (dateOfBirth) {
             var personDOB = [dateOfBirth[0], dateOfBirth[1] - 1, dateOfBirth[2]];
             var today = new Moment();
             var days = today.diff(new Moment(personDOB), 'days');
-            if(days <= 28) {
+            if (days <= 28) {
                 return days + ' d.';
             }
             var weeks = today.diff(new Moment(personDOB), 'weeks');
@@ -78,12 +123,12 @@ angular.module('drishtiSiteApp')
                 return weeks + ' w.';
             }
             var months = today.diff(new Moment(personDOB), 'months');
-            if(months < 24) {
+            if (months < 24) {
                 return months + ' m.';
             }
             var years = today.diff(new Moment(personDOB), 'years');
             var remainingMonths = months - (years * 12);
-            if(remainingMonths !== 0) {
+            if (remainingMonths !== 0) {
                 return years + ' y. ' + remainingMonths + ' m.';
             }
             return years + ' y.';
@@ -163,12 +208,45 @@ angular.module('drishtiSiteApp')
             ];
         };
 
+        var updateRegisterWithLocation = function (register, anm) {
+            register.anmDetails = {};
+            register.anmDetails.location = anm.location;
+            register.anmDetails.name = anm.name;
+        };
+
+        var fpMethods = function (symbol) {
+            var methods = {
+                ocp: 'OCP',
+                iud: 'IUD',
+                condom: 'Condom',
+                female_sterilization: 'Female Sterilization',
+                male_sterilization: 'Male Sterilization',
+                none: 'None',
+                traditional_methods: 'Traditional Methods',
+                dmpa_injectable: 'DMPA Injectable',
+                lam: 'LAM'
+            };
+            return methods[symbol] || '';
+        };
+
+        var caste = function(symbol) {
+            var castes = {
+                sc: 'SC',
+                st: 'ST',
+                c_others: 'Others'
+            };
+            return castes[symbol] || '';
+        };
+
         return {
             fpUsers: function (allECs) {
                 return getFPUsers(allECs);
             },
-            prepareRegisterFor: function (anm, type) {
-                return prepareRegisterFor(anm, type);
+            prepareRegisterForEC: function (anm) {
+                return prepareRegisterForEC(anm);
+            },
+            prepareRegisterForANC: function (anm) {
+                return prepareRegisterForANC(anm);
             },
             fillMissingValues: function (register) {
                 return fillMissingValues(register);
