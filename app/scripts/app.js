@@ -8,12 +8,12 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
     .constant('REGISTER_TOKENS', {
         'ec': '1e89372d739f4a6b85fd104d18642372',
-        'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
+        'anc': 'af351dfc571f42b0b7101333dca54dcb',
         'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
     })
 
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://localhost:9980')
-//    .constant('DRISHTI_WEB_BASE_URL', 'https://localhost:9979')
+//    .constant('DRISHTI_WEB_BASE_URL', 'http://localhost:9979')
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://localhost:8080')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {

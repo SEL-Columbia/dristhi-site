@@ -331,322 +331,329 @@ describe('RegisterService: ', function () {
         Timecop.uninstall();
     });
 
-    describe('Printable Registers: ', function () {
-        it('should be able to download ANC register for an ANM', function () {
-            var expectedRegisters = {
-                "ancRegisterEntries": [
-                    {
-                        "ancNumber": "5",
-                        "registrationDate": "2013-09-10",
-                        "ecNumber": "71",
-                        "thayiCardNumber": "8188514",
-                        "aadharCardNumber": null,
-                        "wifeName": "Kamala",
-                        "husbandName": "Manju Nayaka",
-                        "address": null,
-                        "wifeDOB": [
-                            1988,
-                            5,
-                            15
-                        ],
-                        "wifeAge": 25,
-                        "phoneNumber": null,
-                        "wifeEducationLevel": null,
-                        "husbandEducationLevel": null,
-                        "caste": "st",
-                        "religion": "Hindu",
-                        "economicStatus": "bpl",
-                        "bplCardNumber": null,
-                        "jsyBeneficiary": "yes",
-                        "gravida": "1",
-                        "parity": "1",
-                        "numberOfLivingChildren": "1",
-                        "numberOfStillBirths": "0",
-                        "numberOfAbortions": "0",
-                        "youngestChildDOB": null,
-                        "lmp": "2013-08-06",
-                        "edd": "Tue, 13 May 2014 00:00:00 GMT",
-                        "height": null,
-                        "bloodGroup": null,
-                        "isHRP": "no",
-                        "ancVisits": [
-                            {
-                                "ancVisitDate": "23/5/2014",
-                                "weight": "34",
-                                "bp": "233",
-                                "hb": "567",
-                                "urineSugar": "23",
-                                "urineAlbumin": "11",
-                                "rti": "22",
-                                "sti": "33"
-                            },
-                            {
-                                "ancVisitDate": "23/6/2014",
-                                "weight": "343",
-                                "bp": "233",
-                                "hb": "567",
-                                "urineSugar": "23",
-                                "urineAlbumin": "11",
-                                "rti": "22",
-                                "sti": "33"
-                            },
-                            {}
-                        ],
-                        "tt": [
-                            {
-                                "dose": "TT1",
-                                "date": "23/5/2014"
-                            },
-                            {
-                                "dose": "TT2",
-                                "date": "23/5/2014"
-                            },
-                            {
-                                "dose": "TT3",
-                                "date": "23/5/2014"
-                            }
-                        ],
-                        "ifa": [
-                            {
-                                "numberOfTablets": "12",
-                                "date": "22/12/2015"
-                            },
-                            {
-                                "numberOfTablets": "12",
-                                "date": "22/12/2015"
-                            },
-                            {}
-                        ],
-                        "remarks": [
-                            {
-                                "remark": "Good"
-                            },
-                            {},
-                            {}
-                        ],
-                        "maxLength": 3,
-                        "contentHolder": [
-                            {},
-                            {},
-                            {}
-                        ]
-                    }
-                ],
-                "anmDetails": {
-                    "name": "Demo 1",
-                    "location": {
-                        "phc": "phc"
-                    }
-                }
-            };
-            var expectedRegisterDownloadURL = '/register_download_url';
-            httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
-                .respond(200, expectedRegisters);
-            httpBackend.expectPOST('http://xls.ona.io/xls/e0739ade6dbb47a49c9115a93b3f433a', expectedRegisters).respond(201, expectedRegisterDownloadURL);
+    describe('Printable Registers:', function () {
 
-            var url = null;
-            service.prepareRegisterForANC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
-                .then(function (result) {
-                    url = result
-                });
+        describe('ANC Register:', function () {
+            it('should be able to download ANC register for an ANM', function () {
+                var expectedRegisters = {
+                    "ancRegisterEntries": [
+                        {
+                            "ancNumber": "5",
+                            "registrationDate": "2013-09-10",
+                            "ecNumber": "71",
+                            "thayiCardNumber": "8188514",
+                            "aadharCardNumber": null,
+                            "wifeName": "Kamala",
+                            "husbandName": "Manju Nayaka",
+                            "address": null,
+                            "wifeDOB": [
+                                1988,
+                                5,
+                                15
+                            ],
+                            "wifeAge": 25,
+                            "phoneNumber": null,
+                            "wifeEducationLevel": null,
+                            "husbandEducationLevel": null,
+                            "caste": "st",
+                            "religion": "Hindu",
+                            "economicStatus": "bpl",
+                            "bplCardNumber": null,
+                            "jsyBeneficiary": "yes",
+                            "gravida": "1",
+                            "parity": "1",
+                            "numberOfLivingChildren": "1",
+                            "numberOfStillBirths": "0",
+                            "numberOfAbortions": "0",
+                            "youngestChildDOB": null,
+                            "lmp": "2013-08-06",
+                            "edd": "Tue, 13 May 2014 00:00:00 GMT",
+                            "height": null,
+                            "bloodGroup": null,
+                            "isHRP": "no",
+                            "ancVisits": [
+                                {
+                                    "ancVisitDate": "23/5/2014",
+                                    "weight": "34",
+                                    "bp": "233",
+                                    "hb": "567",
+                                    "urineSugar": "23",
+                                    "urineAlbumin": "11",
+                                    "rti": "22",
+                                    "sti": "33"
+                                },
+                                {
+                                    "ancVisitDate": "23/6/2014",
+                                    "weight": "343",
+                                    "bp": "233",
+                                    "hb": "567",
+                                    "urineSugar": "23",
+                                    "urineAlbumin": "11",
+                                    "rti": "22",
+                                    "sti": "33"
+                                },
+                                {}
+                            ],
+                            "ttDoses": [
+                                {
+                                    "dose": "TT1",
+                                    "date": "23/5/2014"
+                                },
+                                {
+                                    "dose": "TT2",
+                                    "date": "23/5/2014"
+                                },
+                                {
+                                    "dose": "TT3",
+                                    "date": "23/5/2014"
+                                }
+                            ],
+                            "ifaTablets": [
+                                {
+                                    "numberOfTablets": "12",
+                                    "date": "22/12/2015"
+                                },
+                                {
+                                    "numberOfTablets": "12",
+                                    "date": "22/12/2015"
+                                },
+                                {}
+                            ],
+                            "remarks": [
+                                {
+                                    "remark": "Good"
+                                },
+                                {},
+                                {}
+                            ],
+                            "maxLength": 3,
+                            "contentHolder": [
+                                {},
+                                {},
+                                {}
+                            ]
+                        }
+                    ],
+                    "anmDetails": {
+                        "name": "Demo 1",
+                        "location": {
+                            "phc": "phc"
+                        }
+                    }
+                };
+                var expectedRegisterDownloadURL = '/register_download_url';
+                httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
+                    .respond(200, expectedRegisters);
+                httpBackend.expectPOST('http://xls.ona.io/xls/4b708140cbbb4a859ed932e3b0ba882e', expectedRegisters).respond(201, expectedRegisterDownloadURL);
 
-            httpBackend.flush();
-            expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+                var url = null;
+                service.prepareRegisterForANC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
+                    .then(function (result) {
+                        url = result
+                    });
+
+                httpBackend.flush();
+                expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+            });
         });
 
-        it('should be able to download EC register for an ANM', function () {
-            var jsonResponse = {
-                "ecRegisterEntries": [
-                    {
-                        "registrationDate": "2013-05-15",
-                        "ecNumber": "90",
-                        "wifeName": "Sowmya",
-                        "husbandName": "Manjunatha",
-                        "householdAddress": null,
-                        "householdNumber": "77",
-                        "headOfHousehold": null,
-                        "village": "hosa_agrahara",
-                        "subCenter": "hosa_agrahara",
-                        "phc": "bherya",
-                        "wifeAge": "27",
-                        "husbandAge": "38",
-                        "wifeEducationLevel": null,
-                        "husbandEducationLevel": null,
-                        "caste": "c_others",
-                        "religion": "Hindu",
-                        "economicStatus": "bpl",
-                        "gravida": "2",
-                        "parity": "2",
-                        "numberOfLivingChildren": "2",
-                        "numberOfStillBirths": "0",
-                        "numberOfAbortions": "0",
-                        "numberOfLivingMaleChildren": "1",
-                        "numberOfLivingFemaleChildren": "1",
-                        "youngestChildAge": "24",
-                        "currentFPMethod": "female_sterilization",
-                        "currentFPMethodStartDate": "2009-04-28",
-                        "isPregnant": "no"
-                    }
-                ],
-                "anmDetails": {
-                    "name": "Demo 1",
-                    "location": {
-                        "phc": "phc"
-                    }
-                }
-            };
 
-            var expectedPayload = {
-                "ecRegisterEntries": [
-                    {
-                        "registrationDate": "2013-05-15",
-                        "ecNumber": "90",
-                        "wifeName": "Sowmya",
-                        "husbandName": "Manjunatha",
-                        "householdAddress": null,
-                        "householdNumber": "77",
-                        "headOfHousehold": null,
-                        "village": "Hosa Agrahara",
-                        "subCenter": "hosa_agrahara",
-                        "phc": "bherya",
-                        "wifeAge": "27",
-                        "husbandAge": "38",
-                        "wifeEducationLevel": null,
-                        "husbandEducationLevel": null,
-                        "caste": "Others",
-                        "religion": "Hindu",
-                        "economicStatus": "BPL",
-                        "gravida": "2",
-                        "parity": "2",
-                        "numberOfLivingChildren": "2",
-                        "numberOfStillBirths": "0",
-                        "numberOfAbortions": "0",
-                        "numberOfLivingMaleChildren": "1",
-                        "numberOfLivingFemaleChildren": "1",
-                        "youngestChildAge": "24",
-                        "currentFPMethod": "Female Sterilization",
-                        "currentFPMethodStartDate": "2009-04-28",
-                        "isPregnant": "no",
-                        "householdDetails": "77",
-                        "educationLevel": "",
-                        "ageDetails": "27 / 38"
+        describe('EC Register:', function () {
+            it('should be able to download EC register for an ANM', function () {
+                var jsonResponse = {
+                    "ecRegisterEntries": [
+                        {
+                            "registrationDate": "2013-05-15",
+                            "ecNumber": "90",
+                            "wifeName": "Sowmya",
+                            "husbandName": "Manjunatha",
+                            "householdAddress": null,
+                            "householdNumber": "77",
+                            "headOfHousehold": null,
+                            "village": "hosa_agrahara",
+                            "subCenter": "hosa_agrahara",
+                            "phc": "bherya",
+                            "wifeAge": "27",
+                            "husbandAge": "38",
+                            "wifeEducationLevel": null,
+                            "husbandEducationLevel": null,
+                            "caste": "c_others",
+                            "religion": "Hindu",
+                            "economicStatus": "bpl",
+                            "gravida": "2",
+                            "parity": "2",
+                            "numberOfLivingChildren": "2",
+                            "numberOfStillBirths": "0",
+                            "numberOfAbortions": "0",
+                            "numberOfLivingMaleChildren": "1",
+                            "numberOfLivingFemaleChildren": "1",
+                            "youngestChildAge": "24",
+                            "currentFPMethod": "female_sterilization",
+                            "currentFPMethodStartDate": "2009-04-28",
+                            "isPregnant": "no"
+                        }
+                    ],
+                    "anmDetails": {
+                        "name": "Demo 1",
+                        "location": {
+                            "phc": "phc"
+                        }
                     }
-                ],
-                "anmDetails": {
-                    "location": {
-                        "phc": "phc"
-                    },
-                    "name": "Demo 1"
-                }
-            };
-            var expectedRegisterDownloadURL = '/register_download_url';
-            httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
-            httpBackend.expectPOST('http://xls.ona.io/xls/1e89372d739f4a6b85fd104d18642372', expectedPayload).respond(201, expectedRegisterDownloadURL);
+                };
 
-            var url = null;
-            service.prepareRegisterForEC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
-                .then(function (result) {
-                    url = result
-                });
+                var expectedPayload = {
+                    "ecRegisterEntries": [
+                        {
+                            "registrationDate": "2013-05-15",
+                            "ecNumber": "90",
+                            "wifeName": "Sowmya",
+                            "husbandName": "Manjunatha",
+                            "householdAddress": null,
+                            "householdNumber": "77",
+                            "headOfHousehold": null,
+                            "village": "Hosa Agrahara",
+                            "subCenter": "hosa_agrahara",
+                            "phc": "bherya",
+                            "wifeAge": "27",
+                            "husbandAge": "38",
+                            "wifeEducationLevel": null,
+                            "husbandEducationLevel": null,
+                            "caste": "Others",
+                            "religion": "Hindu",
+                            "economicStatus": "BPL",
+                            "gravida": "2",
+                            "parity": "2",
+                            "numberOfLivingChildren": "2",
+                            "numberOfStillBirths": "0",
+                            "numberOfAbortions": "0",
+                            "numberOfLivingMaleChildren": "1",
+                            "numberOfLivingFemaleChildren": "1",
+                            "youngestChildAge": "24",
+                            "currentFPMethod": "Female Sterilization",
+                            "currentFPMethodStartDate": "2009-04-28",
+                            "isPregnant": "no",
+                            "householdDetails": "77",
+                            "educationLevel": "",
+                            "ageDetails": "27 / 38"
+                        }
+                    ],
+                    "anmDetails": {
+                        "location": {
+                            "phc": "phc"
+                        },
+                        "name": "Demo 1"
+                    }
+                };
+                var expectedRegisterDownloadURL = '/register_download_url';
+                httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
+                httpBackend.expectPOST('http://xls.ona.io/xls/1e89372d739f4a6b85fd104d18642372', expectedPayload).respond(201, expectedRegisterDownloadURL);
 
-            httpBackend.flush();
-            expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+                var url = null;
+                service.prepareRegisterForEC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
+                    .then(function (result) {
+                        url = result
+                    });
+
+                httpBackend.flush();
+                expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+            });
         });
 
-        it('should fill all services with empty objects to match length', function () {
-            var entry = {
-                "remarks": [
-                    {
-                        "remark": "Remark 1"
-                    },
-                    {
-                        "remark": "Remark 2"
-                    }
-                ]
-            };
-            var expectedRegisters = {
-                "remarks": [
-                    {
-                        "remark": "Remark 1"
-                    },
-                    {
-                        "remark": "Remark 2"
-                    }
-                ],
-                "ancVisits": [
-                    {},
-                    {}
-                ],
-                tt: [
-                    {},
-                    {}
-                ],
-                ifa: [
-                    {},
-                    {}
-                ],
-                contentHolder: [
-                    {},
-                    {}
-                ],
-                maxLength: 2
-            };
-            var registersWithServicesFilled = service.fillMissingValues(entry);
-            expect(expectedRegisters).toEqual(registersWithServicesFilled);
+        describe('Formatting:', function () {
+            it('should calculate child age with the right units', function () {
+                Timecop.install();
+
+                Timecop.freeze(Date.parse('2014-01-14'));
+                var childDOB = [ 2014, 1, 1];
+                var expectedChildAge = "13 d.";
+                var childAge = service.calculateChildAge(childDOB);
+                expect(expectedChildAge).toEqual(childAge);
+
+                childDOB = [2013, 12, 1];
+                expectedChildAge = "6 w.";
+                childAge = service.calculateChildAge(childDOB);
+                expect(expectedChildAge).toEqual(childAge);
+
+                childDOB = [2013, 10, 1];
+                expectedChildAge = "3 m.";
+                childAge = service.calculateChildAge(childDOB);
+                expect(expectedChildAge).toEqual(childAge);
+
+                childDOB = [2013, 1, 1];
+                expectedChildAge = "12 m.";
+                childAge = service.calculateChildAge(childDOB);
+                expect(expectedChildAge).toEqual(childAge);
+
+                childDOB = [2012, 11, 1];
+                expectedChildAge = "14 m.";
+                childAge = service.calculateChildAge(childDOB);
+                expect(expectedChildAge).toEqual(childAge);
+
+                childDOB = [2011, 11, 1];
+                expectedChildAge = "2 y. 2 m.";
+                childAge = service.calculateChildAge(childDOB);
+                expect(expectedChildAge).toEqual(childAge);
+
+                Timecop.returnToPresent();
+                Timecop.uninstall();
+
+            });
+
+            it('should calculate wife age', function () {
+                Timecop.install();
+
+                Timecop.freeze(Date.parse('2014-01-14'));
+                var wifeDOB = [ 1988, 1, 1];
+                var expectedWifeAge = 25;
+                var wifeAge = service.calculateWifeAge(wifeDOB);
+                expect(expectedWifeAge).toEqual(wifeAge);
+
+                Timecop.returnToPresent();
+                Timecop.uninstall();
+
+            });
+
+            it('should fill all services with empty objects to match length', function () {
+                var entry = {
+                    "remarks": [
+                        {
+                            "remark": "Remark 1"
+                        },
+                        {
+                            "remark": "Remark 2"
+                        }
+                    ]
+                };
+                var expectedRegisters = {
+                    "remarks": [
+                        {
+                            "remark": "Remark 1"
+                        },
+                        {
+                            "remark": "Remark 2"
+                        }
+                    ],
+                    "ancVisits": [
+                        {},
+                        {}
+                    ],
+                    ttDoses: [
+                        {},
+                        {}
+                    ],
+                    ifaTablets: [
+                        {},
+                        {}
+                    ],
+                    contentHolder: [
+                        {},
+                        {}
+                    ],
+                    maxLength: 2
+                };
+                var registersWithServicesFilled = service.fillMissingValues(entry);
+                expect(expectedRegisters).toEqual(registersWithServicesFilled);
+            });
         });
-
-        it('should calculate child age with the right units', function () {
-            Timecop.install();
-
-            Timecop.freeze(Date.parse('2014-01-14'));
-            var childDOB = [ 2014, 1, 1];
-            var expectedChildAge = "13 d.";
-            var childAge = service.calculateChildAge(childDOB);
-            expect(expectedChildAge).toEqual(childAge);
-
-            childDOB = [2013, 12, 1];
-            expectedChildAge = "6 w.";
-            childAge = service.calculateChildAge(childDOB);
-            expect(expectedChildAge).toEqual(childAge);
-
-            childDOB = [2013, 10, 1];
-            expectedChildAge = "3 m.";
-            childAge = service.calculateChildAge(childDOB);
-            expect(expectedChildAge).toEqual(childAge);
-
-            childDOB = [2013, 1, 1];
-            expectedChildAge = "12 m.";
-            childAge = service.calculateChildAge(childDOB);
-            expect(expectedChildAge).toEqual(childAge);
-
-            childDOB = [2012, 11, 1];
-            expectedChildAge = "14 m.";
-            childAge = service.calculateChildAge(childDOB);
-            expect(expectedChildAge).toEqual(childAge);
-
-            childDOB = [2011, 11, 1];
-            expectedChildAge = "2 y. 2 m.";
-            childAge = service.calculateChildAge(childDOB);
-            expect(expectedChildAge).toEqual(childAge);
-
-            Timecop.returnToPresent();
-            Timecop.uninstall();
-
-        });
-
-        it('should calculate wife age', function () {
-            Timecop.install();
-
-            Timecop.freeze(Date.parse('2014-01-14'));
-            var wifeDOB = [ 1988, 1, 1];
-            var expectedWifeAge = 25;
-            var wifeAge = service.calculateWifeAge(wifeDOB);
-            expect(expectedWifeAge).toEqual(wifeAge);
-
-            Timecop.returnToPresent();
-            Timecop.uninstall();
-
-        });
-
     });
 });

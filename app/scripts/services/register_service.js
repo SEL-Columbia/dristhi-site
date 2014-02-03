@@ -30,6 +30,17 @@ angular.module('drishtiSiteApp')
             return fpUsers;
         };
 
+        var caste = function (symbol) {
+            /*jshint camelcase: false*/
+            var castes = {
+                sc: 'SC',
+                st: 'ST',
+                c_others: 'Others'
+            };
+            /*jshint camelcase: true*/
+            return castes[symbol] || symbol;
+        };
+
         var prepareRegisterForEC = function (anm) {
             var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers/ec?anm-id=' + anm.identifier;
             return $http({method: 'GET', url: getRegisterUrl})
@@ -44,16 +55,16 @@ angular.module('drishtiSiteApp')
                     register.ecRegisterEntries.forEach(function (entry) {
                         entry.village = humanizeAndTitleize(entry.village);
                         entry.householdDetails = entry.householdNumber +
-                            (entry.householdAddress ? ", " + entry.householdAddress : "") +
-                            (entry.headOfHousehold ? ", " + entry.headOfHousehold : "");
-                        entry.economicStatus = (entry.economicStatus || "").toUpperCase();
-                        entry.educationLevel = (entry.wifeEducationLevel ? entry.wifeEducationLevel : "") +
-                            (entry.husbandEducationLevel ? " / " + entry.husbandEducationLevel : "");
-                        entry.ageDetails = entry.wifeAge + (entry.husbandAge ? " / " + entry.husbandAge : "");
+                            (entry.householdAddress ? ', ' + entry.householdAddress : '') +
+                            (entry.headOfHousehold ? ', ' + entry.headOfHousehold : '');
+                        entry.economicStatus = (entry.economicStatus || '').toUpperCase();
+                        entry.educationLevel = (entry.wifeEducationLevel ? entry.wifeEducationLevel : '') +
+                            (entry.husbandEducationLevel ? ' / ' + entry.husbandEducationLevel : '');
+                        entry.ageDetails = entry.wifeAge + (entry.husbandAge ? ' / ' + entry.husbandAge : '');
                         entry.caste = caste(entry.caste);
                         entry.currentFPMethod = fpMethods(entry.currentFPMethod);
                     });
-                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS['ec'], data: register})
+                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS.ec, data: register})
                         .then(function (result) {
                             return JSON_TO_XLS_BASE_URL + result.data;
                         }, function () {
@@ -72,7 +83,7 @@ angular.module('drishtiSiteApp')
                 });
             }
             catch (err) {
-                console.log("Error while humanising the string: " + err);
+                console.log('Error while humanising the string: ' + err);
                 return input;
             }
         };
@@ -83,20 +94,19 @@ angular.module('drishtiSiteApp')
                 .then(function (result) {
                     return result.data;
                 }, function (err) {
-                    console.log('Error when getting ANC register for anm:' + anm.identifier);
-                    return $q.reject('Error when getting ANC register for anm:' + anm.identifier);
+                    console.log('Error when getting ANC register for anm:' + anm.identifier + ', error: ' + err);
+                    return $q.reject('Error when getting ANC register for anm:' + anm.identifier + ', error: ' + err);
                 })
                 .then(function (register) {
                     updateRegisterWithLocation(register, anm);
                     register.ancRegisterEntries.forEach(function (entry) {
-                        createANCServicesList(entry);
                         entry.wifeAge = calculateWifeAge(entry.wifeDOB);
                         if (entry.youngestChildDOB) {
                             entry.youngestChildAge = calculateChildAge(entry.youngestChildDOB);
                         }
                         fillMissingValues(entry);
                     });
-                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS['anc'], data: register})
+                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS.anc, data: register})
                         .then(function (result) {
                             return JSON_TO_XLS_BASE_URL + result.data;
                         }, function () {
@@ -135,7 +145,7 @@ angular.module('drishtiSiteApp')
         };
 
         var fillMissingValues = function (entry) {
-            var services = ['tt', 'ifa', 'ancVisits', 'remarks', 'contentHolder'];
+            var services = ['ttDoses', 'ifaTablets', 'ancVisits', 'remarks', 'contentHolder'];
             var servicesLength = [];
             services.forEach(function (service) {
                 entry[service] = entry[service] || [];
@@ -154,67 +164,15 @@ angular.module('drishtiSiteApp')
             }));
         };
 
-        var createANCServicesList = function (entry) {
-            entry.ancVisits = [
-                {
-                    'ancVisitDate': '23/5/2014',
-                    'weight': '34',
-                    'bp': '233',
-                    'hb': '567',
-                    'urineSugar': '23',
-                    'urineAlbumin': '11',
-                    'rti': '22',
-                    'sti': '33'
-                },
-                {
-                    'ancVisitDate': '23/6/2014',
-                    'weight': '343',
-                    'bp': '233',
-                    'hb': '567',
-                    'urineSugar': '23',
-                    'urineAlbumin': '11',
-                    'rti': '22',
-                    'sti': '33'
-                }
-            ];
-            entry.tt = [
-                {
-                    'dose': 'TT1',
-                    'date': '23/5/2014'
-                },
-                {
-                    'dose': 'TT2',
-                    'date': '23/5/2014'
-                },
-                {
-                    'dose': 'TT3',
-                    'date': '23/5/2014'
-                }
-            ];
-            entry.ifa = [
-                {
-                    'numberOfTablets': '12',
-                    'date': '22/12/2015'
-                },
-                {
-                    'numberOfTablets': '12',
-                    'date': '22/12/2015'
-                }
-            ];
-            entry.remarks = [
-                {
-                    'remark': 'Good'
-                }
-            ];
-        };
-
         var updateRegisterWithLocation = function (register, anm) {
-            register.anmDetails = {};
-            register.anmDetails.location = anm.location;
-            register.anmDetails.name = anm.name;
+            register.anmDetails = {
+                location: anm.location,
+                name: anm.name
+            };
         };
 
         var fpMethods = function (symbol) {
+            /*jshint camelcase: false*/
             var methods = {
                 ocp: 'OCP',
                 iud: 'IUD',
@@ -226,16 +184,9 @@ angular.module('drishtiSiteApp')
                 dmpa_injectable: 'DMPA Injectable',
                 lam: 'LAM'
             };
-            return methods[symbol] || symbol;
-        };
+            /*jshint camelcase: true*/
 
-        var caste = function(symbol) {
-            var castes = {
-                sc: 'SC',
-                st: 'ST',
-                c_others: 'Others'
-            };
-            return castes[symbol] || symbol;
+            return methods[symbol] || symbol;
         };
 
         return {

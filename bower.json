@@ -19,8 +19,5 @@
         "angular-mocks": "~1.2.6",
         "angular-scenario": "~1.2.6",
         "timecop": "~0.1.1"
-    },
-    "resolutions": {
-        "angular": "~1.2.6"
     }
 }
