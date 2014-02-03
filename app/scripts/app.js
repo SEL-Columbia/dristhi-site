@@ -8,7 +8,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
     .constant('REGISTER_TOKENS', {
         'ec': 'e86e0e2211f54b128181cdec0b63cb11',
-        'anc': 'af351dfc571f42b0b7101333dca54dcb',
+        'anc': 'dd3ac9bd3d7f469fbc7d0c7d73a442e6',
         'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
     })
 
@@ -18,7 +18,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
 //        'ec': 'e86e0e2211f54b128181cdec0b63cb11',
-//        'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
+//        'anc': 'dd3ac9bd3d7f469fbc7d0c7d73a442e6',
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
 //    })
 
@@ -28,7 +28,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
 //        'ec': 'e86e0e2211f54b128181cdec0b63cb11',
-//        'anc': 'e0739ade6dbb47a49c9115a93b3f433a',
+//        'anc': 'dd3ac9bd3d7f469fbc7d0c7d73a442e6',
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
 //    })
 
