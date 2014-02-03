@@ -444,7 +444,7 @@ describe('RegisterService: ', function () {
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
                     .respond(200, expectedRegisters);
-                httpBackend.expectPOST('http://xls.ona.io/xls/4b708140cbbb4a859ed932e3b0ba882e', expectedRegisters).respond(201, expectedRegisterDownloadURL);
+                httpBackend.expectPOST('http://xls.ona.io/xls/af351dfc571f42b0b7101333dca54dcb', expectedRegisters).respond(201, expectedRegisterDownloadURL);
 
                 var url = null;
                 service.prepareRegisterForANC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
