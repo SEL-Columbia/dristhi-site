@@ -226,7 +226,7 @@ angular.module('drishtiSiteApp')
                 dmpa_injectable: 'DMPA Injectable',
                 lam: 'LAM'
             };
-            return methods[symbol] || '';
+            return methods[symbol] || symbol;
         };
 
         var caste = function(symbol) {
@@ -235,7 +235,7 @@ angular.module('drishtiSiteApp')
                 st: 'ST',
                 c_others: 'Others'
             };
-            return castes[symbol] || '';
+            return castes[symbol] || symbol;
         };
 
         return {
