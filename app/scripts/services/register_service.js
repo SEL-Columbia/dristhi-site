@@ -78,7 +78,7 @@ angular.module('drishtiSiteApp')
         };
 
         var updateRegisterWithDate = function (register) {
-            register.generatedDate = $moment().format('DD/MM/YYYY');
+            register.generatedDate = $moment().format('YYYY-MM-DD');
         };
 
         var humanizeAndTitleize = function (input) {
@@ -104,13 +104,23 @@ angular.module('drishtiSiteApp')
                     return $q.reject('Error when getting ANC register for anm:' + anm.identifier + ', error: ' + err);
                 })
                 .then(function (register) {
+                    updateRegisterWithDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.ancRegisterEntries.forEach(function (entry) {
                         entry.wifeAge = calculateWifeAge(entry.wifeDOB);
+                        entry.addressDetails = entry.wifeName +
+                            (entry.husbandName ? ', W/O ' + entry.husbandName : '') +
+                            (entry.address ? ', C/O ' + entry.address : '');
+                        entry.casteReligionDetails = entry.caste ? caste(entry.caste) : "";
+                        entry.casteReligionDetails = (entry.casteReligionDetails === "" ? "" : entry.casteReligionDetails) +
+                            (entry.religion ? "/" + entry.religion : "");
+                        entry.economicStatus = (entry.economicStatus ? entry.economicStatus.toUpperCase() : "") + (entry.bplCardNumber ? "(" + entry.bplCardNumber + ")" : "");
                         if (entry.youngestChildDOB) {
                             entry.youngestChildAge = calculateChildAge(entry.youngestChildDOB);
                         }
+                        entry.lmpEDDDetails = $moment(entry.lmp).format("YYYY-MM-DD") + " " + $moment(entry.edd).format("YYYY-MM-DD");
                         fillMissingValues(entry);
+                        updateRTISTIValues(entry.ancVisits);
                     });
                     return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS.anc, data: register})
                         .then(function (result) {
@@ -126,7 +136,6 @@ angular.module('drishtiSiteApp')
         var calculateWifeAge = function (dateOfBirth) {
             return $moment().diff($moment(dateOfBirth), 'years');
         };
-
         var calculateChildAge = function (dateOfBirth) {
             var personDOB = [dateOfBirth[0], dateOfBirth[1] - 1, dateOfBirth[2]];
             var today = $moment();
@@ -168,6 +177,12 @@ angular.module('drishtiSiteApp')
             entry[service] = entry[service].concat(_(entry.maxLength - entry[service].length).times(function () {
                 return {};
             }));
+        };
+
+        var updateRTISTIValues = function (ancVisits) {
+            ancVisits.forEach(function (visit) {
+                visit.rtiSTIValue = (visit.rti ? visit.rti : "") + (visit.sti ? "/" + visit.sti : "");
+            });
         };
 
         var updateRegisterWithLocation = function (register, anm) {
