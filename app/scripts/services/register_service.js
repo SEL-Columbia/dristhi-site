@@ -51,6 +51,7 @@ angular.module('drishtiSiteApp')
                     return $q.reject('Error when getting EC register for anm:' + anm.identifier);
                 })
                 .then(function (register) {
+                    updateRegisterWithDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.ecRegisterEntries.forEach(function (entry) {
                         entry.village = humanizeAndTitleize(entry.village);
@@ -63,6 +64,7 @@ angular.module('drishtiSiteApp')
                         entry.ageDetails = entry.wifeAge + (entry.husbandAge ? ' / ' + entry.husbandAge : '');
                         entry.caste = caste(entry.caste);
                         entry.currentFPMethod = fpMethods(entry.currentFPMethod);
+                        entry.isPregnant = humanizeAndTitleize(entry.isPregnant);
                     });
                     return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS.ec, data: register})
                         .then(function (result) {
@@ -73,6 +75,10 @@ angular.module('drishtiSiteApp')
                         });
                 }
             );
+        };
+
+        var updateRegisterWithDate = function (register) {
+            register.generatedDate = $moment().format('DD/MM/YYYY');
         };
 
         var humanizeAndTitleize = function (input) {
