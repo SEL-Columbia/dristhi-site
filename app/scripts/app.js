@@ -33,11 +33,11 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //    })
 
     .constant('ARCHIVED_REPORTS_START_YEAR', 2013)
-    .config(function ($routeProvider, MomentProvider) {
+    .config(function ($routeProvider, $momentProvider) {
         'use strict';
-        MomentProvider
+        $momentProvider
             .asyncLoading(false)
-            .scriptUrl('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.3.1/moment.min.js');
+            .scriptUrl('bower_components/moment/moment.js');
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',

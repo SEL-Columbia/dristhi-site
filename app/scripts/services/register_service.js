@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('RegisterService', function ($http, $q, Moment, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, REGISTER_TOKENS) {
+    .service('RegisterService', function ($http, $q, $moment, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, REGISTER_TOKENS) {
         'use strict';
 
         var getFPUsers = function (allECs) {
@@ -108,25 +108,25 @@ angular.module('drishtiSiteApp')
         };
 
         var calculateWifeAge = function (dateOfBirth) {
-            return new Moment().diff(new Moment(dateOfBirth), 'years');
+            return $moment().diff($moment(dateOfBirth), 'years');
         };
 
         var calculateChildAge = function (dateOfBirth) {
             var personDOB = [dateOfBirth[0], dateOfBirth[1] - 1, dateOfBirth[2]];
-            var today = new Moment();
-            var days = today.diff(new Moment(personDOB), 'days');
+            var today = $moment();
+            var days = today.diff($moment(personDOB), 'days');
             if (days <= 28) {
                 return days + ' d.';
             }
-            var weeks = today.diff(new Moment(personDOB), 'weeks');
+            var weeks = today.diff($moment(personDOB), 'weeks');
             if (weeks <= 14) {
                 return weeks + ' w.';
             }
-            var months = today.diff(new Moment(personDOB), 'months');
+            var months = today.diff($moment(personDOB), 'months');
             if (months < 24) {
                 return months + ' m.';
             }
-            var years = today.diff(new Moment(personDOB), 'years');
+            var years = today.diff($moment(personDOB), 'years');
             var remainingMonths = months - (years * 12);
             if (remainingMonths !== 0) {
                 return years + ' y. ' + remainingMonths + ' m.';
