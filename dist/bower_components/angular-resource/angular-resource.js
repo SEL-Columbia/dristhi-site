@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.8-build.2087+sha.affcbad
+ * @license AngularJS v1.2.11-build.2202+sha.6609e3d
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -95,7 +95,7 @@ function shallowClearAndCopy(src, dst) {
  *   when a param value needs to be obtained for a request (unless the param was overridden).
  *
  *   Each key value in the parameter object is first bound to url template if present and then any
- *   excess keys are appended to the url seapph query after the `?`.
+ *   excess keys are appended to the url search query after the `?`.
  *
  *   Given a template `/path/:verb` and parameter `{verb:'greet', salutation:'Hello'}` results in
  *   URL `/path/greet?salutation=Hello`.

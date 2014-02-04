@@ -1,7 +1,21 @@
 {
   "name": "angular-momentjs",
-  "version": "0.0.5",
+  "version": "0.1.7",
   "main": "angular-momentjs.js",
+  "description": "Moment.js for Angular.js",
+  "keywords": [
+    "gdi2290",
+    "PatrickJS",
+    "angular",
+    "angularjs",
+    "angular.js",
+    "moment",
+    "momentjs",
+    "moment.js",
+    "time ago",
+    "timeago",
+    "api"
+  ],
   "ignore": [
     "**/.*",
     "*.yml",
@@ -12,6 +26,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.0"
+    "angular": "*"
   }
 }

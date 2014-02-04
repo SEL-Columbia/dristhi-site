@@ -1,13 +1,100 @@
 'use strict';
 
-module.exports = function (grunt) {
+var LIVERELOAD_PORT = 35729;
+var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
+var mountFolder = function(connect, dir) {
+  return connect.static(require('path').resolve(dir));
+};
+
+// # Globbing
+// for performance reasons we're only matching one level down:
+// 'test/spec/{,*/}*.js'
+// use this if you want to recursively match all subfolders:
+// 'test/spec/**/*.js'
+
+module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
-  // Project configuration.
   grunt.initConfig({
-    nodeunit: {
-      files: ['test/**/*_test.js']
+    pkg: grunt.file.readJSON('package.json'),
+    bwr: grunt.file.readJSON('bower.json'),
+    concat: {
+      dist:{}
+    },
+    ngmin: {
+      dist: {}
+    },
+    uglify: {
+      options: {
+        report: 'min',
+        enclose: {
+          'this': 'window',
+          'this.angular': 'angular',
+          'void 0': 'undefined'
+        },
+        banner: '/*\n  <%= pkg.name %> - v<%= pkg.version %> \n  ' +
+          '<%= grunt.template.today("yyyy-mm-dd") %>\n*/\n'+
+        '',
+      },
+      dist: {
+        options: {
+          beautify: false,
+          mangle: true,
+          compress: {
+            global_defs: {
+              'DEBUG': false
+            },
+            dead_code: true
+          },
+          sourceMap: '<%= bwr.name %>.min.js.map'
+        },
+        files: {
+          '<%= bwr.name %>.min.js': ['./lib/index.js', './lib/*/*.js']
+        }
+      },
+      src: {
+        options: {
+          beautify: true,
+          mangle: false,
+          compress: false
+        },
+        files: {
+          '<%= bwr.name %>.js': ['./lib/index.js', './lib/*/*.js']
+        }
+      }
+    },
+    watch: {
+      livereload: {
+        options: {
+          livereload: LIVERELOAD_PORT
+        },
+        files: [
+          'example/{,*/}*.html',
+          'example/{,*/}*.js',
+          '{,*/}*.js'
+        ]
+      }
+    },
+    connect: {
+      options: {
+        port: '3000',
+        // Change this to '0.0.0.0' to access the server from outside.
+        hostname: 'localhost'
+      },
+      livereload: {
+        options: {
+          middleware: function (connect) {
+            return [
+              lrSnippet,
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, 'example'),
+              mountFolder(connect, '.')
+            ];
+          }
+        }
+      }
+
     },
     jshint: {
       options: {
@@ -17,29 +104,12 @@ module.exports = function (grunt) {
         src: 'Gruntfile.js'
       },
       lib: {
-        src: ['angular-momentjs.js']
-      },
-      test: {
-        src: ['test/**/*.js']
+        src: ['lib/**/*.js']
       }
     },
-    watch: {
-      gruntfile: {
-        files: '<%= jshint.gruntfile.src %>',
-        tasks: ['jshint:gruntfile']
-      },
-      lib: {
-        files: '<%= jshint.lib.src %>',
-        tasks: ['jshint:lib', 'nodeunit']
-      },
-      test: {
-        files: '<%= jshint.test.src %>',
-        tasks: ['jshint:test', 'nodeunit']
-      }
-    },
-    complexity: {
+     complexity: {
       generic: {
-        src: ['angular-momentjs.js'],
+        src: ['lib/**/*.js'],
         options: {
           jsLintXML: 'report.xml', // create XML JSLint-like report
           checkstyleXML: 'checkstyle.xml', // create checkstyle report
@@ -52,18 +122,25 @@ module.exports = function (grunt) {
     }
   });
 
-  // Test task
+  grunt.registerTask('server', function (target) {
+    grunt.task.run([
+      'connect:livereload',
+      'watch'
+    ]);
+  });
+
   grunt.registerTask('test', [
-    'jshint',
-    'nodeunit',
-    'complexity'
+    // 'complexity',
+    'jshint'
   ]);
 
-  // Default task.
+  grunt.registerTask('build', [
+    'concat',
+    'ngmin',
+    'uglify'
+  ]);
+
   grunt.registerTask('default', [
-    'jshint',
-    'nodeunit',
-    'complexity'
+    'build'
   ]);
-
 };
