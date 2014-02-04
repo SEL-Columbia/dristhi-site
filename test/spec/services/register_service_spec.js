@@ -357,8 +357,8 @@ describe('RegisterService: ', function () {
                             "husbandEducationLevel": null,
                             "caste": "st",
                             "religion": "Hindu",
-                            "economicStatus": "BPL",
-                            "bplCardNumber": null,
+                            "economicStatus": "bpl",
+                            "bplCardNumber": "1234",
                             "jsyBeneficiary": "yes",
                             "gravida": "1",
                             "parity": "1",
@@ -375,7 +375,8 @@ describe('RegisterService: ', function () {
                                 {
                                     "ancVisitDate": "23/5/2014",
                                     "weight": "34",
-                                    "bp": "233",
+                                    "bpSystolic": "120",
+                                    "bpDiastolic": "80",
                                     "hb": "567",
                                     "urineSugar": "23",
                                     "urineAlbumin": "11",
@@ -386,7 +387,8 @@ describe('RegisterService: ', function () {
                                 {
                                     "ancVisitDate": "23/6/2014",
                                     "weight": "343",
-                                    "bp": "233",
+                                    "bpSystolic": "120",
+                                    "bpDiastolic": "80",
                                     "hb": "567",
                                     "urineSugar": "23",
                                     "urineAlbumin": "11",
@@ -396,6 +398,118 @@ describe('RegisterService: ', function () {
                                 },
                                 {
                                     "rtiSTIValue": ""
+                                }
+                            ],
+                            "ttDoses": [
+                                {
+                                    "dose": "TT1",
+                                    "date": "23/5/2014"
+                                },
+                                {
+                                    "dose": "TT2",
+                                    "date": "23/5/2014"
+                                },
+                                {
+                                    "dose": "TT3",
+                                    "date": "23/5/2014"
+                                }
+                            ],
+                            "ifaTablets": [
+                                {
+                                    "numberOfTablets": "12",
+                                    "date": "22/12/2015"
+                                },
+                                {
+                                    "numberOfTablets": "12",
+                                    "date": "22/12/2015"
+                                },
+                            ],
+                            "remarks": [
+                                {
+                                    "remark": "Good"
+                                }
+                            ],
+                            "maxLength": 3,
+                            "addressDetails": "Kamala, W/O Manju Nayaka",
+                            "casteReligionDetails": "ST/Hindu",
+                            "lmpEDDDetails": "2013-08-06 2014-05-13"
+                        }
+                    ],
+                    "anmDetails": {
+                        "location": {
+                            "phc": "phc"
+                        },
+                        "name": "Demo 1"
+                    },
+                    "generatedDate": "2014-02-04"
+                };
+
+                var expectedPostBodyPayload = {
+                    "ancRegisterEntries": [
+                        {
+                            "ancNumber": "5",
+                            "registrationDate": "2013-09-10",
+                            "ecNumber": "71",
+                            "thayiCardNumber": "8188514",
+                            "aadharCardNumber": null,
+                            "wifeName": "Kamala",
+                            "husbandName": "Manju Nayaka",
+                            "address": null,
+                            "wifeDOB": [
+                                1988,
+                                5,
+                                15
+                            ],
+                            "wifeAge": 25,
+                            "phoneNumber": null,
+                            "wifeEducationLevel": null,
+                            "husbandEducationLevel": null,
+                            "caste": "st",
+                            "religion": "Hindu",
+                            "economicStatus": "BPL(1234)",
+                            "bplCardNumber": "1234",
+                            "jsyBeneficiary": "yes",
+                            "gravida": "1",
+                            "parity": "1",
+                            "numberOfLivingChildren": "1",
+                            "numberOfStillBirths": "0",
+                            "numberOfAbortions": "0",
+                            "youngestChildDOB": null,
+                            "lmp": "2013-08-06",
+                            "edd": "Tue, 13 May 2014 00:00:00 GMT",
+                            "height": null,
+                            "bloodGroup": null,
+                            "isHRP": "no",
+                            "ancVisits": [
+                                {
+                                    "ancVisitDate": "23/5/2014",
+                                    "weight": "34",
+                                    "bpSystolic": "120",
+                                    "bpDiastolic": "80",
+                                    "hb": "567",
+                                    "urineSugar": "23",
+                                    "urineAlbumin": "11",
+                                    "rti": "22",
+                                    "sti": "33",
+                                    "rtiSTIValue": "22/33",
+                                    "bp": "120/80"
+                                },
+                                {
+                                    "ancVisitDate": "23/6/2014",
+                                    "weight": "343",
+                                    "bpSystolic": "120",
+                                    "bpDiastolic": "80",
+                                    "hb": "567",
+                                    "urineSugar": "23",
+                                    "urineAlbumin": "11",
+                                    "rti": "22",
+                                    "sti": "33",
+                                    "rtiSTIValue": "22/33",
+                                    "bp": "120/80"
+                                },
+                                {
+                                    "rtiSTIValue": "",
+                                    "bp": ""
                                 }
                             ],
                             "ttDoses": [
@@ -431,14 +545,14 @@ describe('RegisterService: ', function () {
                                 {}
                             ],
                             "maxLength": 3,
+                            "addressDetails": "Kamala, W/O Manju Nayaka",
+                            "casteReligionDetails": "ST/Hindu",
+                            "lmpEDDDetails": "2013-08-06 2014-05-13",
                             "contentHolder": [
                                 {},
                                 {},
                                 {}
-                            ],
-                            "addressDetails": "Kamala, W/O Manju Nayaka",
-                            "casteReligionDetails": "ST/Hindu",
-                            "lmpEDDDetails": "2013-08-06 2014-05-13"
+                            ]
                         }
                     ],
                     "anmDetails": {
@@ -452,7 +566,7 @@ describe('RegisterService: ', function () {
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
                     .respond(200, expectedRegisters);
-                httpBackend.expectPOST('http://xls.ona.io/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', expectedRegisters).respond(201, expectedRegisterDownloadURL);
+                httpBackend.expectPOST('http://xls.ona.io/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', expectedPostBodyPayload).respond(201, expectedRegisterDownloadURL);
 
                 var url = null;
                 service.prepareRegisterForANC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})

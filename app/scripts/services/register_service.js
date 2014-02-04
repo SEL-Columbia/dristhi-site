@@ -119,8 +119,9 @@ angular.module('drishtiSiteApp')
                             entry.youngestChildAge = calculateChildAge(entry.youngestChildDOB);
                         }
                         entry.lmpEDDDetails = $moment(entry.lmp).format('YYYY-MM-DD') + ' ' + $moment(entry.edd).format('YYYY-MM-DD');
-                        fillMissingValues(entry);
+                        updateBPValues(entry.ancVisits);
                         updateRTISTIValues(entry.ancVisits);
+                        fillMissingValues(entry);
                     });
                     return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS.anc, data: register})
                         .then(function (result) {
@@ -182,6 +183,12 @@ angular.module('drishtiSiteApp')
         var updateRTISTIValues = function (ancVisits) {
             ancVisits.forEach(function (visit) {
                 visit.rtiSTIValue = (visit.rti ? visit.rti : '') + (visit.sti ? '/' + visit.sti : '');
+            });
+        };
+
+        var updateBPValues = function (ancVisits) {
+            ancVisits.forEach(function (visit) {
+                visit.bp = (visit.bpSystolic || '') + (visit.bpDiastolic ? '/' + visit.bpDiastolic : '');
             });
         };
 
