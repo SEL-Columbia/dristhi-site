@@ -111,14 +111,14 @@ angular.module('drishtiSiteApp')
                         entry.addressDetails = entry.wifeName +
                             (entry.husbandName ? ', W/O ' + entry.husbandName : '') +
                             (entry.address ? ', C/O ' + entry.address : '');
-                        entry.casteReligionDetails = entry.caste ? caste(entry.caste) : "";
-                        entry.casteReligionDetails = (entry.casteReligionDetails === "" ? "" : entry.casteReligionDetails) +
-                            (entry.religion ? "/" + entry.religion : "");
-                        entry.economicStatus = (entry.economicStatus ? entry.economicStatus.toUpperCase() : "") + (entry.bplCardNumber ? "(" + entry.bplCardNumber + ")" : "");
+                        entry.casteReligionDetails = entry.caste ? caste(entry.caste) : '';
+                        entry.casteReligionDetails = (entry.casteReligionDetails === '' ? '' : entry.casteReligionDetails) +
+                            (entry.religion ? '/' + entry.religion : '');
+                        entry.economicStatus = (entry.economicStatus ? entry.economicStatus.toUpperCase() : '') + (entry.bplCardNumber ? '(' + entry.bplCardNumber + ')' : '');
                         if (entry.youngestChildDOB) {
                             entry.youngestChildAge = calculateChildAge(entry.youngestChildDOB);
                         }
-                        entry.lmpEDDDetails = $moment(entry.lmp).format("YYYY-MM-DD") + " " + $moment(entry.edd).format("YYYY-MM-DD");
+                        entry.lmpEDDDetails = $moment(entry.lmp).format('YYYY-MM-DD') + ' ' + $moment(entry.edd).format('YYYY-MM-DD');
                         fillMissingValues(entry);
                         updateRTISTIValues(entry.ancVisits);
                     });
@@ -181,7 +181,7 @@ angular.module('drishtiSiteApp')
 
         var updateRTISTIValues = function (ancVisits) {
             ancVisits.forEach(function (visit) {
-                visit.rtiSTIValue = (visit.rti ? visit.rti : "") + (visit.sti ? "/" + visit.sti : "");
+                visit.rtiSTIValue = (visit.rti ? visit.rti : '') + (visit.sti ? '/' + visit.sti : '');
             });
         };
 

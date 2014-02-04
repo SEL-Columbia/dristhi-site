@@ -357,7 +357,7 @@ describe('RegisterService: ', function () {
                             "husbandEducationLevel": null,
                             "caste": "st",
                             "religion": "Hindu",
-                            "economicStatus": "bpl",
+                            "economicStatus": "BPL",
                             "bplCardNumber": null,
                             "jsyBeneficiary": "yes",
                             "gravida": "1",
@@ -380,7 +380,8 @@ describe('RegisterService: ', function () {
                                     "urineSugar": "23",
                                     "urineAlbumin": "11",
                                     "rti": "22",
-                                    "sti": "33"
+                                    "sti": "33",
+                                    "rtiSTIValue": "22/33"
                                 },
                                 {
                                     "ancVisitDate": "23/6/2014",
@@ -390,9 +391,12 @@ describe('RegisterService: ', function () {
                                     "urineSugar": "23",
                                     "urineAlbumin": "11",
                                     "rti": "22",
-                                    "sti": "33"
+                                    "sti": "33",
+                                    "rtiSTIValue": "22/33"
                                 },
-                                {}
+                                {
+                                    "rtiSTIValue": ""
+                                }
                             ],
                             "ttDoses": [
                                 {
@@ -431,20 +435,24 @@ describe('RegisterService: ', function () {
                                 {},
                                 {},
                                 {}
-                            ]
+                            ],
+                            "addressDetails": "Kamala, W/O Manju Nayaka",
+                            "casteReligionDetails": "ST/Hindu",
+                            "lmpEDDDetails": "2013-08-06 2014-05-13"
                         }
                     ],
                     "anmDetails": {
-                        "name": "Demo 1",
                         "location": {
                             "phc": "phc"
-                        }
-                    }
+                        },
+                        "name": "Demo 1"
+                    },
+                    "generatedDate": "2014-02-04"
                 };
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
                     .respond(200, expectedRegisters);
-                httpBackend.expectPOST('http://xls.ona.io/xls/af351dfc571f42b0b7101333dca54dcb', expectedRegisters).respond(201, expectedRegisterDownloadURL);
+                httpBackend.expectPOST('http://xls.ona.io/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', expectedRegisters).respond(201, expectedRegisterDownloadURL);
 
                 var url = null;
                 service.prepareRegisterForANC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
@@ -531,7 +539,7 @@ describe('RegisterService: ', function () {
                             "youngestChildAge": "24",
                             "currentFPMethod": "Female Sterilization",
                             "currentFPMethodStartDate": "2009-04-28",
-                            "isPregnant": "no",
+                            "isPregnant": "No",
                             "householdDetails": "77",
                             "educationLevel": "",
                             "ageDetails": "27 / 38"
@@ -542,11 +550,12 @@ describe('RegisterService: ', function () {
                             "phc": "phc"
                         },
                         "name": "Demo 1"
-                    }
+                    },
+                    "generatedDate": "2014-02-04"
                 };
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
-                httpBackend.expectPOST('http://xls.ona.io/xls/1e89372d739f4a6b85fd104d18642372', expectedPayload).respond(201, expectedRegisterDownloadURL);
+                httpBackend.expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload).respond(201, expectedRegisterDownloadURL);
 
                 var url = null;
                 service.prepareRegisterForEC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
