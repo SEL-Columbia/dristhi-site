@@ -563,6 +563,9 @@ describe('RegisterService: ', function () {
                     },
                     "generatedDate": "2014-02-04"
                 };
+                Timecop.install();
+                Timecop.freeze(Date.parse('2014-02-04'));
+
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
                     .respond(200, expectedRegisters);
@@ -576,6 +579,8 @@ describe('RegisterService: ', function () {
 
                 httpBackend.flush();
                 expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+                Timecop.returnToPresent();
+                Timecop.uninstall();
             });
         });
 
@@ -667,6 +672,8 @@ describe('RegisterService: ', function () {
                     },
                     "generatedDate": "2014-02-04"
                 };
+                Timecop.install();
+                Timecop.freeze(Date.parse('2014-02-04'));
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
                 httpBackend.expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload).respond(201, expectedRegisterDownloadURL);
@@ -679,6 +686,8 @@ describe('RegisterService: ', function () {
 
                 httpBackend.flush();
                 expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+                Timecop.returnToPresent();
+                Timecop.uninstall();
             });
         });
 
