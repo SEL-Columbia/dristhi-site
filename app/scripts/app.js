@@ -23,7 +23,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //    })
 
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://drishti.modilabs.org/drishti-reporting')
-//    .constant('DRISHTI_WEB_BASE_URL', 'https://drishti.modilabs.org')
+//    .constant('DRISHTI_WEB_BASE_URL', 'http://drishti.modilabs.org')
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
@@ -74,8 +74,8 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     .run(function ($rootScope, $location, $window, Authentication, $http) {
         'use strict';
 
-        $rootScope.$on('$locationChangeStart', function (evt, newUrl) {
-            if (!Authentication.isAuthenticated() && newUrl.match(/\/login/) === null) {
+        $rootScope.$on('$locationChangeStart', function () {
+            if (!Authentication.isAuthenticated()) {
                 //evt.preventDefault();
                 $location.path('/login');
                 if (!$rootScope.$$phase) {
@@ -85,9 +85,9 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
                 else {
                     $window.location = '#/login';
                 }
+                delete $http.defaults.headers.common['X-Requested-With'];
+                delete $http.defaults.headers.common.Authorization;
             }
-            delete $http.defaults.headers.common['X-Requested-With'];
-            delete $http.defaults.headers.common.Authorization;
         });
     });
 _.mixin(_.str.exports());

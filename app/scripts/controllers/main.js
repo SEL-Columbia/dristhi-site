@@ -1,9 +1,9 @@
 angular.module('drishtiSiteApp')
-    .controller('LoginCtrl', function ($scope, $location, $http, $window, Authentication) {
+    .controller('LoginCtrl', function ($scope, $location, $http, $window, Authentication, LoginService) {
         'use strict';
 
         $scope.loginUser = function () {
-            if ($scope.username === 'c' && $scope.password === '1') {
+            if (LoginService.login($scope.username, $scope.password)) {
                 Authentication.authenticate($scope.username, $scope.password);
                 $location.path('#/');
                 if (!$scope.$$phase) {

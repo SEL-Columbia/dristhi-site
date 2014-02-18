@@ -66,12 +66,20 @@ angular.module('drishtiSiteApp')
                         entry.currentFPMethod = fpMethods(entry.currentFPMethod);
                         entry.isPregnant = humanizeAndTitleize(entry.isPregnant);
                     });
+                    var xRequestedWith = $http.defaults.headers.common['X-Requested-With'];
+                    var authorization = $http.defaults.headers.common.Authorization;
+                    delete $http.defaults.headers.common['X-Requested-With'];
+                    delete $http.defaults.headers.common.Authorization;
                     return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS.ec, data: register})
                         .then(function (result) {
                             return JSON_TO_XLS_BASE_URL + result.data;
                         }, function () {
                             console.log('Error when getting register from json-to-xls service.');
                             return $q.reject('Error when getting register from json-to-xls service.');
+                        })
+                        .finally(function () {
+                            $http.defaults.headers.common['X-Requested-With'] = xRequestedWith;
+                            $http.defaults.headers.common.Authorization = authorization;
                         });
                 }
             );
