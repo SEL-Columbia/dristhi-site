@@ -19,7 +19,7 @@ describe('JSONXLSService: ', function () {
         httpBackend.expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', registers).respond(201, expectedRegisterDownloadURL);
 
         var response = null;
-        service.ecRegister(registers).then(function (result) {
+        service.prepareRegister('e86e0e2211f54b128181cdec0b63cb11', registers).then(function (result) {
             response = result
         });
         httpBackend.flush();
@@ -33,7 +33,7 @@ describe('JSONXLSService: ', function () {
         httpBackend.expectPOST('http://xls.ona.io/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', registers).respond(201, expectedRegisterDownloadURL);
 
         var response = null;
-        service.ancRegister(registers).then(function (result) {
+        service.prepareRegister('dd3ac9bd3d7f469fbc7d0c7d73a442e6', registers).then(function (result) {
             response = result
         });
         httpBackend.flush();
