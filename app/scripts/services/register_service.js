@@ -77,7 +77,7 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.ancRegisterEntries.forEach(function (entry) {
-                        entry.wifeAge = calculateWifeAge(entry.wifeDOB);
+                        entry.wifeAge = $filter('humanizeWifeAge')(entry.wifeDOB);
                         entry.addressDetails = entry.wifeName +
                             (entry.husbandName ? ', W/O ' + entry.husbandName : '') +
                             (entry.address ? ', C/O ' + entry.address : '');
@@ -86,7 +86,7 @@ angular.module('drishtiSiteApp')
                             (entry.religion ? '/' + entry.religion : '');
                         entry.economicStatus = (entry.economicStatus ? entry.economicStatus.toUpperCase() : '') + (entry.bplCardNumber ? '(' + entry.bplCardNumber + ')' : '');
                         if (entry.youngestChildDOB) {
-                            entry.youngestChildAge = calculateChildAge(entry.youngestChildDOB);
+                            entry.youngestChildAge = $filter('humanizeChildAge')(entry.youngestChildDOB);
                         }
                         entry.lmpEDDDetails = $moment(entry.lmp).format('YYYY-MM-DD') + ' ' + $moment(entry.edd).format('YYYY-MM-DD');
                         updateBPValues(entry.ancVisits);
@@ -96,14 +96,6 @@ angular.module('drishtiSiteApp')
                     return JSONXLSService.ancRegister(register)
                 }
             );
-        };
-
-        var calculateWifeAge = function (dateOfBirth) {
-            return $filter('humanizeWifeAge')(dateOfBirth);
-        };
-
-        var calculateChildAge = function (dateOfBirth) {
-            return $filter('humanizeChildAge')(dateOfBirth);
         };
 
         var fillMissingValues = function (entry) {
@@ -154,15 +146,6 @@ angular.module('drishtiSiteApp')
             },
             prepareRegisterForANC: function (anm) {
                 return prepareRegisterForANC(anm);
-            },
-            fillMissingValues: function (register) {
-                return fillMissingValues(register);
-            },
-            calculateChildAge: function (dateOfBirth) {
-                return calculateChildAge(dateOfBirth);
-            },
-            calculateWifeAge: function (dateOfBirth) {
-                return calculateWifeAge(dateOfBirth);
             }
         };
     });
