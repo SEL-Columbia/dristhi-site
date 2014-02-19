@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('RegisterService', function ($http, $q, $moment, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, REGISTER_TOKENS) {
+    .service('RegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, JSONXLSService) {
         'use strict';
 
         var getFPUsers = function (allECs) {
@@ -30,17 +30,6 @@ angular.module('drishtiSiteApp')
             return fpUsers;
         };
 
-        var caste = function (symbol) {
-            /*jshint camelcase: false*/
-            var castes = {
-                sc: 'SC',
-                st: 'ST',
-                c_others: 'Others'
-            };
-            /*jshint camelcase: true*/
-            return castes[symbol] || symbol;
-        };
-
         var prepareRegisterForEC = function (anm) {
             var getRegisterUrl = DRISHTI_WEB_BASE_URL + '/registers/ec?anm-id=' + anm.identifier;
             return $http({method: 'GET', url: getRegisterUrl})
@@ -54,7 +43,7 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.ecRegisterEntries.forEach(function (entry) {
-                        entry.village = humanizeAndTitleize(entry.village);
+                        entry.village = $filter('humanizeAndTitleize')(entry.village);
                         entry.householdDetails = entry.householdNumber +
                             (entry.householdAddress ? ', ' + entry.householdAddress : '') +
                             (entry.headOfHousehold ? ', ' + entry.headOfHousehold : '');
@@ -62,44 +51,17 @@ angular.module('drishtiSiteApp')
                         entry.educationLevel = (entry.wifeEducationLevel ? entry.wifeEducationLevel : '') +
                             (entry.husbandEducationLevel ? ' / ' + entry.husbandEducationLevel : '');
                         entry.ageDetails = entry.wifeAge + (entry.husbandAge ? ' / ' + entry.husbandAge : '');
-                        entry.caste = caste(entry.caste);
-                        entry.currentFPMethod = fpMethods(entry.currentFPMethod);
-                        entry.isPregnant = humanizeAndTitleize(entry.isPregnant);
+                        entry.caste = $filter('castesFriendlyName')(entry.caste);
+                        entry.currentFPMethod = $filter('fpMethodsFriendlyName')(entry.currentFPMethod);
+                        entry.isPregnant = $filter('humanizeAndTitleize')(entry.isPregnant);
                     });
-                    var xRequestedWith = $http.defaults.headers.common['X-Requested-With'];
-                    var authorization = $http.defaults.headers.common.Authorization;
-                    delete $http.defaults.headers.common['X-Requested-With'];
-                    delete $http.defaults.headers.common.Authorization;
-                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS.ec, data: register})
-                        .then(function (result) {
-                            return JSON_TO_XLS_BASE_URL + result.data;
-                        }, function () {
-                            console.log('Error when getting register from json-to-xls service.');
-                            return $q.reject('Error when getting register from json-to-xls service.');
-                        })
-                        .finally(function () {
-                            $http.defaults.headers.common['X-Requested-With'] = xRequestedWith;
-                            $http.defaults.headers.common.Authorization = authorization;
-                        });
+                    return JSONXLSService.ecRegister(register);
                 }
             );
         };
 
         var updateRegisterWithDate = function (register) {
             register.generatedDate = $moment().format('YYYY-MM-DD');
-        };
-
-        var humanizeAndTitleize = function (input) {
-            try {
-                var str = input.split('_').join(' ');
-                return str.replace(/\w\S*/g, function (txt) {
-                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                });
-            }
-            catch (err) {
-                console.log('Error while humanising the string: ' + err);
-                return input;
-            }
         };
 
         var prepareRegisterForANC = function (anm) {
@@ -119,7 +81,7 @@ angular.module('drishtiSiteApp')
                         entry.addressDetails = entry.wifeName +
                             (entry.husbandName ? ', W/O ' + entry.husbandName : '') +
                             (entry.address ? ', C/O ' + entry.address : '');
-                        entry.casteReligionDetails = entry.caste ? caste(entry.caste) : '';
+                        entry.casteReligionDetails = entry.caste ? $filter('castesFriendlyName')(entry.caste) : '';
                         entry.casteReligionDetails = (entry.casteReligionDetails === '' ? '' : entry.casteReligionDetails) +
                             (entry.religion ? '/' + entry.religion : '');
                         entry.economicStatus = (entry.economicStatus ? entry.economicStatus.toUpperCase() : '') + (entry.bplCardNumber ? '(' + entry.bplCardNumber + ')' : '');
@@ -131,41 +93,17 @@ angular.module('drishtiSiteApp')
                         updateRTISTIValues(entry.ancVisits);
                         fillMissingValues(entry);
                     });
-                    return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + REGISTER_TOKENS.anc, data: register})
-                        .then(function (result) {
-                            return JSON_TO_XLS_BASE_URL + result.data;
-                        }, function () {
-                            console.log('Error when getting register from json-to-xls service.');
-                            return $q.reject('Error when getting register from json-to-xls service.');
-                        });
+                    return JSONXLSService.ancRegister(register)
                 }
             );
         };
 
         var calculateWifeAge = function (dateOfBirth) {
-            return $moment().diff($moment(dateOfBirth), 'years');
+            return $filter('humanizeWifeAge')(dateOfBirth);
         };
+
         var calculateChildAge = function (dateOfBirth) {
-            var personDOB = [dateOfBirth[0], dateOfBirth[1] - 1, dateOfBirth[2]];
-            var today = $moment();
-            var days = today.diff($moment(personDOB), 'days');
-            if (days <= 28) {
-                return days + ' d.';
-            }
-            var weeks = today.diff($moment(personDOB), 'weeks');
-            if (weeks <= 14) {
-                return weeks + ' w.';
-            }
-            var months = today.diff($moment(personDOB), 'months');
-            if (months < 24) {
-                return months + ' m.';
-            }
-            var years = today.diff($moment(personDOB), 'years');
-            var remainingMonths = months - (years * 12);
-            if (remainingMonths !== 0) {
-                return years + ' y. ' + remainingMonths + ' m.';
-            }
-            return years + ' y.';
+            return $filter('humanizeChildAge')(dateOfBirth);
         };
 
         var fillMissingValues = function (entry) {
@@ -205,24 +143,6 @@ angular.module('drishtiSiteApp')
                 location: anm.location,
                 name: anm.name
             };
-        };
-
-        var fpMethods = function (symbol) {
-            /*jshint camelcase: false*/
-            var methods = {
-                ocp: 'OCP',
-                iud: 'IUD',
-                condom: 'Condom',
-                female_sterilization: 'Female Sterilization',
-                male_sterilization: 'Male Sterilization',
-                none: 'None',
-                traditional_methods: 'Traditional Methods',
-                dmpa_injectable: 'DMPA Injectable',
-                lam: 'LAM'
-            };
-            /*jshint camelcase: true*/
-
-            return methods[symbol] || symbol;
         };
 
         return {

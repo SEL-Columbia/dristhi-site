@@ -7,7 +7,6 @@ angular.module('drishtiSiteApp')
             Authentication.authenticate(username, password);
             return $http({method: 'GET', url: authenticationURL})
                 .success(function (data) {
-                    console.log('Authentication Successful: ' + data);
                     return true;
                 }).error(function () {
                     console.log('Authentication failed for user' + username);
