@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('JSONXLSService', function ($http, $q, $moment, JSON_TO_XLS_BASE_URL, REGISTER_TOKENS) {
+    .service('JSONXLSService', function ($http, $q, $moment, JSON_TO_XLS_BASE_URL) {
         'use strict';
         var prepareRegister = function(registerToken, register) {
             var xRequestedWith = $http.defaults.headers.common['X-Requested-With'];
