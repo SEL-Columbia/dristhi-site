@@ -6,7 +6,7 @@ angular.module('drishtiSiteApp')
             var authenticationURL = DRISHTI_WEB_BASE_URL + '/authenticate-user';
             Authentication.authenticate(username, password);
             return $http({method: 'GET', url: authenticationURL})
-                .success(function (data) {
+                .success(function () {
                     return true;
                 }).error(function () {
                     console.log('Authentication failed for user' + username);

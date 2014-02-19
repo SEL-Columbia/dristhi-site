@@ -4,5 +4,5 @@ angular.module('drishtiSiteApp.filters')
 
         return function(dateOfBirth) {
             return $moment().diff($moment(dateOfBirth), 'years');
-        }
+        };
     });

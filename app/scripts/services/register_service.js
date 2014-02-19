@@ -93,7 +93,7 @@ angular.module('drishtiSiteApp')
                         updateRTISTIValues(entry.ancVisits);
                         fillMissingValues(entry);
                     });
-                    return JSONXLSService.ancRegister(register)
+                    return JSONXLSService.ancRegister(register);
                 }
             );
         };

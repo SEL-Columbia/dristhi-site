@@ -23,5 +23,5 @@ angular.module('drishtiSiteApp.filters')
                 return years + ' y. ' + remainingMonths + ' m.';
             }
             return years + ' y.';
-        }
+        };
     });
