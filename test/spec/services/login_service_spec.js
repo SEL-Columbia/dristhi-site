@@ -26,7 +26,7 @@ describe('ANM Service', function () {
             var response = {
                 'data': 1
             };
-            httpBackend.expectGET('https://smartregistries.org/authenticate-user').respond(404, response);
+            httpBackend.expectGET('https://smartregistries.org/authenticate-user').respond(401, response);
             var responseResult = null;
             service.login("invalid-user", "r@nd0mPa55w0rd").then(function (result) {
                 responseResult = result;

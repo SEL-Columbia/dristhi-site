@@ -3,23 +3,28 @@ angular.module('drishtiSiteApp')
         'use strict';
 
         $scope.loginUser = function () {
-            if (LoginService.login($scope.username, $scope.password)) {
-                Authentication.authenticate($scope.username, $scope.password);
-                $location.path('#/');
-                if (!$scope.$$phase) {
-                    //this will kickstart angular to notice the change
-                    $scope.$apply();
-                }
-                else {
+            LoginService.login($scope.username, $scope.password).then(function (result) {
+                if (result === true) {
+                    Authentication.authenticate($scope.username, $scope.password);
+                    $window.location = '#/';
+                    if (!$scope.$$phase) {
+                        //this will kickstart angular to notice the change
+                        $scope.$apply();
+                    }
+                } else {
+                    alert('Authentication failed for user: ' + $scope.username);
                     $window.location = '#/';
                 }
-            }
+            }, function () {
+                alert('Authentication failed for user: ' + $scope.username);
+                $window.location = '#/';
+            });
         };
     })
     .controller('LogoutCtrl', function ($scope, $location, $http, $window, Authentication) {
         'use strict';
 
-        Authentication.logout();
+        Authentication.clearCredentials();
         $location.path('#/');
         if (!$scope.$$phase) {
             //this will kickstart angular to notice the change

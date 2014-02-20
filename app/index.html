@@ -67,8 +67,9 @@
 <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
 <script src="bower_components/underscore/underscore-min.js"></script>
 <script src="bower_components/underscore.string/dist/underscore.string.min.js"></script>
-<script src="bower_components/moment/min/moment.min.js"></script>
-<script src="bower_components/angular-momentjs/angular-momentjs.min.js"></script>
+<!-- Using unminified version of moment and angular-moment to solve the momentProvider not found issue -->
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/angular-momentjs/angular-momentjs.js"></script>
 <script src="vendor/bamboo.js/lib/bamboo_api.js"></script>
 <!-- endbuild -->
 
@@ -89,11 +90,11 @@
 <script src="scripts/models/ANM.js"></script>
 <script src="scripts/models/download_status.js"></script>
 <script src="scripts/services/services.js"></script>
-<script src="scripts/services/register_service.js"></script>
+<script src="scripts/services/json_xls_service.js"></script>
 <script src="scripts/services/ec_register_service.js"></script>
 <script src="scripts/services/anc_register_service.js"></script>
 <script src="scripts/services/fp_register_service.js"></script>
-<script src="scripts/services/json_xls_service.js"></script>
+<script src="scripts/services/register_service.js"></script>
 <script src="scripts/services/login_service.js"></script>
 <script src="scripts/services/anm_service.js"></script>
 <script src="scripts/controllers/main.js"></script>

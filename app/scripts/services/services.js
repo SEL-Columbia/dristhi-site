@@ -34,7 +34,7 @@ angular.module('drishtiSiteApp')
             authenticate: function (username, password) {
                 BasicAuth.setCredentials(username, password);
             },
-            logout: function () {
+            clearCredentials: function() {
                 BasicAuth.clearCredentials();
             },
             isAuthenticated: function () {
