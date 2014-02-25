@@ -414,16 +414,7 @@ describe('RegisterService: ', function () {
                                     "date": "23/5/2014"
                                 }
                             ],
-                            "ifaTablets": [
-                                {
-                                    "numberOfTablets": "12",
-                                    "date": "22/12/2015"
-                                },
-                                {
-                                    "numberOfTablets": "12",
-                                    "date": "22/12/2015"
-                                }
-                            ],
+                            "ifaTablets": null,
                             "remarks": [
                                 {
                                     "remark": "Good"
@@ -527,14 +518,8 @@ describe('RegisterService: ', function () {
                                 }
                             ],
                             "ifaTablets": [
-                                {
-                                    "numberOfTablets": "12",
-                                    "date": "22/12/2015"
-                                },
-                                {
-                                    "numberOfTablets": "12",
-                                    "date": "22/12/2015"
-                                },
+                                {},
+                                {},
                                 {}
                             ],
                             "remarks": [

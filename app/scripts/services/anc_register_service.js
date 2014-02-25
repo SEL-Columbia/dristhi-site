@@ -15,6 +15,7 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.ancRegisterEntries.forEach(function (entry) {
+                        fillMissingValues(entry);
                         entry.wifeAge = $filter('humanizeWifeAge')(entry.wifeDOB);
                         entry.addressDetails = entry.wifeName +
                             (entry.husbandName ? ', W/O ' + entry.husbandName : '') +
@@ -27,15 +28,13 @@ angular.module('drishtiSiteApp')
                             entry.youngestChildAge = $filter('humanizeChildAge')(entry.youngestChildDOB);
                         }
                         entry.lmpEDDDetails = $moment(entry.lmp).format('YYYY-MM-DD') + ' ' + $moment(entry.edd).format('YYYY-MM-DD');
-                        updateBPValues(entry.ancVisits);
                         updateRTISTIValues(entry.ancVisits);
-                        fillMissingValues(entry);
+                        updateBPValues(entry.ancVisits);
                     });
                     return JSONXLSService.prepareRegister(REGISTER_TOKENS.anc, register);
                 }
             );
         };
-
 
         var fillMissingValues = function (entry) {
             var services = ['ttDoses', 'ifaTablets', 'ancVisits', 'remarks', 'contentHolder'];
