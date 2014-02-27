@@ -16,7 +16,7 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithLocation(register, anm);
                     register.ecRegisterEntries.forEach(function (entry) {
                         entry.village = $filter('humanizeAndTitleize')(entry.village);
-                        entry.householdDetails = entry.householdNumber +
+                        entry.householdDetails = (entry.householdNumber ? entry.householdNumber : '') +
                             (entry.householdAddress ? ', ' + entry.householdAddress : '') +
                             (entry.headOfHousehold ? ', ' + entry.headOfHousehold : '');
                         entry.economicStatus = (entry.economicStatus || '').toUpperCase();
