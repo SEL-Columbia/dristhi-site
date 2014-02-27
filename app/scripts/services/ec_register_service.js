@@ -23,8 +23,9 @@ angular.module('drishtiSiteApp')
                         entry.educationLevel = (entry.wifeEducationLevel ? $filter('humanizeAndTitleize')(entry.wifeEducationLevel) : '') +
                             (entry.husbandEducationLevel ? ' / ' + $filter('humanizeAndTitleize')(entry.husbandEducationLevel) : '');
                         entry.ageDetails = entry.wifeAge + (entry.husbandAge ? ' / ' + entry.husbandAge : '');
-                        entry.caste = $filter('castesFriendlyName')(entry.caste);
-                        entry.currentFPMethod = $filter('fpMethodsFriendlyName')(entry.currentFPMethod);
+                        entry.caste = $filter('friendlyName')(entry.caste);
+                        entry.religion = $filter('friendlyName')(entry.religion);
+                        entry.currentFPMethod = $filter('friendlyName')(entry.currentFPMethod);
                         entry.isPregnant = $filter('humanizeAndTitleize')(entry.isPregnant);
                     });
                     return JSONXLSService.prepareRegister(REGISTER_TOKENS.ec, register);

@@ -1,10 +1,20 @@
 angular.module('drishtiSiteApp.filters')
-    .filter('fpMethodsFriendlyName', function () {
+    .filter('friendlyName', function () {
         'use strict';
 
         return function (input) {
             /*jshint camelcase: false*/
-            var methods = {
+            var nameMap = {
+                //Caste
+                sc: 'SC',
+                st: 'ST',
+                c_others: 'Others',
+                //Religion
+                hindu: 'Hindu',
+                muslim: 'Muslim',
+                christian: 'Christian',
+                r_others: 'Others',
+                //FP Method
                 ocp: 'OCP',
                 iud: 'IUD',
                 condom: 'Condom',
@@ -16,7 +26,6 @@ angular.module('drishtiSiteApp.filters')
                 lam: 'LAM'
             };
             /*jshint camelcase: true*/
-
-            return methods[input] || input;
+            return nameMap[input] || input;
         };
     });

@@ -20,7 +20,7 @@ angular.module('drishtiSiteApp')
                         entry.addressDetails = entry.wifeName +
                             (entry.husbandName ? ', W/O ' + entry.husbandName : '') +
                             (entry.address ? ', C/O ' + entry.address : '');
-                        entry.casteReligionDetails = entry.caste ? $filter('castesFriendlyName')(entry.caste) : '';
+                        entry.casteReligionDetails = entry.caste ? $filter('friendlyName')(entry.caste) : '';
                         entry.casteReligionDetails = (entry.casteReligionDetails === '' ? '' : entry.casteReligionDetails) +
                             (entry.religion ? '/' + entry.religion : '');
                         entry.economicStatus = (entry.economicStatus ? entry.economicStatus.toUpperCase() : '') + (entry.bplCardNumber ? '(' + entry.bplCardNumber + ')' : '');
