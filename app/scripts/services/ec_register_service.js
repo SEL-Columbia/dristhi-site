@@ -20,8 +20,8 @@ angular.module('drishtiSiteApp')
                             (entry.householdAddress ? ', ' + entry.householdAddress : '') +
                             (entry.headOfHousehold ? ', ' + entry.headOfHousehold : '');
                         entry.economicStatus = (entry.economicStatus || '').toUpperCase();
-                        entry.educationLevel = (entry.wifeEducationLevel ? entry.wifeEducationLevel : '') +
-                            (entry.husbandEducationLevel ? ' / ' + entry.husbandEducationLevel : '');
+                        entry.educationLevel = (entry.wifeEducationLevel ? $filter('humanizeAndTitleize')(entry.wifeEducationLevel) : '') +
+                            (entry.husbandEducationLevel ? ' / ' + $filter('humanizeAndTitleize')(entry.husbandEducationLevel) : '');
                         entry.ageDetails = entry.wifeAge + (entry.husbandAge ? ' / ' + entry.husbandAge : '');
                         entry.caste = $filter('castesFriendlyName')(entry.caste);
                         entry.currentFPMethod = $filter('fpMethodsFriendlyName')(entry.currentFPMethod);
