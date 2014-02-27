@@ -12,8 +12,14 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
         'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
     })
 
-//    .constant('DRISHTI_REPORT_BASE_URL', 'http://localhost:9980')
-//    .constant('DRISHTI_WEB_BASE_URL', 'http://localhost:9979')
+    // To avoid CORS issues while running site on localhost, we need to proxy the URLs
+    // This is achieved with corsproxy utility (https://github.com/gr2m/CORS-Proxy).
+    // Install corsproxy through 'npm install -g corsproxy'
+    // Start corsproxy on 9292
+    // Route all destination URLs through 9292 as this: http://localhost:9292/my.url/path/to/resource
+    
+//    .constant('DRISHTI_REPORT_BASE_URL', 'http://localhost:9292/localhost:9980')
+//    .constant('DRISHTI_WEB_BASE_URL', 'http://localhost:9292/localhost:9979')
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://localhost:8080')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
