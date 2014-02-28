@@ -2,12 +2,13 @@
 
 describe('RegisterService: ', function () {
 
-    var httpBackend, service, q;
+    var httpBackend, service, q, moment;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function ($httpBackend, $q, RegisterService) {
+    beforeEach(inject(function ($httpBackend, $q, $moment, RegisterService) {
         httpBackend = $httpBackend;
         q = $q;
+        moment = $moment;
         service = RegisterService;
     }));
 
@@ -616,7 +617,7 @@ describe('RegisterService: ', function () {
                 var expectedPayload = {
                     "ecRegisterEntries": [
                         {
-                            "registrationDate": "2013-05-15",
+                            "registrationDate": "15-05-2013",
                             "ecNumber": "90",
                             "wifeName": "Sowmya",
                             "husbandName": "Manjunatha",
@@ -642,7 +643,7 @@ describe('RegisterService: ', function () {
                             "numberOfLivingFemaleChildren": "1",
                             "youngestChildAge": "24",
                             "currentFPMethod": "Female Sterilization",
-                            "currentFPMethodStartDate": "2009-04-28",
+                            "currentFPMethodStartDate": "28-04-2009",
                             "isPregnant": "No",
                             "householdDetails": "77",
                             "educationLevel": "Illiterate / Illiterate",
@@ -655,13 +656,14 @@ describe('RegisterService: ', function () {
                         },
                         "name": "Demo 1"
                     },
-                    "generatedDate": "2014-02-04"
+                    "generatedDate": moment().format('YYYY-MM-DD')
                 };
-                Timecop.install();
-                Timecop.freeze(Date.parse('2014-02-04'));
                 var expectedRegisterDownloadURL = '/register_download_url';
-                httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
-                httpBackend.expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload).respond(201, expectedRegisterDownloadURL);
+                httpBackend
+                    .expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
+                httpBackend
+                    .expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload)
+                    .respond(201, expectedRegisterDownloadURL);
 
                 var url = null;
                 service.prepareRegisterForEC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
@@ -671,8 +673,6 @@ describe('RegisterService: ', function () {
 
                 httpBackend.flush();
                 expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
-                Timecop.returnToPresent();
-                Timecop.uninstall();
             });
             it('should display blank when household details of EC is empty', function () {
                 var jsonResponse = {
@@ -719,7 +719,7 @@ describe('RegisterService: ', function () {
                 var expectedPayload = {
                     "ecRegisterEntries": [
                         {
-                            "registrationDate": "2013-05-15",
+                            "registrationDate": "15-05-2013",
                             "ecNumber": "90",
                             "wifeName": "Sowmya",
                             "husbandName": "Manjunatha",
@@ -745,7 +745,7 @@ describe('RegisterService: ', function () {
                             "numberOfLivingFemaleChildren": "1",
                             "youngestChildAge": "24",
                             "currentFPMethod": "Female Sterilization",
-                            "currentFPMethodStartDate": "2009-04-28",
+                            "currentFPMethodStartDate": "28-04-2009",
                             "isPregnant": "No",
                             "householdDetails": "",
                             "educationLevel": "Illiterate / Illiterate",
@@ -758,10 +758,8 @@ describe('RegisterService: ', function () {
                         },
                         "name": "Demo 1"
                     },
-                    "generatedDate": "2014-02-04"
+                    "generatedDate": moment().format('YYYY-MM-DD')
                 };
-                Timecop.install();
-                Timecop.freeze(Date.parse('2014-02-04'));
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
                 httpBackend.expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload).respond(201, expectedRegisterDownloadURL);
@@ -774,8 +772,6 @@ describe('RegisterService: ', function () {
 
                 httpBackend.flush();
                 expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
-                Timecop.returnToPresent();
-                Timecop.uninstall();
             });
 
         });

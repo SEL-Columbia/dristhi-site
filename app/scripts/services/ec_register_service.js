@@ -15,6 +15,8 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.ecRegisterEntries.forEach(function (entry) {
+                        entry.registrationDate = $filter('date')(entry.registrationDate, 'dd-MM-yyyy');
+                        entry.currentFPMethodStartDate = $filter('date')(entry.currentFPMethodStartDate, 'dd-MM-yyyy');
                         entry.village = $filter('humanizeAndTitleize')(entry.village);
                         entry.householdDetails = (entry.householdNumber ? entry.householdNumber : '') +
                             (entry.householdAddress ? ', ' + entry.householdAddress : '') +
