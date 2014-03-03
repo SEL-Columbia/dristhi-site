@@ -3,7 +3,7 @@ angular.module('drishtiSiteApp')
         'use strict';
 
         var login = function (username, password) {
-            var authenticationURL = DRISHTI_WEB_BASE_URL + '/authenticate-user';
+            var authenticationURL = DRISHTI_WEB_BASE_URL + '/authenticate-user/';
             var authorizationHeader = 'Basic ' + Base64.encode(username + ':' + password);
             Authentication.clearCredentials();
             return  $http({method: 'GET', url: authenticationURL, headers: {'Authorization': authorizationHeader}})
