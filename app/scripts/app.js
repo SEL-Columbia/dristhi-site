@@ -28,8 +28,8 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
 //    })
 
-//    .constant('DRISHTI_REPORT_BASE_URL', 'http://drishti.modilabs.org/drishti-reporting')
-//    .constant('DRISHTI_WEB_BASE_URL', 'http://drishti.modilabs.org')
+//    .constant('DRISHTI_REPORT_BASE_URL', 'http://qa.smartregistries.org/drishti-reporting')
+//    .constant('DRISHTI_WEB_BASE_URL', 'http://qa.smartregistries.org')
 //    .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
