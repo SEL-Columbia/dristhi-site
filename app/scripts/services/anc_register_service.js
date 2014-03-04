@@ -17,8 +17,8 @@ angular.module('drishtiSiteApp')
                     register.ancRegisterEntries.forEach(function (entry) {
                         fillMissingValues(entry);
                         entry.wifeAge = $filter('humanizeWifeAge')(entry.wifeDOB);
-                        entry.addressDetails = entry.wifeName +
-                            (entry.husbandName ? ', W/O ' + entry.husbandName : '') +
+                        entry.addressDetails = $filter('humanizeAndTitleize')(entry.wifeName) +
+                            (entry.husbandName ? ', W/O ' + $filter('humanizeAndTitleize')(entry.husbandName) : '') +
                             (entry.address ? ', C/O ' + entry.address : '');
                         entry.casteReligionDetails = entry.caste ? $filter('friendlyName')(entry.caste) : '';
                         entry.casteReligionDetails = (entry.casteReligionDetails === '' ? '' : entry.casteReligionDetails) +
@@ -28,6 +28,8 @@ angular.module('drishtiSiteApp')
                             entry.youngestChildAge = $filter('humanizeChildAge')(entry.youngestChildDOB);
                         }
                         entry.lmpEDDDetails = $moment(entry.lmp).format('YYYY-MM-DD') + ' ' + $moment(entry.edd).format('YYYY-MM-DD');
+                        entry.husbandEducationLevel = $filter('humanizeAndTitleize')(entry.husbandEducationLevel);
+                        entry.wifeEducationLevel =  $filter('humanizeAndTitleize')(entry.wifeEducationLevel);
                         updateRTISTIValues(entry.ancVisits);
                         updateBPValues(entry.ancVisits);
                     });
