@@ -22,7 +22,7 @@ angular.module('drishtiSiteApp')
                             (entry.address ? ', C/O ' + entry.address : '');
                         entry.casteReligionDetails = entry.caste ? $filter('friendlyName')(entry.caste) : '';
                         entry.casteReligionDetails = (entry.casteReligionDetails === '' ? '' : entry.casteReligionDetails) +
-                            (entry.religion ? '/' + entry.religion : '');
+                            (entry.religion ? '/' + $filter('friendlyName')(entry.religion) : '');
                         entry.economicStatus = (entry.economicStatus ? entry.economicStatus.toUpperCase() : '') + (entry.bplCardNumber ? '(' + entry.bplCardNumber + ')' : '');
                         if (entry.youngestChildDOB) {
                             entry.youngestChildAge = $filter('humanizeChildAge')(entry.youngestChildDOB);
