@@ -23,7 +23,11 @@ angular.module('drishtiSiteApp.filters')
                 none: 'None',
                 traditional_methods: 'Traditional Methods',
                 dmpa_injectable: 'DMPA Injectable',
-                lam: 'LAM'
+                lam: 'LAM',
+                //TT doses
+                tt1: 'TT1',
+                tt2: 'TT2',
+                ttbooster: 'TT Booster'
             };
             /*jshint camelcase: true*/
             return nameMap[input] || input;

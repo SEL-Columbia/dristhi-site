@@ -403,15 +403,15 @@ describe('RegisterService: ', function () {
                             ],
                             "ttDoses": [
                                 {
-                                    "dose": "TT1",
+                                    "dose": "tt1",
                                     "date": "23/5/2014"
                                 },
                                 {
-                                    "dose": "TT2",
+                                    "dose": "tt2",
                                     "date": "23/5/2014"
                                 },
                                 {
-                                    "dose": "TT3",
+                                    "dose": "ttbooster",
                                     "date": "23/5/2014"
                                 }
                             ],
@@ -514,7 +514,7 @@ describe('RegisterService: ', function () {
                                     "date": "23/5/2014"
                                 },
                                 {
-                                    "dose": "TT3",
+                                    "dose": "TT Booster",
                                     "date": "23/5/2014"
                                 }
                             ],

@@ -32,6 +32,8 @@ angular.module('drishtiSiteApp')
                         entry.wifeEducationLevel =  $filter('humanizeAndTitleize')(entry.wifeEducationLevel);
                         updateRTISTIValues(entry.ancVisits);
                         updateBPValues(entry.ancVisits);
+                        updateTTDosageValues(entry.ttDoses);
+
                     });
                     return JSONXLSService.prepareRegister(REGISTER_TOKENS.anc, register);
                 }
@@ -67,6 +69,12 @@ angular.module('drishtiSiteApp')
         var updateBPValues = function (ancVisits) {
             ancVisits.forEach(function (visit) {
                 visit.bp = (visit.bpSystolic || '') + (visit.bpDiastolic ? '/' + visit.bpDiastolic : '');
+            });
+        };
+
+        var updateTTDosageValues = function (ttDoses) {
+            ttDoses.forEach(function (dose) {
+                dose.dose = $filter('friendlyName')(dose.dose);
             });
         };
 
