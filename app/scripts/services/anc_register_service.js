@@ -42,7 +42,7 @@ angular.module('drishtiSiteApp')
         };
 
         var fillMissingValues = function (entry) {
-            var services = ['ttDoses', 'ifaTablets', 'ancVisits', 'remarks', 'contentHolder'];
+            var services = ['ttDoses', 'ifaTablets', 'ancVisits', 'remarks', 'hbTests','contentHolder'];
             var servicesLength = [];
             services.forEach(function (service) {
                 entry[service] = entry[service] || [];

@@ -523,6 +523,11 @@ describe('RegisterService: ', function () {
                                 {},
                                 {}
                             ],
+                            "hbTests": [
+                                {},
+                                {},
+                                {}
+                            ],
                             "remarks": [
                                 {
                                     "remark": "Good"
