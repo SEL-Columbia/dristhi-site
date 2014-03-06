@@ -370,7 +370,7 @@ describe('RegisterService: ', function () {
                             "lmp": "2013-08-06",
                             "edd": "Tue, 13 May 2014 00:00:00 GMT",
                             "height": null,
-                            "bloodGroup": null,
+                            "bloodGroup": "o_negative",
                             "isHRP": "no",
                             "ancVisits": [
                                 {
@@ -470,7 +470,7 @@ describe('RegisterService: ', function () {
                             "lmp": "2013-08-06",
                             "edd": "Tue, 13 May 2014 00:00:00 GMT",
                             "height": null,
-                            "bloodGroup": null,
+                            "bloodGroup": "O-",
                             "isHRP": "no",
                             "ancVisits": [
                                 {

@@ -30,6 +30,7 @@ angular.module('drishtiSiteApp')
                         entry.lmpEDDDetails = $moment(entry.lmp).format('YYYY-MM-DD') + ' ' + $moment(entry.edd).format('YYYY-MM-DD');
                         entry.husbandEducationLevel = $filter('humanizeAndTitleize')(entry.husbandEducationLevel);
                         entry.wifeEducationLevel =  $filter('humanizeAndTitleize')(entry.wifeEducationLevel);
+                        entry.bloodGroup = $filter('friendlyName')(entry.bloodGroup);
                         updateRTISTIValues(entry.ancVisits);
                         updateBPValues(entry.ancVisits);
                         updateTTDosageValues(entry.ttDoses);

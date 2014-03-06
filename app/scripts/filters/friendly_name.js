@@ -27,7 +27,16 @@ angular.module('drishtiSiteApp.filters')
                 //TT doses
                 tt1: 'TT1',
                 tt2: 'TT2',
-                ttbooster: 'TT Booster'
+                ttbooster: 'TT Booster',
+                //Blood Group
+                a_positive: 'A+',
+                a_negative: 'A-',
+                b_positive: 'B+',
+                b_negative: 'B-',
+                ab_positive: 'AB+',
+                ab_negative: 'AB-',
+                o_positive: 'O+',
+                o_negative: 'O-'
             };
             /*jshint camelcase: true*/
             return nameMap[input] || input;
