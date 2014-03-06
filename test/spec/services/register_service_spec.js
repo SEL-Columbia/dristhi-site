@@ -374,7 +374,7 @@ describe('RegisterService: ', function () {
                             "isHRP": "no",
                             "ancVisits": [
                                 {
-                                    "ancVisitDate": "23/5/2014",
+                                    "ancVisitDate": "2014-06-23",
                                     "weight": "34",
                                     "bpSystolic": "120",
                                     "bpDiastolic": "80",
@@ -386,7 +386,7 @@ describe('RegisterService: ', function () {
                                     "rtiSTIValue": "22/33"
                                 },
                                 {
-                                    "ancVisitDate": "23/6/2014",
+                                    "ancVisitDate": "2014-05-23",
                                     "weight": "343",
                                     "bpSystolic": "120",
                                     "bpDiastolic": "80",
@@ -403,19 +403,34 @@ describe('RegisterService: ', function () {
                             ],
                             "ttDoses": [
                                 {
-                                    "dose": "tt1",
-                                    "date": "23/5/2014"
+                                    "ttDose": "tt1",
+                                    "ttDate": "2014-05-23"
                                 },
                                 {
-                                    "dose": "tt2",
-                                    "date": "23/5/2014"
+                                    "ttDose": "tt2",
+                                    "ttDate": "2014-05-23"
                                 },
                                 {
-                                    "dose": "ttbooster",
-                                    "date": "23/5/2014"
+                                    "ttDose": "ttbooster",
+                                    "ttDate": "2014-05-23"
                                 }
                             ],
-                            "ifaTablets": null,
+                            "ifaTablets": [
+                                {
+                                    "ifaTabletsDate": "2013-08-27",
+                                    "numberOfIFATabletsGiven": "60"
+                                },
+                                {
+                                    "ifaTabletsDate": "2013-09-24",
+                                    "numberOfIFATabletsGiven": "60"
+                                }
+                            ],
+                            "hbTests": [
+                                {
+                                    "hbTestDate": "2014-05-23",
+                                    "hbLevel": "10.9"
+                                }
+                            ],
                             "remarks": [
                                 {
                                     "remark": "Good"
@@ -440,7 +455,7 @@ describe('RegisterService: ', function () {
                     "ancRegisterEntries": [
                         {
                             "ancNumber": "5",
-                            "registrationDate": "2013-09-10",
+                            "registrationDate": "10-09-2013",
                             "ecNumber": "71",
                             "thayiCardNumber": "8188514",
                             "aadharCardNumber": null,
@@ -474,7 +489,7 @@ describe('RegisterService: ', function () {
                             "isHRP": "no",
                             "ancVisits": [
                                 {
-                                    "ancVisitDate": "23/5/2014",
+                                    "ancVisitDate": "23-06-2014",
                                     "weight": "34",
                                     "bpSystolic": "120",
                                     "bpDiastolic": "80",
@@ -487,7 +502,7 @@ describe('RegisterService: ', function () {
                                     "bp": "120/80"
                                 },
                                 {
-                                    "ancVisitDate": "23/6/2014",
+                                    "ancVisitDate": "23-05-2014",
                                     "weight": "343",
                                     "bpSystolic": "120",
                                     "bpDiastolic": "80",
@@ -506,25 +521,34 @@ describe('RegisterService: ', function () {
                             ],
                             "ttDoses": [
                                 {
-                                    "dose": "TT1",
-                                    "date": "23/5/2014"
+                                    "ttDose": "TT1",
+                                    "ttDate": "23-05-2014"
                                 },
                                 {
-                                    "dose": "TT2",
-                                    "date": "23/5/2014"
+                                    "ttDose": "TT2",
+                                    "ttDate": "23-05-2014"
                                 },
                                 {
-                                    "dose": "TT Booster",
-                                    "date": "23/5/2014"
+                                    "ttDose": "TT Booster",
+                                    "ttDate": "23-05-2014"
                                 }
                             ],
                             "ifaTablets": [
-                                {},
-                                {},
+                                {
+                                    "ifaTabletsDate": "27-08-2013",
+                                    "numberOfIFATabletsGiven": "60"
+                                },
+                                {
+                                    "ifaTabletsDate": "24-09-2013",
+                                    "numberOfIFATabletsGiven": "60"
+                                },
                                 {}
                             ],
                             "hbTests": [
-                                {},
+                                {
+                                    "hbTestDate": "23-05-2014",
+                                    "hbLevel": "10.9"
+                                },
                                 {},
                                 {}
                             ],
@@ -538,7 +562,7 @@ describe('RegisterService: ', function () {
                             "maxLength": 3,
                             "addressDetails": "Kamala, W/O Manju Nayaka",
                             "casteReligionDetails": "ST/Others",
-                            "lmpEDDDetails": "2013-08-06 2014-05-13",
+                            "lmpEDDDetails": "06-08-2013 13-05-2014",
                             "contentHolder": [
                                 {},
                                 {},

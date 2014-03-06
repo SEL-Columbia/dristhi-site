@@ -16,6 +16,7 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithLocation(register, anm);
                     register.ancRegisterEntries.forEach(function (entry) {
                         fillMissingValues(entry);
+                        entry.registrationDate = $moment(entry.registrationDate).format('DD-MM-YYYY');
                         entry.wifeAge = $filter('humanizeWifeAge')(entry.wifeDOB);
                         entry.addressDetails = $filter('humanizeAndTitleize')(entry.wifeName) +
                             (entry.husbandName ? ', W/O ' + $filter('humanizeAndTitleize')(entry.husbandName) : '') +
@@ -27,13 +28,15 @@ angular.module('drishtiSiteApp')
                         if (entry.youngestChildDOB) {
                             entry.youngestChildAge = $filter('humanizeChildAge')(entry.youngestChildDOB);
                         }
-                        entry.lmpEDDDetails = $moment(entry.lmp).format('YYYY-MM-DD') + ' ' + $moment(entry.edd).format('YYYY-MM-DD');
+                        entry.lmpEDDDetails = $moment(entry.lmp).format('DD-MM-YYYY') + ' ' + $moment(entry.edd).format('DD-MM-YYYY');
                         entry.husbandEducationLevel = $filter('humanizeAndTitleize')(entry.husbandEducationLevel);
-                        entry.wifeEducationLevel =  $filter('humanizeAndTitleize')(entry.wifeEducationLevel);
+                        entry.wifeEducationLevel = $filter('humanizeAndTitleize')(entry.wifeEducationLevel);
                         entry.bloodGroup = $filter('friendlyName')(entry.bloodGroup);
                         updateRTISTIValues(entry.ancVisits);
                         updateBPValues(entry.ancVisits);
                         updateTTDosageValues(entry.ttDoses);
+                        updateIFADateFormat(entry.ifaTablets);
+                        updateHBTestDateFormat(entry.hbTests);
 
                     });
                     return JSONXLSService.prepareRegister(REGISTER_TOKENS.anc, register);
@@ -42,7 +45,7 @@ angular.module('drishtiSiteApp')
         };
 
         var fillMissingValues = function (entry) {
-            var services = ['ttDoses', 'ifaTablets', 'ancVisits', 'remarks', 'hbTests','contentHolder'];
+            var services = ['ttDoses', 'ifaTablets', 'ancVisits', 'remarks', 'hbTests', 'contentHolder'];
             var servicesLength = [];
             services.forEach(function (service) {
                 entry[service] = entry[service] || [];
@@ -64,6 +67,9 @@ angular.module('drishtiSiteApp')
         var updateRTISTIValues = function (ancVisits) {
             ancVisits.forEach(function (visit) {
                 visit.rtiSTIValue = (visit.rti ? visit.rti : '') + (visit.sti ? '/' + visit.sti : '');
+                if(visit.ancVisitDate){
+                    visit.ancVisitDate = $moment(visit.ancVisitDate).format('DD-MM-YYYY');
+                }
             });
         };
 
@@ -75,7 +81,24 @@ angular.module('drishtiSiteApp')
 
         var updateTTDosageValues = function (ttDoses) {
             ttDoses.forEach(function (dose) {
-                dose.dose = $filter('friendlyName')(dose.dose);
+                dose.ttDose = $filter('friendlyName')(dose.ttDose);
+                dose.ttDate = $moment(dose.ttDate).format('DD-MM-YYYY');
+            });
+        };
+
+        var updateIFADateFormat = function (ifaTablets) {
+            ifaTablets.forEach(function (ifaTablet) {
+                if (ifaTablet.ifaTabletsDate) {
+                    ifaTablet.ifaTabletsDate = $moment(ifaTablet.ifaTabletsDate).format('DD-MM-YYYY');
+                }
+            });
+        };
+
+        var updateHBTestDateFormat = function (hbTests) {
+            hbTests.forEach(function (hbTest) {
+                if (hbTest.hbTestDate) {
+                    hbTest.hbTestDate = $moment(hbTest.hbTestDate).format('DD-MM-YYYY');
+                }
             });
         };
 
