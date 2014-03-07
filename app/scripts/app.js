@@ -17,24 +17,24 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     // Install corsproxy through 'npm install -g corsproxy'
     // Start corsproxy on 9292
     // Route all destination URLs through 9292 as this: http://localhost:9292/my.url/path/to/resource
-    
+
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://localhost:9292/localhost:9980')
 //    .constant('DRISHTI_WEB_BASE_URL', 'http://localhost:9292/localhost:9979')
-//    .constant('JSON_TO_XLS_BASE_URL', 'http://localhost:8080')
+//    .constant('JSON_TO_XLS_BASE_URL', 'http://qa.smartregistries.org/json-to-xls')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
-//        'ec': 'e86e0e2211f54b128181cdec0b63cb11',
-//        'anc': 'dd3ac9bd3d7f469fbc7d0c7d73a442e6',
+//        'ec': 'ff002f0d9e3f43a1ab6d9224583ee7a2',
+//        'anc': '94fb93a9799846f8bbc555857dd81d6a',
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
 //    })
 
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://qa.smartregistries.org/drishti-reporting')
 //    .constant('DRISHTI_WEB_BASE_URL', 'http://qa.smartregistries.org')
-//    .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io')
+//    .constant('JSON_TO_XLS_BASE_URL', 'http://qa.smartregistries.org/json-to-xls')
 //    .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
 //    .constant('REGISTER_TOKENS', {
-//        'ec': 'e86e0e2211f54b128181cdec0b63cb11',
-//        'anc': 'dd3ac9bd3d7f469fbc7d0c7d73a442e6',
+//        'ec': 'ff002f0d9e3f43a1ab6d9224583ee7a2',
+//        'anc': '94fb93a9799846f8bbc555857dd81d6a',
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b'
 //    })
 
