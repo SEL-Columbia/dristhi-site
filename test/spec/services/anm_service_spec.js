@@ -46,7 +46,7 @@ describe('ANM Service', function () {
             var expectedExcelDownloadURL = '/download_url';
             httpBackend.expectGET('https://smartregistries.org/drishti-reporting/report/aggregated-reports?anm-id=demo1&month=12&year=2013')
                 .respond(200, expectedAggregatedReports);
-            httpBackend.expectPOST('http://xls.ona.io/xls/e0739ade6dbb47a49c9115a93b3f433a', expectedAggregatedReports).respond(201, expectedExcelDownloadURL);
+            httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/e0739ade6dbb47a49c9115a93b3f433a', expectedAggregatedReports).respond(201, expectedExcelDownloadURL);
 
             var url = null;
             service.prepareReportFor('demo1', '12', '2013')
@@ -55,7 +55,7 @@ describe('ANM Service', function () {
                 });
 
             httpBackend.flush();
-            expect(url).toEqual('http://xls.ona.io' + expectedExcelDownloadURL);
+            expect(url).toEqual('https://smartregistries.org/json-to-xls' + expectedExcelDownloadURL);
         });
     });
 

@@ -16,27 +16,27 @@ describe('JSONXLSService: ', function () {
         var registers = {};
 
         var expectedRegisterDownloadURL = '/register_download_url';
-        httpBackend.expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', registers).respond(201, expectedRegisterDownloadURL);
+        httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/e86e0e2211f54b128181cdec0b63cb11', registers).respond(201, expectedRegisterDownloadURL);
 
         var response = null;
         service.prepareRegister('e86e0e2211f54b128181cdec0b63cb11', registers).then(function (result) {
             response = result
         });
         httpBackend.flush();
-        expect(response).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+        expect(response).toEqual('https://smartregistries.org/json-to-xls' + expectedRegisterDownloadURL);
     });
 
     it('should fetch ANC Register', function () {
         var registers = {};
 
         var expectedRegisterDownloadURL = '/register_download_url';
-        httpBackend.expectPOST('http://xls.ona.io/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', registers).respond(201, expectedRegisterDownloadURL);
+        httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', registers).respond(201, expectedRegisterDownloadURL);
 
         var response = null;
         service.prepareRegister('dd3ac9bd3d7f469fbc7d0c7d73a442e6', registers).then(function (result) {
             response = result
         });
         httpBackend.flush();
-        expect(response).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+        expect(response).toEqual('https://smartregistries.org/json-to-xls' + expectedRegisterDownloadURL);
     });
 });

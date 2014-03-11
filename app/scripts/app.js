@@ -4,7 +4,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
     .constant('DRISHTI_REPORT_BASE_URL', 'https://smartregistries.org/drishti-reporting')
     .constant('DRISHTI_WEB_BASE_URL', 'https://smartregistries.org')
-    .constant('JSON_TO_XLS_BASE_URL', 'http://xls.ona.io')
+    .constant('JSON_TO_XLS_BASE_URL', 'https://smartregistries.org/json-to-xls')
     .constant('NRHM_REPORT_TOKEN', 'e0739ade6dbb47a49c9115a93b3f433a')
     .constant('REGISTER_TOKENS', {
         'ec': 'e86e0e2211f54b128181cdec0b63cb11',

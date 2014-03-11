@@ -584,7 +584,7 @@ describe('RegisterService: ', function () {
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/anc?anm-id=demo1')
                     .respond(200, expectedRegisters);
-                httpBackend.expectPOST('http://xls.ona.io/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', expectedPostBodyPayload).respond(201, expectedRegisterDownloadURL);
+                httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', expectedPostBodyPayload).respond(201, expectedRegisterDownloadURL);
 
                 var url = null;
                 service.prepareRegisterForANC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
@@ -593,7 +593,7 @@ describe('RegisterService: ', function () {
                     });
 
                 httpBackend.flush();
-                expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+                expect(url).toEqual('https://smartregistries.org/json-to-xls' + expectedRegisterDownloadURL);
                 Timecop.returnToPresent();
                 Timecop.uninstall();
             });
@@ -691,7 +691,7 @@ describe('RegisterService: ', function () {
                 httpBackend
                     .expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
                 httpBackend
-                    .expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload)
+                    .expectPOST('https://smartregistries.org/json-to-xls/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload)
                     .respond(201, expectedRegisterDownloadURL);
 
                 var url = null;
@@ -701,7 +701,7 @@ describe('RegisterService: ', function () {
                     });
 
                 httpBackend.flush();
-                expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+                expect(url).toEqual('https://smartregistries.org/json-to-xls' + expectedRegisterDownloadURL);
             });
             it('should display blank when household details of EC is empty', function () {
                 var jsonResponse = {
@@ -791,7 +791,7 @@ describe('RegisterService: ', function () {
                 };
                 var expectedRegisterDownloadURL = '/register_download_url';
                 httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
-                httpBackend.expectPOST('http://xls.ona.io/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload).respond(201, expectedRegisterDownloadURL);
+                httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload).respond(201, expectedRegisterDownloadURL);
 
                 var url = null;
                 service.prepareRegisterForEC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
@@ -800,7 +800,7 @@ describe('RegisterService: ', function () {
                     });
 
                 httpBackend.flush();
-                expect(url).toEqual('http://xls.ona.io' + expectedRegisterDownloadURL);
+                expect(url).toEqual('https://smartregistries.org/json-to-xls' + expectedRegisterDownloadURL);
             });
 
         });
