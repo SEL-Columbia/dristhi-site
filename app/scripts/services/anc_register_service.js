@@ -67,7 +67,7 @@ angular.module('drishtiSiteApp')
         var updateRTISTIValues = function (ancVisits) {
             ancVisits.forEach(function (visit) {
                 visit.rtiSTIValue = (visit.rti ? visit.rti : '') + (visit.sti ? '/' + visit.sti : '');
-                if(visit.ancVisitDate){
+                if (visit.ancVisitDate) {
                     visit.ancVisitDate = $moment(visit.ancVisitDate).format('DD-MM-YYYY');
                 }
             });
@@ -82,7 +82,9 @@ angular.module('drishtiSiteApp')
         var updateTTDosageValues = function (ttDoses) {
             ttDoses.forEach(function (dose) {
                 dose.ttDose = $filter('friendlyName')(dose.ttDose);
-                dose.ttDate = $moment(dose.ttDate).format('DD-MM-YYYY');
+                if (dose.ttDate) {
+                    dose.ttDate = $moment(dose.ttDate).format('DD-MM-YYYY');
+                }
             });
         };
 
