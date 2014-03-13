@@ -30,7 +30,7 @@ angular.module('drishtiSiteApp')
                         entry.currentFPMethod = $filter('friendlyName')(entry.currentFPMethod);
                         entry.isPregnant = $filter('humanizeAndTitleize')(entry.isPregnant);
                     });
-                    return JSONXLSService.prepareRegister(REGISTER_TOKENS.ec, register);
+                    return JSONXLSService.prepareExcel(REGISTER_TOKENS.ec, register);
                 }
             );
         };

@@ -19,7 +19,7 @@ describe('JSONXLSService: ', function () {
         httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/e86e0e2211f54b128181cdec0b63cb11', registers).respond(201, expectedRegisterDownloadURL);
 
         var response = null;
-        service.prepareRegister('e86e0e2211f54b128181cdec0b63cb11', registers).then(function (result) {
+        service.prepareExcel('e86e0e2211f54b128181cdec0b63cb11', registers).then(function (result) {
             response = result
         });
         httpBackend.flush();
@@ -33,7 +33,7 @@ describe('JSONXLSService: ', function () {
         httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', registers).respond(201, expectedRegisterDownloadURL);
 
         var response = null;
-        service.prepareRegister('dd3ac9bd3d7f469fbc7d0c7d73a442e6', registers).then(function (result) {
+        service.prepareExcel('dd3ac9bd3d7f469fbc7d0c7d73a442e6', registers).then(function (result) {
             response = result
         });
         httpBackend.flush();

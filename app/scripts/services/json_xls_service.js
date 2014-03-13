@@ -1,12 +1,12 @@
 angular.module('drishtiSiteApp')
     .service('JSONXLSService', function ($http, $q, $moment, JSON_TO_XLS_BASE_URL) {
         'use strict';
-        var prepareRegister = function(registerToken, register) {
+        var prepareExcel = function (token, data) {
             var xRequestedWith = $http.defaults.headers.common['X-Requested-With'];
             var authorization = $http.defaults.headers.common.Authorization;
             delete $http.defaults.headers.common['X-Requested-With'];
             delete $http.defaults.headers.common.Authorization;
-            return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + registerToken, data: register})
+            return $http({method: 'POST', url: JSON_TO_XLS_BASE_URL + '/xls/' + token, data: data})
                 .then(function (result) {
                     return JSON_TO_XLS_BASE_URL + result.data;
                 }, function () {
@@ -20,8 +20,8 @@ angular.module('drishtiSiteApp')
         };
 
         return {
-            prepareRegister: function(token, registers) {
-                return prepareRegister(token, registers);
+            prepareExcel: function (token, data) {
+                return prepareExcel(token, data);
             }
         };
     });

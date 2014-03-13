@@ -1,6 +1,6 @@
 'use strict';
 
-describe('ANM Service', function () {
+describe('ANM Service:', function () {
 
     var httpBackend, q, service;
 
@@ -11,7 +11,7 @@ describe('ANM Service', function () {
         service = ANMService;
     }));
 
-    describe('Display list of ANMs', function () {
+    describe('Display list of ANMs:', function () {
         it('should get list of ANMs from dristhi report service', function () {
             var response = {"anmDetails": [
                 {"identifier": "c", "name": "c name", "location": {"sub_center": "munjanahalli", "phc": "Bherya", "taluka": "K.R. Nagar", "district": "Mysore", "state": "Karnataka"}, "ecCount": 100, "fpCount": 57, "ancCount": 16, "pncCount": 5, "childCount": 13},
@@ -35,7 +35,7 @@ describe('ANM Service', function () {
         });
     });
 
-    describe('NRHM report excel', function () {
+    describe('NRHM report excel:', function () {
         it('should be able to download current month NRHM report excel for an ANM', function () {
             var expectedAggregatedReports = {
                 'ind': {

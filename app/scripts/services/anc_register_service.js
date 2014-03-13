@@ -39,7 +39,7 @@ angular.module('drishtiSiteApp')
                         updateHBTestDateFormat(entry.hbTests);
 
                     });
-                    return JSONXLSService.prepareRegister(REGISTER_TOKENS.anc, register);
+                    return JSONXLSService.prepareExcel(REGISTER_TOKENS.anc, register);
                 }
             );
         };
