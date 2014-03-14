@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('ANMService', function ($http, $q, JSONXLSService, DRISHTI_REPORT_BASE_URL, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, NRHM_REPORT_TOKEN) {
+    .service('ANMService', function ($http, $q, JSONXLSService, DRISHTI_REPORT_BASE_URL, DRISHTI_WEB_BASE_URL, NRHM_REPORT_TOKEN) {
         'use strict';
 
         var getANMs = function () {

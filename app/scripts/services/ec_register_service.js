@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('ECRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, JSON_TO_XLS_BASE_URL, JSONXLSService, REGISTER_TOKENS) {
+    .service('ECRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, JSONXLSService, REGISTER_TOKENS) {
         'use strict';
 
         var prepareRegister = function (anm) {

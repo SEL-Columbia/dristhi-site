@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('RegisterService', function (ECRegisterService, FPRegisterService, ANCRegisterService) {
+    .service('RegisterService', function (ECRegisterService, FPRegisterService, ANCRegisterService, ChildRegisterService) {
         'use strict';
 
         var getFPUsers = function (allECs) {
@@ -14,6 +14,9 @@ angular.module('drishtiSiteApp')
             return ANCRegisterService.prepareRegister(anm);
         };
 
+        var prepareRegisterForChild = function (anm) {
+            return ChildRegisterService.prepareRegister(anm);
+        };
         return {
             fpUsers: function (allECs) {
                 return getFPUsers(allECs);
@@ -23,6 +26,10 @@ angular.module('drishtiSiteApp')
             },
             prepareRegisterForANC: function (anm) {
                 return prepareRegisterForANC(anm);
+            },
+
+            prepareRegisterForChild: function (anm) {
+                return prepareRegisterForChild(anm);
             }
         };
     });
