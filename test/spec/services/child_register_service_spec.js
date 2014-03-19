@@ -107,7 +107,7 @@ describe('Child Printable Register: ', function () {
                 },
                 "name": "Demo 1"
             },
-            "generatedDate": moment().format('YYYY-MM-DD')
+            "generatedDate": moment().format('DD-MM-YYYY')
         };
 
         var expectedRegisterDownloadURL = '/register_download_url';

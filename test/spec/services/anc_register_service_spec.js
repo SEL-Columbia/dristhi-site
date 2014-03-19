@@ -253,7 +253,7 @@ describe('ANC Printable Register: ', function () {
                 },
                 "name": "Demo 1"
             },
-            "generatedDate": "2014-02-04"
+            "generatedDate": "04-02-2014"
         };
         Timecop.install();
         Timecop.freeze(Date.parse('2014-02-04'));

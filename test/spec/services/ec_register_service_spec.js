@@ -96,7 +96,7 @@ describe('EC Printable Register: ', function () {
                 },
                 "name": "Demo 1"
             },
-            "generatedDate": moment().format('YYYY-MM-DD')
+            "generatedDate": moment().format('DD-MM-YYYY')
         };
         var expectedRegisterDownloadURL = '/register_download_url';
         httpBackend
@@ -198,7 +198,7 @@ describe('EC Printable Register: ', function () {
                 },
                 "name": "Demo 1"
             },
-            "generatedDate": moment().format('YYYY-MM-DD')
+            "generatedDate": moment().format('DD-MM-YYYY')
         };
         var expectedRegisterDownloadURL = '/register_download_url';
         httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);

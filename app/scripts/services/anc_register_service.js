@@ -112,7 +112,7 @@ angular.module('drishtiSiteApp')
         };
 
         var updateRegisterWithDate = function (register) {
-            register.generatedDate = $moment().format('YYYY-MM-DD');
+            register.generatedDate = $moment().format('DD-MM-YYYY');
         };
 
         return {
