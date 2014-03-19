@@ -12,15 +12,11 @@ angular.module('drishtiSiteApp')
                     return $q.reject('Error when getting Child register for anm:' + anm.identifier);
                 })
                 .then(function (register) {
-                    updateRegisterWithDate(register);
+                    updateRegisterWithGeneratedDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.childRegisterEntries.forEach(function (entry) {
                         entry.dob = $moment(entry.dob).format('DD-MM-YYYY');
-                        entry.wifeAge = $filter('humanizeWifeAge')(entry.wifeDOB);
-                        entry.addressDetails = $filter('humanizeAndTitleize')(entry.wifeName) +
-                            ( $filter('humanizeWifeAge')(entry.wifeDOB) ? ' (' + $filter('humanizeWifeAge')(entry.wifeDOB) + ')' : '') +
-                            (entry.husbandName ? ', W/O ' + $filter('humanizeAndTitleize')(entry.husbandName) : '') +
-                            (entry.address ? ', C/O ' + entry.village : '');
+                        updateAddressDetails(entry);
                         updateImmunizationDatesFormat(entry.immunizations);
                     });
                     return JSONXLSService.prepareExcel(REGISTER_TOKENS.child, register);
@@ -28,36 +24,23 @@ angular.module('drishtiSiteApp')
             );
         };
 
-        var updateImmunizationDatesFormat = function (immunizations) {
-
-            function formatDate(date) {
-                if (date) {
-                    return $moment(date).format('DD-MM-YYYY');
-                }
-            }
-            immunizations.bcg = formatDate(immunizations.bcg);
-            immunizations.opv_0 = formatDate(immunizations.opv_0);
-            immunizations.hepb_0 = formatDate(immunizations.hepb_0);
-            immunizations.dptbooster_1 = formatDate(immunizations.dptbooster_1);
-            immunizations.pentavalent_1 = formatDate(immunizations.pentavalent_1);
-            immunizations.opv_1 = formatDate(immunizations.opv_1);
-            immunizations.dptbooster_2 = formatDate(immunizations.dptbooster_2);
-            immunizations.pentavalent_2 = formatDate(immunizations.pentavalent_2);
-            immunizations.opv_2 = formatDate(immunizations.opv_2);
-            immunizations.pentavalent_3 = formatDate(immunizations.pentavalent_3);
-            immunizations.opv_3 = formatDate(immunizations.opv_3);
-            immunizations.measles = formatDate(immunizations.measles);
-            immunizations.vitamin_a1 = formatDate(immunizations.vitamin_a1);
-            immunizations.je = formatDate(immunizations.je);
-            immunizations.measlesbooster = formatDate(immunizations.measlesbooster);
-            immunizations.mmr = formatDate(immunizations.mmr);
-            immunizations.dptbooster = formatDate(immunizations.dptbooster);
-            immunizations.opvbooster = formatDate(immunizations.opvbooster);
-            immunizations.vitamin_a2 = formatDate(immunizations.vitamin_a2);
-            immunizations.je_2 = formatDate(immunizations.je_2);
+        var updateAddressDetails = function (childRegisterEntry) {
+            var motherName = $filter('humanizeAndTitleize')(childRegisterEntry.wifeName);
+            var motherAge = $filter('humanizeWifeAge')(childRegisterEntry.wifeDOB) ? ' (' + $filter('humanizeWifeAge')(childRegisterEntry.wifeDOB) + ')' : '';
+            var fatherName = childRegisterEntry.husbandName ? ', W/O ' + $filter('humanizeAndTitleize')(childRegisterEntry.husbandName) : '';
+            var village = childRegisterEntry.village ? ', C/O ' + $filter('humanizeAndTitleize')(childRegisterEntry.village) : '';
+            childRegisterEntry.addressDetails = motherName + motherAge + fatherName + village;
         };
 
-        var updateRegisterWithDate = function (register) {
+        var updateImmunizationDatesFormat = function (immunizations) {
+            for (var immunization in immunizations) {
+                if (immunizations.hasOwnProperty(immunization)) {
+                    immunizations[immunization] = immunizations[immunization] ? $moment(immunizations[immunization]).format('DD-MM-YYYY') : '';
+                }
+            }
+        };
+
+        var updateRegisterWithGeneratedDate = function (register) {
             register.generatedDate = $moment().format('DD-MM-YYYY');
         };
 

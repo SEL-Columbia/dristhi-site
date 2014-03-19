@@ -1,15 +1,15 @@
 'use strict';
 
-describe('EC Printable Register: ', function () {
+describe('EC Register Service:', function () {
 
     var httpBackend, service, q, moment;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function ($httpBackend, $q, $moment, RegisterService) {
+    beforeEach(inject(function ($httpBackend, $q, $moment, ECRegisterService) {
         httpBackend = $httpBackend;
         q = $q;
         moment = $moment;
-        service = RegisterService;
+        service = ECRegisterService;
     }));
 
     it('should be able to download EC register for an ANM', function () {
@@ -106,7 +106,7 @@ describe('EC Printable Register: ', function () {
             .respond(201, expectedRegisterDownloadURL);
 
         var url = null;
-        service.prepareRegisterForEC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
+        service.prepareRegister({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
             .then(function (result) {
                 url = result
             });
@@ -205,7 +205,7 @@ describe('EC Printable Register: ', function () {
         httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload).respond(201, expectedRegisterDownloadURL);
 
         var url = null;
-        service.prepareRegisterForEC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
+        service.prepareRegister({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
             .then(function (result) {
                 url = result
             });

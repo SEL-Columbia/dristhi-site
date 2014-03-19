@@ -1,15 +1,15 @@
 'use strict';
 
-describe('Child Printable Register: ', function () {
+describe('Child Register Service:', function () {
 
     var httpBackend, service, q, moment;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function ($httpBackend, $q, $moment, RegisterService) {
+    beforeEach(inject(function ($httpBackend, $q, $moment, ChildRegisterService) {
         httpBackend = $httpBackend;
         q = $q;
         moment = $moment;
-        service = RegisterService;
+        service = ChildRegisterService;
     }));
 
     it('should be able to download Child register for an ANM', function () {
@@ -22,11 +22,7 @@ describe('Child Printable Register: ', function () {
                     "husbandName": "Manju Nayaka",
                     "village": "harambanahalli_koppalu",
                     "subCenter": "hosa_agrahara",
-                    "wifeDOB": [
-                        1988,
-                        5,
-                        15
-                    ],
+                    "wifeDOB": [1988, 5, 15],
                     "dob": [2013, 8, 10],
                     "immunizations": {
                         "bcg": "2013-09-10",
@@ -57,8 +53,7 @@ describe('Child Printable Register: ', function () {
                     "phc": "phc"
                 },
                 "name": "Demo 1"
-            },
-            "generatedDate": moment().format('YYYY-MM-DD')
+            }
         };
 
         var expectedPostBodyPayload = {
@@ -75,7 +70,6 @@ describe('Child Printable Register: ', function () {
                         15
                     ],
                     "dob": "10-09-2013",
-                    "wifeAge": 25,
                     "immunizations": {
                         "bcg": "10-09-2013",
                         "opv_0": "10-09-2013",
@@ -98,7 +92,7 @@ describe('Child Printable Register: ', function () {
                         "vitamin_a2": "10-11-2013",
                         "je_2": "10-11-2013"
                     },
-                    "addressDetails" : "Kamala (25), W/O Manju Nayaka"
+                    "addressDetails": "Kamala (25), W/O Manju Nayaka, C/O Harambanahalli Koppalu"
                 }
             ],
             "anmDetails": {
@@ -118,7 +112,7 @@ describe('Child Printable Register: ', function () {
             expectedPostBodyPayload).respond(201, expectedRegisterDownloadURL);
 
         var url = null;
-        service.prepareRegisterForChild({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
+        service.prepareRegister({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
             .then(function (result) {
                 url = result
             });

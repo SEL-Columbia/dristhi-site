@@ -1,15 +1,15 @@
 'use strict';
 
-describe('ANC Printable Register: ', function () {
+describe('ANC Register Service:', function () {
 
     var httpBackend, service, q, moment;
 
     beforeEach(module('drishtiSiteApp'));
-    beforeEach(inject(function ($httpBackend, $q, $moment, RegisterService) {
+    beforeEach(inject(function ($httpBackend, $q, $moment, ANCRegisterService) {
         httpBackend = $httpBackend;
         q = $q;
         moment = $moment;
-        service = RegisterService;
+        service = ANCRegisterService;
     }));
 
     it('should be able to download ANC register for an ANM', function () {
@@ -24,11 +24,7 @@ describe('ANC Printable Register: ', function () {
                     "wifeName": "Kamala",
                     "husbandName": "Manju Nayaka",
                     "address": null,
-                    "wifeDOB": [
-                        1988,
-                        5,
-                        15
-                    ],
+                    "wifeDOB": [1988, 5, 15],
                     "wifeAge": 25,
                     "phoneNumber": null,
                     "wifeEducationLevel": null,
@@ -124,8 +120,7 @@ describe('ANC Printable Register: ', function () {
                     "phc": "phc"
                 },
                 "name": "Demo 1"
-            },
-            "generatedDate": "2014-02-04"
+            }
         };
 
         var expectedPostBodyPayload = {
@@ -139,11 +134,7 @@ describe('ANC Printable Register: ', function () {
                     "wifeName": "Kamala",
                     "husbandName": "Manju Nayaka",
                     "address": null,
-                    "wifeDOB": [
-                        1988,
-                        5,
-                        15
-                    ],
+                    "wifeDOB": [1988, 5, 15],
                     "wifeAge": 25,
                     "phoneNumber": null,
                     "wifeEducationLevel": "",
@@ -264,7 +255,7 @@ describe('ANC Printable Register: ', function () {
         httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/dd3ac9bd3d7f469fbc7d0c7d73a442e6', expectedPostBodyPayload).respond(201, expectedRegisterDownloadURL);
 
         var url = null;
-        service.prepareRegisterForANC({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
+        service.prepareRegister({identifier: 'demo1', name: 'Demo 1', location: { phc: "phc" }})
             .then(function (result) {
                 url = result
             });
