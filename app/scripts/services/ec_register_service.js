@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('ECRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, JSONXLSService, REGISTER_TOKENS) {
+    .service('ECRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, DATE_FORMAT, JSONXLSService, REGISTER_TOKENS) {
         'use strict';
 
         var prepareRegister = function (anm) {
@@ -15,8 +15,8 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.ecRegisterEntries.forEach(function (entry) {
-                        entry.registrationDate = $filter('date')(entry.registrationDate, 'dd-MM-yyyy');
-                        entry.currentFPMethodStartDate = $filter('date')(entry.currentFPMethodStartDate, 'dd-MM-yyyy');
+                        entry.registrationDate = $moment(entry.registrationDate).format(DATE_FORMAT);
+                        entry.currentFPMethodStartDate = $moment(entry.currentFPMethodStartDate).format(DATE_FORMAT);
                         entry.village = $filter('humanizeAndTitleize')(entry.village);
                         entry.householdDetails = (entry.householdNumber ? entry.householdNumber : '') +
                             (entry.householdAddress ? ', ' + entry.householdAddress : '') +
@@ -36,7 +36,7 @@ angular.module('drishtiSiteApp')
         };
 
         var updateRegisterWithDate = function (register) {
-            register.generatedDate = $moment().format('DD-MM-YYYY');
+            register.generatedDate = $moment().format(DATE_FORMAT);
         };
 
         var updateRegisterWithLocation = function (register, anm) {

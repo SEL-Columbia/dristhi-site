@@ -2,6 +2,8 @@ angular.module('drishtiSiteApp.filters', []);
 angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'ui.bootstrap', 'drishtiSiteApp.filters'])
     .constant('AUTH_URL', 'https://smartregistries.org/authenticate-user')
     .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
+    .constant('DATE_FORMAT','DD-MM-YYYY')
+
     .constant('DRISHTI_REPORT_BASE_URL', 'https://smartregistries.org/drishti-reporting')
     .constant('DRISHTI_WEB_BASE_URL', 'https://smartregistries.org')
     .constant('JSON_TO_XLS_BASE_URL', 'https://smartregistries.org/json-to-xls')

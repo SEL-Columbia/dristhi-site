@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('ChildRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, JSONXLSService, REGISTER_TOKENS) {
+    .service('ChildRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, DATE_FORMAT, JSONXLSService, REGISTER_TOKENS) {
         'use strict';
 
         var prepareRegister = function (anm) {
@@ -15,7 +15,7 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithGeneratedDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.childRegisterEntries.forEach(function (entry) {
-                        entry.dob = $moment(entry.dob).format('DD-MM-YYYY');
+                        entry.dob = $moment(entry.dob).format(DATE_FORMAT);
                         updateAddressDetails(entry);
                         updateImmunizationDatesFormat(entry.immunizations);
                     });
@@ -35,13 +35,13 @@ angular.module('drishtiSiteApp')
         var updateImmunizationDatesFormat = function (immunizations) {
             for (var immunization in immunizations) {
                 if (immunizations.hasOwnProperty(immunization)) {
-                    immunizations[immunization] = immunizations[immunization] ? $moment(immunizations[immunization]).format('DD-MM-YYYY') : '';
+                    immunizations[immunization] = immunizations[immunization] ? $moment(immunizations[immunization]).format(DATE_FORMAT) : '';
                 }
             }
         };
 
         var updateRegisterWithGeneratedDate = function (register) {
-            register.generatedDate = $moment().format('DD-MM-YYYY');
+            register.generatedDate = $moment().format(DATE_FORMAT);
         };
 
         var updateRegisterWithLocation = function (register, anm) {

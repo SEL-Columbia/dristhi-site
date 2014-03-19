@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('ANCRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, JSONXLSService, REGISTER_TOKENS) {
+    .service('ANCRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, DATE_FORMAT, JSONXLSService, REGISTER_TOKENS) {
         'use strict';
 
         var prepareRegister = function (anm) {
@@ -16,7 +16,7 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithLocation(register, anm);
                     register.ancRegisterEntries.forEach(function (entry) {
                         fillMissingValues(entry);
-                        entry.registrationDate = $moment(entry.registrationDate).format('DD-MM-YYYY');
+                        entry.registrationDate = $moment(entry.registrationDate).format(DATE_FORMAT);
                         entry.wifeAge = $filter('humanizeWifeAge')(entry.wifeDOB);
                         entry.addressDetails = $filter('humanizeAndTitleize')(entry.wifeName) +
                             (entry.husbandName ? ', W/O ' + $filter('humanizeAndTitleize')(entry.husbandName) : '') +
@@ -28,7 +28,7 @@ angular.module('drishtiSiteApp')
                         if (entry.youngestChildDOB) {
                             entry.youngestChildAge = $filter('humanizeChildAge')(entry.youngestChildDOB);
                         }
-                        entry.lmpEDDDetails = $moment(entry.lmp).format('DD-MM-YYYY') + ' ' + $moment(entry.edd).format('DD-MM-YYYY');
+                        entry.lmpEDDDetails = $moment(entry.lmp).format(DATE_FORMAT) + ' ' + $moment(entry.edd).format(DATE_FORMAT);
                         entry.husbandEducationLevel = $filter('humanizeAndTitleize')(entry.husbandEducationLevel);
                         entry.wifeEducationLevel = $filter('humanizeAndTitleize')(entry.wifeEducationLevel);
                         entry.bloodGroup = $filter('friendlyName')(entry.bloodGroup);
@@ -68,7 +68,7 @@ angular.module('drishtiSiteApp')
             ancVisits.forEach(function (visit) {
                 visit.rtiSTIValue = (visit.rti ? visit.rti : '') + (visit.sti ? '/' + visit.sti : '');
                 if (visit.ancVisitDate) {
-                    visit.ancVisitDate = $moment(visit.ancVisitDate).format('DD-MM-YYYY');
+                    visit.ancVisitDate = $moment(visit.ancVisitDate).format(DATE_FORMAT);
                 }
             });
         };
@@ -83,7 +83,7 @@ angular.module('drishtiSiteApp')
             ttDoses.forEach(function (dose) {
                 dose.ttDose = $filter('friendlyName')(dose.ttDose);
                 if (dose.ttDate) {
-                    dose.ttDate = $moment(dose.ttDate).format('DD-MM-YYYY');
+                    dose.ttDate = $moment(dose.ttDate).format(DATE_FORMAT);
                 }
             });
         };
@@ -91,7 +91,7 @@ angular.module('drishtiSiteApp')
         var updateIFADateFormat = function (ifaTablets) {
             ifaTablets.forEach(function (ifaTablet) {
                 if (ifaTablet.ifaTabletsDate) {
-                    ifaTablet.ifaTabletsDate = $moment(ifaTablet.ifaTabletsDate).format('DD-MM-YYYY');
+                    ifaTablet.ifaTabletsDate = $moment(ifaTablet.ifaTabletsDate).format(DATE_FORMAT);
                 }
             });
         };
@@ -99,7 +99,7 @@ angular.module('drishtiSiteApp')
         var updateHBTestDateFormat = function (hbTests) {
             hbTests.forEach(function (hbTest) {
                 if (hbTest.hbTestDate) {
-                    hbTest.hbTestDate = $moment(hbTest.hbTestDate).format('DD-MM-YYYY');
+                    hbTest.hbTestDate = $moment(hbTest.hbTestDate).format(DATE_FORMAT);
                 }
             });
         };
@@ -112,7 +112,7 @@ angular.module('drishtiSiteApp')
         };
 
         var updateRegisterWithDate = function (register) {
-            register.generatedDate = $moment().format('DD-MM-YYYY');
+            register.generatedDate = $moment().format(DATE_FORMAT);
         };
 
         return {
