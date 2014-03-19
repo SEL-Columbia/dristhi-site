@@ -34,8 +34,8 @@
         <div class="span4">
             <span ng-switch="" on="anm.nrhmReportDownloadStatus">
                 <span ng-switch-when="preparing">Please wait, preparing report.</span>
-                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'nrhmReportDownloadStatus')" ng-href="{{anm.excelReport}}">Excel</a>
-                <a ng-switch-default="" ng-click="excelReportsForANM(anm, currentReportMonth(), currentReportYear())">Download
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'nrhmReportDownloadStatus')" ng-href="{{anm.excelReport}}" class="enabled-link">Excel</a>
+                <a ng-switch-default="" ng-click="excelReportsForANM(anm, currentReportMonth(), currentReportYear())" class="enabled-link">Download
                     {{currentReportMonth()}}/{{currentReportYear()}}</a>
             </span>
             <span>|</span>
