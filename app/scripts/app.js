@@ -12,7 +12,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
         'ec': 'e86e0e2211f54b128181cdec0b63cb11',
         'anc': 'dd3ac9bd3d7f469fbc7d0c7d73a442e6',
         'fp': 'e0739ade6dbb47a49c9115a93b3f433b',
-        'child': 'e86e0e2211f54b128181cdec0b63cb12'
+        'child': '507ac495c3c6483e8eb449a5789d506b'
     })
 
     // To avoid CORS issues while running site on localhost, we need to proxy the URLs
@@ -23,13 +23,13 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://localhost:9292/localhost:9980')
 //    .constant('DRISHTI_WEB_BASE_URL', 'http://localhost:9292/localhost:9979')
-//    .constant('JSON_TO_XLS_BASE_URL', 'http://qa.smartregistries.org/json-to-xls')
+//    .constant('JSON_TO_XLS_BASE_URL', 'http://localhost:9292/localhost:8080')
 //    .constant('NRHM_REPORT_TOKEN', '599412060a9f47beaa84afd227a0da39')
 //    .constant('REGISTER_TOKENS', {
 //        'ec': 'ff002f0d9e3f43a1ab6d9224583ee7a2',
 //        'anc': '94fb93a9799846f8bbc555857dd81d6a',
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b',
-//        'child':'e86e0e2211f54b128181cdec0b63cb12'
+//        'child':'45fdb38597854d0c899c837589a34090'
 //    })
 
 //    .constant('DRISHTI_REPORT_BASE_URL', 'http://localhost:9292/qa.smartregistries.org/drishti-reporting')
@@ -40,7 +40,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //        'ec': 'ff002f0d9e3f43a1ab6d9224583ee7a2',
 //        'anc': '94fb93a9799846f8bbc555857dd81d6a',
 //        'fp': 'e0739ade6dbb47a49c9115a93b3f433b',
-//        'child':'e86e0e2211f54b128181cdec0b63cb12'
+//        'child':'507ac495c3c6483e8eb449a5789d506b'
 //    })
 
     .constant('ARCHIVED_REPORTS_START_YEAR', 2013)

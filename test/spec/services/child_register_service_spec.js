@@ -104,7 +104,7 @@ describe('Child Register Service:', function () {
 
         httpBackend.expectGET('https://smartregistries.org/registers/child?anm-id=demo1')
             .respond(200, childRegisterResponse);
-        httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/e86e0e2211f54b128181cdec0b63cb12',
+        httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/507ac495c3c6483e8eb449a5789d506b',
             expectedPostBodyPayload).respond(201, expectedRegisterDownloadURL);
 
         var url = null;
