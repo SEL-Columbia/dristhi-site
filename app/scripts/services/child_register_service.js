@@ -19,6 +19,7 @@ angular.module('drishtiSiteApp')
                         entry.dob = $moment(entry.dob).format(DATE_FORMAT);
                         updateAddressDetails(entry);
                         updateImmunizationDatesFormat(entry.immunizations);
+                        updateVitaminADoseDatesFormat(entry.vitaminADoses);
                         entry.serialNumber = ++serialNumber;
                     });
                     return JSONXLSService.prepareExcel(REGISTER_TOKENS.child, register);
@@ -46,6 +47,14 @@ angular.module('drishtiSiteApp')
             immunizations.dptPentavalent3 = (immunizations.dpt_3 ? immunizations.dpt_3 : '') + (immunizations.pentavalent_3 ? '/' + immunizations.pentavalent_3 : '');
             immunizations.measlesMmr = (immunizations.measles ? immunizations.measles : '') + (immunizations.mmr ? '/' + immunizations.mmr : '');
             /*jshint camelcase: true*/
+        };
+
+        var updateVitaminADoseDatesFormat = function (vitaminADoses) {
+            for (var vitaminADose in vitaminADoses) {
+                if (vitaminADoses.hasOwnProperty(vitaminADose)) {
+                    vitaminADoses[vitaminADose] = vitaminADoses[vitaminADose] ? $moment(vitaminADoses[vitaminADose]).format(DATE_FORMAT) : '';
+                }
+            }
         };
 
         var updateRegisterWithGeneratedDate = function (register) {

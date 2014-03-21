@@ -37,14 +37,16 @@ describe('Child Register Service:', function () {
                         "pentavalent_3": "2013-11-20",
                         "opv_3": "2013-12-21",
                         "measles": "2013-11-22",
-                        "vitamin_a1": "2013-11-23",
                         "je": "2013-11-24",
                         "measlesbooster": "2013-11-25",
                         "mmr": "2013-11-26",
                         "dptbooster": "2013-09-27",
                         "opvbooster": "2013-11-28",
-                        "vitamin_a2": "2013-11-29",
                         "je_2": "2013-11-30"
+                    },
+                    "vitaminADoses": {
+                        "1": "2013-11-23",
+                        "2": "2013-11-29"
                     }
                 }
             ],
@@ -80,18 +82,20 @@ describe('Child Register Service:', function () {
                         "pentavalent_3": "20-11-2013",
                         "opv_3": "21-12-2013",
                         "measles": "22-11-2013",
-                        "vitamin_a1": "23-11-2013",
                         "je": "24-11-2013",
                         "measlesbooster": "25-11-2013",
                         "mmr": "26-11-2013",
                         "dptbooster": "27-09-2013",
                         "opvbooster": "28-11-2013",
-                        "vitamin_a2": "29-11-2013",
                         "je_2": "30-11-2013",
                         "dptPentavalent1": "/15-09-2013",
                         "dptPentavalent2": "/18-10-2013",
                         "dptPentavalent3": "/20-11-2013",
                         "measlesMmr": "22-11-2013/26-11-2013"
+                    },
+                    "vitaminADoses": {
+                        "1": "23-11-2013",
+                        "2": "29-11-2013"
                     },
                     "addressDetails": "Kamala (25), W/O Manju Nayaka, C/O Harambanahalli Koppalu"
                 }
