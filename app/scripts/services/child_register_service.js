@@ -38,6 +38,10 @@ angular.module('drishtiSiteApp')
                     immunizations[immunization] = immunizations[immunization] ? $moment(immunizations[immunization]).format(DATE_FORMAT) : '';
                 }
             }
+            immunizations.dpt_pentavalent_1 = (immunizations.dpt_1 ? immunizations.dpt_1 : '') + (immunizations.pentavalent_1 ? '/' + immunizations.pentavalent_1 : '');
+            immunizations.dpt_pentavalent_2 = (immunizations.dpt_2 ? immunizations.dpt_2 : '') + (immunizations.pentavalent_2 ? '/' + immunizations.pentavalent_2 : '');
+            immunizations.dpt_pentavalent_3 = (immunizations.dpt_3 ? immunizations.dpt_3 : '') + (immunizations.pentavalent_3 ? '/' + immunizations.pentavalent_3 : '');
+            immunizations.measles_mmr = (immunizations.measles ? immunizations.measles : '') + (immunizations.mmr ? '/' + immunizations.mmr : '');
         };
 
         var updateRegisterWithGeneratedDate = function (register) {

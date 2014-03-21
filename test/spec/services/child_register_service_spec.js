@@ -86,7 +86,11 @@ describe('Child Register Service:', function () {
                         "dptbooster": "27-09-2013",
                         "opvbooster": "28-11-2013",
                         "vitamin_a2": "29-11-2013",
-                        "je_2": "30-11-2013"
+                        "je_2": "30-11-2013",
+                        "dpt_pentavalent_1":"/15-09-2013",
+                        "dpt_pentavalent_2":"/18-10-2013",
+                        "dpt_pentavalent_3":"/20-11-2013",
+                        "measles_mmr":"22-11-2013/26-11-2013"
                     },
                     "addressDetails": "Kamala (25), W/O Manju Nayaka, C/O Harambanahalli Koppalu"
                 }
