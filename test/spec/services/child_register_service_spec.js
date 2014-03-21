@@ -59,6 +59,7 @@ describe('Child Register Service:', function () {
         var expectedPostBodyPayload = {
             "childRegisterEntries": [
                 {
+                    "serialNumber": 1,
                     "thayiCardNumber": "8188514",
                     "wifeName": "Kamala",
                     "husbandName": "Manju Nayaka",

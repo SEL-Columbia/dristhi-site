@@ -12,12 +12,14 @@ angular.module('drishtiSiteApp')
                     return $q.reject('Error when getting Child register for anm:' + anm.identifier);
                 })
                 .then(function (register) {
+                    var serialNumber = 0;
                     updateRegisterWithGeneratedDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.childRegisterEntries.forEach(function (entry) {
                         entry.dob = $moment(entry.dob).format(DATE_FORMAT);
                         updateAddressDetails(entry);
                         updateImmunizationDatesFormat(entry.immunizations);
+                        entry.serialNumber = ++serialNumber;
                     });
                     return JSONXLSService.prepareExcel(REGISTER_TOKENS.child, register);
                 }
