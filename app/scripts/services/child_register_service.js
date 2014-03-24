@@ -13,15 +13,21 @@ angular.module('drishtiSiteApp')
                 })
                 .then(function (register) {
                     var serialNumber = 0;
+                    var defaultsForImmunizations = {};
+                    var defaultsForVitaminADoses = {};
                     updateRegisterWithGeneratedDate(register);
                     updateRegisterWithLocation(register, anm);
                     register.childRegisterEntries.forEach(function (entry) {
+                        entry.serialNumber = ++serialNumber;
                         entry.dob = $moment(entry.dob).format(DATE_FORMAT);
                         updateAddressDetails(entry);
                         updateImmunizationDatesFormat(entry.immunizations);
                         updateVitaminADoseDatesFormat(entry.vitaminADoses);
-                        entry.serialNumber = ++serialNumber;
+                        updateDefaultsForImmunizations(entry.immunizations, defaultsForImmunizations);
+                        updateDefaultsVitaminADoses(entry.vitaminADoses, defaultsForVitaminADoses);
                     });
+                    defaultImmunizationsAndVitaminADosesOfAllChildrenWhenThereIsNoValue(
+                        register.childRegisterEntries, defaultsForImmunizations, defaultsForVitaminADoses);
                     return JSONXLSService.prepareExcel(REGISTER_TOKENS.child, register);
                 }
             );
@@ -41,12 +47,8 @@ angular.module('drishtiSiteApp')
                     immunizations[immunization] = immunizations[immunization] ? $moment(immunizations[immunization]).format(DATE_FORMAT) : '';
                 }
             }
-            /*jshint camelcase: false*/
-            immunizations.dptPentavalent1 = (immunizations.dpt_1 ? immunizations.dpt_1 : '') + (immunizations.pentavalent_1 ? '/' + immunizations.pentavalent_1 : '');
-            immunizations.dptPentavalent2 = (immunizations.dpt_2 ? immunizations.dpt_2 : '') + (immunizations.pentavalent_2 ? '/' + immunizations.pentavalent_2 : '');
-            immunizations.dptPentavalent3 = (immunizations.dpt_3 ? immunizations.dpt_3 : '') + (immunizations.pentavalent_3 ? '/' + immunizations.pentavalent_3 : '');
-            immunizations.measlesMmr = (immunizations.measles ? immunizations.measles : '') + (immunizations.mmr ? '/' + immunizations.mmr : '');
-            /*jshint camelcase: true*/
+            immunizations.measlesMmr = (immunizations.measles ? immunizations.measles : '');
+            immunizations.measlesMmr += (immunizations.mmr ? immunizations.mmr : '');
         };
 
         var updateVitaminADoseDatesFormat = function (vitaminADoses) {
@@ -56,6 +58,30 @@ angular.module('drishtiSiteApp')
                 }
             }
         };
+
+        var updateDefaultsForImmunizations = function (immunizations, allImmunizations) {
+            for (var immunization in immunizations) {
+                if (immunizations.hasOwnProperty(immunization)) {
+                    allImmunizations[immunization] = '';
+                }
+            }
+        };
+
+        var updateDefaultsVitaminADoses = function (vitaminADoses, allVitaminADoses) {
+            for (var vitaminADose in vitaminADoses) {
+                if (vitaminADoses.hasOwnProperty(vitaminADose)) {
+                    allVitaminADoses[vitaminADose] = '';
+                }
+            }
+        };
+
+        var defaultImmunizationsAndVitaminADosesOfAllChildrenWhenThereIsNoValue =
+            function (childRegisterEntries, allImmunizationsDefault, allVitaminADosesDefault) {
+                childRegisterEntries.forEach(function (entry) {
+                    entry.immunizations = _.defaults(entry.immunizations, allImmunizationsDefault);
+                    entry.vitaminADoses = _.defaults(entry.vitaminADoses, allVitaminADosesDefault);
+                });
+            };
 
         var updateRegisterWithGeneratedDate = function (register) {
             register.generatedDate = $moment().format(DATE_FORMAT);

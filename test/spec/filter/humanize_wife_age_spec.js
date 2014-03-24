@@ -12,8 +12,8 @@ describe("Unit Testing: Filters - ", function () {
         Timecop.install();
 
         Timecop.freeze(Date.parse('2014-01-14'));
-        var wifeDOB = [ 1988, 1, 1];
-        var expectedWifeAge = 25;
+        var wifeDOB = '1988-01-01';
+        var expectedWifeAge = 26;
         var wifeAge = filter(wifeDOB);
         expect(expectedWifeAge).toEqual(wifeAge);
 
