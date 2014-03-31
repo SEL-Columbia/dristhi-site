@@ -30,6 +30,10 @@ describe('ANM Data Summary Controller', function () {
                 prepareRegisterForDeferredResponse = q.defer();
                 return prepareRegisterForDeferredResponse.promise;
             },
+            prepareRegisterForFP: function () {
+                prepareRegisterForDeferredResponse = q.defer();
+                return prepareRegisterForDeferredResponse.promise;
+            },
             prepareRegisterForChild: function () {
                 prepareRegisterForDeferredResponse = q.defer();
                 return prepareRegisterForDeferredResponse.promise;
@@ -129,6 +133,19 @@ describe('ANM Data Summary Controller', function () {
             scope.$apply();
             expect(anm.ecRegister).toEqual('/download_url');
             expect(anm.ecRegisterDownloadStatus).toEqual('ready');
+        });
+
+        it('should be able to download FP Printable Register for selected ANM', function () {
+            spyOn(registerService, 'prepareRegisterForFP').andCallThrough();
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b', 0, 0, 0, 0, 0);
+
+            createController();
+            scope.getRegister(anm, 'FP');
+
+            prepareRegisterForDeferredResponse.resolve('/download_url');
+            scope.$apply();
+            expect(anm.fpRegister).toEqual('/download_url');
+            expect(anm.fpRegisterDownloadStatus).toEqual('ready');
         });
 
         it('should be able to download ANC Printable Register for selected ANM', function () {

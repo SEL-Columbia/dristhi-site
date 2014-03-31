@@ -115,7 +115,7 @@ describe('EC Register Service:', function () {
         expect(url).toEqual('https://smartregistries.org/json-to-xls' + expectedRegisterDownloadURL);
     });
     it('should display blank when household details of EC is empty', function () {
-        var jsonResponse = {
+        var expectedRegisters = {
             "ecRegisterEntries": [
                 {
                     "registrationDate": "2013-05-15",
@@ -201,7 +201,7 @@ describe('EC Register Service:', function () {
             "generatedDate": moment().format('DD-MM-YYYY')
         };
         var expectedRegisterDownloadURL = '/register_download_url';
-        httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, jsonResponse);
+        httpBackend.expectGET('https://smartregistries.org/registers/ec?anm-id=demo1').respond(200, expectedRegisters);
         httpBackend.expectPOST('https://smartregistries.org/json-to-xls/xls/e86e0e2211f54b128181cdec0b63cb11', expectedPayload).respond(201, expectedRegisterDownloadURL);
 
         var url = null;

@@ -22,7 +22,14 @@
                 <a ng-switch-default ng-click="getRegister(anm, 'EC')" ng-class="(anm.ecCount == 0) ? 'disabled-link' : 'enabled-link'">{{ anm.ecCount }}</a>
             </span>
         </div>
-        <div class="span1"><a class="disabled-link">{{ anm.fpCount }}</a></div>
+        <div class="span1">
+            <span ng-switch on="anm.fpRegisterDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing FP register.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'fpRegisterDownloadStatus')"
+                   ng-href="{{anm.fpRegister}}" class="enabled-link">Excel</a>
+                <a ng-switch-default ng-click="getRegister(anm, 'FP')" ng-class="(anm.fpCount == 0) ? 'disabled-link' : 'enabled-link'">{{ anm.fpCount }}</a>
+            </span>
+        </div>
         <div class="span1">
             <span ng-switch on="anm.ancRegisterDownloadStatus">
                 <span ng-switch-when="preparing">Please wait, preparing ANC register.</span>

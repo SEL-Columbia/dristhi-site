@@ -3,11 +3,11 @@ angular.module('drishtiSiteApp')
         'use strict';
 
         return {
-            fpUsers: function (allECs) {
-                return FPRegisterService.fpUsers(allECs);
-            },
             prepareRegisterForEC: function (anm) {
                 return ECRegisterService.prepareRegister(anm);
+            },
+            prepareRegisterForFP: function (anm) {
+                return FPRegisterService.prepareRegister(anm);
             },
             prepareRegisterForANC: function (anm) {
                 return ANCRegisterService.prepareRegister(anm);

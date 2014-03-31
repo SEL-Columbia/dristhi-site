@@ -11,7 +11,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     .constant('REGISTER_TOKENS', {
         'ec': 'e86e0e2211f54b128181cdec0b63cb11',
         'anc': 'dd3ac9bd3d7f469fbc7d0c7d73a442e6',
-        'fp': 'e0739ade6dbb47a49c9115a93b3f433b',
+        'fp': '8ab37044c46e432d8feade4d69e70e5c',
         'child': '507ac495c3c6483e8eb449a5789d506b'
     })
 
@@ -28,7 +28,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
 //    .constant('REGISTER_TOKENS', {
 //        'ec': 'ff002f0d9e3f43a1ab6d9224583ee7a2',
 //        'anc': '94fb93a9799846f8bbc555857dd81d6a',
-//        'fp': 'e0739ade6dbb47a49c9115a93b3f433b',
+//        'fp': 'a2dfd58a37a64904a2d9e59e88fe83ab',
 //        'child':'45fdb38597854d0c899c837589a34090'
 //    })
 
