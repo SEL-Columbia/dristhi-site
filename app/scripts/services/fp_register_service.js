@@ -14,11 +14,11 @@ angular.module('drishtiSiteApp')
                 .then(function (register) {
                     updateRegisterWithGeneratedDate(register);
                     updateRegisterWithLocation(register, anm);
-                    updateIUDFPRegistries(register.fpRegisterEntries.iud);
-                    updateCondomFPRegistries(register.fpRegisterEntries.condom);
-                    updateOCPFPRegistries(register.fpRegisterEntries.ocp);
-                    updateMaleSterilizationFPRegistries(register.fpRegisterEntries.maleSterilization);
-                    updateFemaleSterilizationFPRegistries(register.fpRegisterEntries.femaleSterilization);
+                    updateIUDFPRegistries(register.iudRegisterEntries);
+                    updateCondomFPRegistries(register.condomRegisterEntries);
+                    updateOCPFPRegistries(register.ocpRegisterEntries);
+                    updateMaleSterilizationFPRegistries(register.maleSterilizationRegisterEntries);
+                    updateFemaleSterilizationFPRegistries(register.femaleSterilizationRegisterEntries);
                     register.endOfReportingYear = register.reportingYear + 1;
                     return JSONXLSService.prepareExcel(REGISTER_TOKENS.fp, register);
                 }
@@ -26,26 +26,26 @@ angular.module('drishtiSiteApp')
         };
 
         var updateIUDFPRegistries = function (iudFPRegistries) {
-            updateFPRegistries(iudFPRegistries);
+            updateFPRegistriesWithSerialNumberAndAddressDetails(iudFPRegistries);
         };
 
         var updateCondomFPRegistries = function (condomFPRegistries) {
-            updateFPRegistries(condomFPRegistries);
+            updateFPRegistriesWithSerialNumberAndAddressDetails(condomFPRegistries);
             updateRefill(condomFPRegistries);
         };
 
         var updateOCPFPRegistries = function (ocpFPRegistries) {
-            updateFPRegistries(ocpFPRegistries);
+            updateFPRegistriesWithSerialNumberAndAddressDetails(ocpFPRegistries);
             updateRefill(ocpFPRegistries);
         };
 
         var updateMaleSterilizationFPRegistries = function (maleSterilizationFPRegistries) {
-            updateFPRegistries(maleSterilizationFPRegistries);
+            updateFPRegistriesWithSerialNumberAndAddressDetails(maleSterilizationFPRegistries);
             updateSterilizationAndFollowupVisitDatesFormat(maleSterilizationFPRegistries);
         };
 
         var updateFemaleSterilizationFPRegistries = function (femaleSterilizationFPRegistries) {
-            updateFPRegistries(femaleSterilizationFPRegistries);
+            updateFPRegistriesWithSerialNumberAndAddressDetails(femaleSterilizationFPRegistries);
             updateSterilizationAndFollowupVisitDatesFormat(femaleSterilizationFPRegistries);
         };
 
@@ -58,12 +58,12 @@ angular.module('drishtiSiteApp')
             });
         };
 
-        var updateFPRegistries = function (fpRegistries) {
+        var updateFPRegistriesWithSerialNumberAndAddressDetails = function (fpRegistries) {
             var serialNumber = 0;
             fpRegistries.forEach(function (entry) {
                 entry.serialNumber = ++serialNumber;
-                if (entry.registrationDate) {
-                    entry.registrationDate = formatDate(entry.registrationDate);
+                if (entry.fpDetails.fpAcceptanceDate) {
+                    entry.fpDetails.fpAcceptanceDate = formatDate(entry.fpDetails.fpAcceptanceDate);
                 }
                 updateAddressDetails(entry);
                 entry.casteReligionDetails = entry.caste ? $filter('friendlyName')(entry.caste) : '';
@@ -87,7 +87,7 @@ angular.module('drishtiSiteApp')
                     if (entry.fpDetails.refill[$moment(refill.date).format('MMM').toLowerCase()] !== '') {
                         entry.fpDetails.refill[$moment(refill.date).format('MMM').toLowerCase()] += '\n';
                     }
-                    entry.fpDetails.refill[$moment(refill.date).format('MMM').toLowerCase()] += $moment(refill.date).format('DD MMM') + ' (' + refill.pieces + ')';
+                    entry.fpDetails.refill[$moment(refill.date).format('MMM').toLowerCase()] += $moment(refill.date).format('DD MMM') + ' (' + refill.quantity + ')';
                 });
             });
         };
