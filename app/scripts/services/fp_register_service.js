@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('FPRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, DATE_FORMAT, JSONXLSService, REGISTER_TOKENS) {
+    .service('FPRegisterService', function ($http, $q, $moment, $filter, DRISHTI_WEB_BASE_URL, DATE_FORMAT, MONTH_FORMAT, DAY_MONTH_FORMAT, NEW_LINE, JSONXLSService, REGISTER_TOKENS) {
         'use strict';
 
         var prepareRegister = function (anm) {
@@ -26,69 +26,78 @@ angular.module('drishtiSiteApp')
         };
 
         var updateIUDFPRegistries = function (iudFPRegistries) {
-            updateFPRegistriesWithSerialNumberAndAddressDetails(iudFPRegistries);
+            var serialNumber = 0;
+            iudFPRegistries.forEach(function (iudFPRegistry) {
+                updateFPRegistriesWithSerialNumberAndAddressDetails(iudFPRegistry, ++serialNumber);
+            });
         };
 
         var updateCondomFPRegistries = function (condomFPRegistries) {
-            updateFPRegistriesWithSerialNumberAndAddressDetails(condomFPRegistries);
-            updateRefill(condomFPRegistries);
+            var serialNumber = 0;
+            condomFPRegistries.forEach(function (condomFPRegistry) {
+                updateFPRegistriesWithSerialNumberAndAddressDetails(condomFPRegistry, ++serialNumber);
+                updateRefill(condomFPRegistry);
+            });
         };
 
         var updateOCPFPRegistries = function (ocpFPRegistries) {
-            updateFPRegistriesWithSerialNumberAndAddressDetails(ocpFPRegistries);
-            updateRefill(ocpFPRegistries);
+            var serialNumber = 0;
+            ocpFPRegistries.forEach(function (ocpFPRegistry) {
+                updateFPRegistriesWithSerialNumberAndAddressDetails(ocpFPRegistry, ++serialNumber);
+                updateRefill(ocpFPRegistry);
+            });
+
         };
 
         var updateMaleSterilizationFPRegistries = function (maleSterilizationFPRegistries) {
-            updateFPRegistriesWithSerialNumberAndAddressDetails(maleSterilizationFPRegistries);
-            updateSterilizationAndFollowupVisitDatesFormat(maleSterilizationFPRegistries);
+            var serialNumber = 0;
+            maleSterilizationFPRegistries.forEach(function (maleSterilizationFPRegistry) {
+                updateFPRegistriesWithSerialNumberAndAddressDetails(maleSterilizationFPRegistry, ++serialNumber);
+                updateSterilizationAndFollowupVisitDatesFormat(maleSterilizationFPRegistry);
+            });
+
         };
 
         var updateFemaleSterilizationFPRegistries = function (femaleSterilizationFPRegistries) {
-            updateFPRegistriesWithSerialNumberAndAddressDetails(femaleSterilizationFPRegistries);
-            updateSterilizationAndFollowupVisitDatesFormat(femaleSterilizationFPRegistries);
-        };
-
-        var updateSterilizationAndFollowupVisitDatesFormat = function (sterilizationFPRegistries) {
-            sterilizationFPRegistries.forEach(function (entry) {
-                entry.fpDetails.sterilizationDate = formatDate(entry.fpDetails.sterilizationDate);
-                entry.fpDetails.followupVisitDates = entry.fpDetails.followupVisitDates.map(function (date) {
-                    return formatDate(date);
-                });
-            });
-        };
-
-        var updateFPRegistriesWithSerialNumberAndAddressDetails = function (fpRegistries) {
             var serialNumber = 0;
-            fpRegistries.forEach(function (entry) {
-                entry.serialNumber = ++serialNumber;
-                if (entry.fpDetails.fpAcceptanceDate) {
-                    entry.fpDetails.fpAcceptanceDate = formatDate(entry.fpDetails.fpAcceptanceDate);
-                }
-                updateAddressDetails(entry);
-                entry.casteReligionDetails = entry.caste ? $filter('friendlyName')(entry.caste) : '';
-                entry.casteReligionDetails += (entry.caste && entry.religion) ? ' / ' : '';
-                entry.casteReligionDetails += entry.religion ? $filter('friendlyName')(entry.religion) : '';
+            femaleSterilizationFPRegistries.forEach(function (femaleSterilizationFPRegistry) {
+                updateFPRegistriesWithSerialNumberAndAddressDetails(femaleSterilizationFPRegistry, ++serialNumber);
+                updateSterilizationAndFollowupVisitDatesFormat(femaleSterilizationFPRegistry);
             });
+        };
+
+        var updateSterilizationAndFollowupVisitDatesFormat = function (sterilizationFPRegistry) {
+            sterilizationFPRegistry.fpDetails.sterilizationDate = formatDate(sterilizationFPRegistry.fpDetails.sterilizationDate);
+            sterilizationFPRegistry.fpDetails.followupVisitDates = sterilizationFPRegistry.fpDetails.followupVisitDates.map(function (date) {
+                return formatDate(date);
+            });
+        };
+
+        var updateFPRegistriesWithSerialNumberAndAddressDetails = function (entry, serialNumber) {
+            entry.serialNumber = serialNumber;
+            if (entry.fpDetails.fpAcceptanceDate) {
+                entry.fpDetails.fpAcceptanceDate = formatDate(entry.fpDetails.fpAcceptanceDate);
+            }
+            updateAddressDetails(entry);
+            entry.casteReligionDetails = $filter('friendlyName')(entry.caste);
+            entry.casteReligionDetails += (entry.caste && entry.religion) ? ' / ' : '';
+            entry.casteReligionDetails += $filter('friendlyName')(entry.religion);
         };
 
         var formatDate = function (date) {
             return $moment(date).format(DATE_FORMAT);
         };
 
-        var updateRefill = function (fpRegistries) {
-            fpRegistries.forEach(function (entry) {
-                entry.fpDetails.refill = {};
-                var months = ['apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec', 'jan', 'feb', 'mar'];
-                for (var month in months) {
-                    entry.fpDetails.refill[months[month]] = '';
-                }
-                entry.fpDetails.refills.forEach(function (refill) {
-                    if (entry.fpDetails.refill[$moment(refill.date).format('MMM').toLowerCase()] !== '') {
-                        entry.fpDetails.refill[$moment(refill.date).format('MMM').toLowerCase()] += '\n';
-                    }
-                    entry.fpDetails.refill[$moment(refill.date).format('MMM').toLowerCase()] += $moment(refill.date).format('DD MMM') + ' (' + refill.quantity + ')';
+        var updateRefill = function (entry) {
+            entry.fpDetails.reportingRefills = {};
+            var months = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+            _.each(months, function (month) {
+                var refillsForGivenMonth = _.filter(entry.fpDetails.refills, function (refill) {
+                    return $moment(refill.date).format(MONTH_FORMAT) === month;
                 });
+                entry.fpDetails.reportingRefills[month] = _.map(refillsForGivenMonth,function (refill) {
+                    return $moment(refill.date).format(DAY_MONTH_FORMAT) + ' (' + refill.quantity + ')';
+                }).join(NEW_LINE);
             });
         };
 

@@ -3,6 +3,9 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     .constant('AUTH_URL', 'https://smartregistries.org/authenticate-user')
     .constant('REPORT_DATASET', '0f07189134224f089a1a53e0aa5fb19c')
     .constant('DATE_FORMAT','DD-MM-YYYY')
+    .constant('MONTH_FORMAT','MMM')
+    .constant('DAY_MONTH_FORMAT','DD MMM')
+    .constant('NEW_LINE','\n')
 
     .constant('DRISHTI_REPORT_BASE_URL', 'https://smartregistries.org/drishti-reporting')
     .constant('DRISHTI_WEB_BASE_URL', 'https://smartregistries.org')

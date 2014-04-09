@@ -156,6 +156,56 @@ describe('FP Register Service: ', function () {
 
                             },
                             {
+                                "date": "2015-02-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2015-03-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-04-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-05-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-06-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-07-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-08-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-09-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-10-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-11-23",
+                                "quantity": "20"
+
+                            },
+                            {
                                 "date": "2014-12-22",
                                 "quantity": "10"
 
@@ -301,19 +351,19 @@ describe('FP Register Service: ', function () {
 
                             }
                         ],
-                        "refill": {
-                            "apr": "",
-                            "may": "",
-                            "jun": "",
-                            "jul": "",
-                            "aug": "",
-                            "sep": "",
-                            "oct": "23 Oct (20)",
-                            "nov": "22 Nov (10)",
-                            "dec": "",
-                            "jan": "",
-                            "feb": "",
-                            "mar": ""
+                        "reportingRefills": {
+                            "Apr": "",
+                            "May": "",
+                            "Jun": "",
+                            "Jul": "",
+                            "Aug": "",
+                            "Sep": "",
+                            "Oct": "23 Oct (20)",
+                            "Nov": "22 Nov (10)",
+                            "Dec": "",
+                            "Jan": "",
+                            "Feb": "",
+                            "Mar": ""
                         }
                     },
                     "serialNumber": 1,
@@ -358,19 +408,19 @@ describe('FP Register Service: ', function () {
 
                             }
                         ],
-                        "refill": {
-                            "apr": "",
-                            "may": "",
-                            "jun": "",
-                            "jul": "",
-                            "aug": "",
-                            "sep": "",
-                            "oct": "23 Oct (20)",
-                            "nov": "02 Nov (10)\n12 Nov (10)\n22 Nov (10)",
-                            "dec": "",
-                            "jan": "",
-                            "feb": "",
-                            "mar": ""
+                        "reportingRefills": {
+                            "Apr": "",
+                            "May": "",
+                            "Jun": "",
+                            "Jul": "",
+                            "Aug": "",
+                            "Sep": "",
+                            "Oct": "23 Oct (20)",
+                            "Nov": "02 Nov (10)\n12 Nov (10)\n22 Nov (10)",
+                            "Dec": "",
+                            "Jan": "",
+                            "Feb": "",
+                            "Mar": ""
                         }
                     },
                     "serialNumber": 1,
@@ -401,24 +451,74 @@ describe('FP Register Service: ', function () {
 
                             },
                             {
+                                "date": "2015-02-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2015-03-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-04-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-05-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-06-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-07-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-08-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-09-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-10-23",
+                                "quantity": "20"
+
+                            },
+                            {
+                                "date": "2014-11-23",
+                                "quantity": "20"
+
+                            },
+                            {
                                 "date": "2014-12-22",
                                 "quantity": "10"
 
                             }
                         ],
-                        "refill": {
-                            "apr": "",
-                            "may": "",
-                            "jun": "",
-                            "jul": "",
-                            "aug": "",
-                            "sep": "",
-                            "oct": "",
-                            "nov": "",
-                            "dec": "22 Dec (10)",
-                            "jan": "23 Jan (20)",
-                            "feb": "",
-                            "mar": ""
+                        "reportingRefills": {
+                            "Apr": "23 Apr (20)",
+                            "May": "23 May (20)",
+                            "Jun": "23 Jun (20)",
+                            "Jul": "23 Jul (20)",
+                            "Aug": "23 Aug (20)",
+                            "Sep": "23 Sep (20)",
+                            "Oct": "23 Oct (20)",
+                            "Nov": "23 Nov (20)",
+                            "Dec": "22 Dec (10)",
+                            "Jan": "23 Jan (20)",
+                            "Feb": "23 Feb (20)",
+                            "Mar": "23 Mar (20)"
                         }
                     },
                     "serialNumber": 2,

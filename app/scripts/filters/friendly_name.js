@@ -39,6 +39,8 @@ angular.module('drishtiSiteApp.filters')
                 o_negative: 'O-'
             };
             /*jshint camelcase: true*/
-            return nameMap[input] || input;
+            return input ?
+                (nameMap[input] || input) :
+                '';
         };
     });
