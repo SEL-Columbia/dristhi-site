@@ -76,12 +76,12 @@ describe('ANC Register Service:', function () {
                     ],
                     "ttDoses": [
                         {
-                            "ttDose": "tt1",
-                            "ttDate": "2014-05-23"
+                            "ttDose": "tt2",
+                            "ttDate": "2014-04-23"
                         },
                         {
-                            "ttDose": "tt2",
-                            "ttDate": "2014-05-23"
+                            "ttDose": "tt1",
+                            "ttDate": "2014-03-23"
                         },
                         {
                             "ttDose": "ttbooster",
@@ -157,8 +157,8 @@ describe('ANC Register Service:', function () {
                     "isHRP": "no",
                     "ancVisits": [
                         {
-                            "ancVisitDate": "23-06-2014",
-                            "weight": "34",
+                            "ancVisitDate": "23-05-2014",
+                            "weight": "343",
                             "bpSystolic": "120",
                             "bpDiastolic": "80",
                             "hb": "567",
@@ -170,8 +170,8 @@ describe('ANC Register Service:', function () {
                             "bp": "120/80"
                         },
                         {
-                            "ancVisitDate": "23-05-2014",
-                            "weight": "343",
+                            "ancVisitDate": "23-06-2014",
+                            "weight": "34",
                             "bpSystolic": "120",
                             "bpDiastolic": "80",
                             "hb": "567",
@@ -190,11 +190,11 @@ describe('ANC Register Service:', function () {
                     "ttDoses": [
                         {
                             "ttDose": "TT1",
-                            "ttDate": "23-05-2014"
+                            "ttDate": "23-03-2014"
                         },
                         {
                             "ttDose": "TT2",
-                            "ttDate": "23-05-2014"
+                            "ttDate": "23-04-2014"
                         },
                         {
                             "ttDose": "TT Booster",

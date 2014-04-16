@@ -32,16 +32,31 @@ angular.module('drishtiSiteApp')
                         entry.husbandEducationLevel = $filter('humanizeAndTitleize')(entry.husbandEducationLevel);
                         entry.wifeEducationLevel = $filter('humanizeAndTitleize')(entry.wifeEducationLevel);
                         entry.bloodGroup = $filter('friendlyName')(entry.bloodGroup);
+                        sortEntryByDate(entry);
                         updateRTISTIValues(entry.ancVisits);
                         updateBPValues(entry.ancVisits);
                         updateTTDosageValues(entry.ttDoses);
                         updateIFADateFormat(entry.ifaTablets);
                         updateHBTestDateFormat(entry.hbTests);
-
                     });
                     return JSONXLSService.prepareExcel(REGISTER_TOKENS.anc, register);
                 }
             );
+        };
+
+        var sortEntryByDate = function(entry) {
+            entry.ancVisits = _.sortBy(entry.ancVisits, function(ancVisit){
+                return ancVisit.ancVisitDate;
+            });
+            entry.ttDoses = _.sortBy(entry.ttDoses, function(dose){
+                return dose.ttDate;
+            });
+            entry.ifaTablets = _.sortBy(entry.ifaTablets, function(ifa){
+                return ifa.ifaTabletsDate;
+            });
+            entry.hbTests = _.sortBy(entry.hbTests, function(hbTest){
+                return hbTest.hbTestDate;
+            });
         };
 
         var fillMissingValues = function (entry) {
