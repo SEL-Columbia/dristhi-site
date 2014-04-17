@@ -12,6 +12,9 @@ angular.module('drishtiSiteApp')
             prepareRegisterForANC: function (anm) {
                 return ANCRegisterService.prepareRegister(anm);
             },
+            prepareRegisterForPNC: function (anm) {
+                return PNCRegisterService.prepareRegister(anm);
+            },
             prepareRegisterForChild: function (anm) {
                 return ChildRegisterService.prepareRegister(anm);
             }

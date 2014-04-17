@@ -14,6 +14,7 @@ angular.module('drishtiSiteApp', ['ngCookies', 'ngRoute', 'angular-momentjs', 'u
     .constant('REGISTER_TOKENS', {
         'ec': 'e86e0e2211f54b128181cdec0b63cb11',
         'anc': 'dd3ac9bd3d7f469fbc7d0c7d73a442e6',
+        'pnc': '37375c2b940347948c7cc44034e155cc',
         'fp': '8ab37044c46e432d8feade4d69e70e5c',
         'child': '507ac495c3c6483e8eb449a5789d506b'
     })
