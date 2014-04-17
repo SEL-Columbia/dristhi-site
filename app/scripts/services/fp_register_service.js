@@ -23,92 +23,127 @@ angular.module('drishtiSiteApp')
                     updateRegisterWithGeneratedDate(register);
                     updateRegisterWithStartAndEndOfReportingYear(register);
                     updateRegisterWithLocation(register, anm);
-                    updateIUDFPRegistries(register.iudRegisterEntries);
-                    updateCondomFPRegistries(register.condomRegisterEntries);
-                    updateOCPFPRegistries(register.ocpRegisterEntries);
-                    updateMaleSterilizationFPRegistries(register.maleSterilizationRegisterEntries);
-                    updateFemaleSterilizationFPRegistries(register.femaleSterilizationRegisterEntries);
+                    register.iudRegisterEntries = updateIUDFPRegistries(register.iudRegisterEntries);
+                    register.condomRegisterEntries = updateCondomFPRegistries(register.condomRegisterEntries);
+                    register.ocpRegisterEntries = updateOCPFPRegistries(register.ocpRegisterEntries);
+                    register.maleSterilizationRegisterEntries =
+                        updateMaleSterilizationFPRegistries(register.maleSterilizationRegisterEntries);
+                    register.femaleSterilizationRegisterEntries =
+                        updateFemaleSterilizationFPRegistries(register.femaleSterilizationRegisterEntries);
                     return JSONXLSService.prepareExcel(REGISTER_TOKENS.fp, register);
                 }
             );
         };
 
         var updateIUDFPRegistries = function (iudFPRegistries) {
+            iudFPRegistries = sortRegistries(iudFPRegistries);
             var serialNumber = 0;
             iudFPRegistries.forEach(function (iudFPRegistry) {
                 updateFPRegistriesWithSerialNumberAndAddressDetails(iudFPRegistry, ++serialNumber);
+                iudFPRegistry.fpDetails.lmpDate = iudFPRegistry.fpDetails.lmpDate ? formatDate(iudFPRegistry.fpDetails.lmpDate) : '';
+                iudFPRegistry.fpDetails.uptResult = $filter('friendlyName')(iudFPRegistry.fpDetails.uptResult);
+                updateHusbandAge(iudFPRegistry);
             });
+            return iudFPRegistries;
         };
 
         var updateCondomFPRegistries = function (condomFPRegistries) {
             var serialNumber = 0;
             var startOfReportingYear = startDateOfCurrentReportYear();
             var endOfReportingYear = endDateOfCurrentReportYear();
-            condomFPRegistries = _.filter(condomFPRegistries, function(registry) {
+            var reportingCondomFPRegistries = _.filter(condomFPRegistries, function (registry) {
                 return  $moment(registry.fpDetails.fpAcceptanceDate) >= $moment(startOfReportingYear) &&
                     $moment(registry.fpDetails.fpAcceptanceDate) <= $moment(endOfReportingYear);
             });
-            condomFPRegistries.forEach(function (condomFPRegistry) {
+            reportingCondomFPRegistries = sortRegistries(reportingCondomFPRegistries);
+            reportingCondomFPRegistries.forEach(function (condomFPRegistry) {
                 updateFPRegistriesWithSerialNumberAndAddressDetails(condomFPRegistry, ++serialNumber);
                 updateRefill(condomFPRegistry);
             });
+            return reportingCondomFPRegistries;
         };
 
         var updateOCPFPRegistries = function (ocpFPRegistries) {
             var serialNumber = 0;
             var startOfReportingYear = startDateOfCurrentReportYear();
             var endOfReportingYear = endDateOfCurrentReportYear();
-            ocpFPRegistries = _.filter(ocpFPRegistries, function(registry) {
+            var reportingOCPFPRegistries = _.filter(ocpFPRegistries, function (registry) {
                 return  $moment(registry.fpDetails.fpAcceptanceDate) >= $moment(startOfReportingYear) &&
-                        $moment(registry.fpDetails.fpAcceptanceDate) <= $moment(endOfReportingYear);
+                    $moment(registry.fpDetails.fpAcceptanceDate) <= $moment(endOfReportingYear);
             });
-            ocpFPRegistries.forEach(function (ocpFPRegistry) {
+            reportingOCPFPRegistries = sortRegistries(reportingOCPFPRegistries);
+            reportingOCPFPRegistries.forEach(function (ocpFPRegistry) {
                 updateFPRegistriesWithSerialNumberAndAddressDetails(ocpFPRegistry, ++serialNumber);
                 updateRefill(ocpFPRegistry);
+                ocpFPRegistry.fpDetails.lmpDate = ocpFPRegistry.fpDetails.lmpDate ? formatDate(ocpFPRegistry.fpDetails.lmpDate) : '';
+                ocpFPRegistry.fpDetails.uptResult = $filter('friendlyName')(ocpFPRegistry.fpDetails.uptResult);
             });
+            return reportingOCPFPRegistries;
         };
 
         var updateMaleSterilizationFPRegistries = function (maleSterilizationFPRegistries) {
             var serialNumber = 0;
             var today = new Date();
             var sixMonthsAgo = new Date(today.getUTCFullYear(), today.getMonth() - 6, today.getDate());
-            maleSterilizationFPRegistries = _.filter(maleSterilizationFPRegistries, function(registry){
+            var reportingMaleSterilizationFPRegistries = _.filter(maleSterilizationFPRegistries, function (registry) {
                 return $moment(registry.fpDetails.sterilizationDate) >= $moment(sixMonthsAgo);
             });
-            maleSterilizationFPRegistries.forEach(function (maleSterilizationFPRegistry) {
+            reportingMaleSterilizationFPRegistries = sortSterilizationRegistries(reportingMaleSterilizationFPRegistries);
+            reportingMaleSterilizationFPRegistries.forEach(function (maleSterilizationFPRegistry) {
                 updateFPRegistriesWithSerialNumberAndAddressDetails(maleSterilizationFPRegistry, ++serialNumber);
-                updateSterilizationAndFollowupVisitDatesFormat(maleSterilizationFPRegistry);
+                updateSterilizationDetailsFormat(maleSterilizationFPRegistry);
+                updateHusbandAge(maleSterilizationFPRegistry);
             });
-
+            return reportingMaleSterilizationFPRegistries;
         };
 
         var updateFemaleSterilizationFPRegistries = function (femaleSterilizationFPRegistries) {
             var serialNumber = 0;
             var today = new Date();
             var sixMonthsAgo = new Date(today.getUTCFullYear(), today.getMonth() - 6, today.getDate());
-            femaleSterilizationFPRegistries = _.filter(femaleSterilizationFPRegistries, function(registry){
+            var reportingFemaleSterilizationFPRegistries = _.filter(femaleSterilizationFPRegistries, function (registry) {
                 return $moment(registry.fpDetails.sterilizationDate) >= $moment(sixMonthsAgo);
             });
-            femaleSterilizationFPRegistries.forEach(function (femaleSterilizationFPRegistry) {
+            reportingFemaleSterilizationFPRegistries = sortSterilizationRegistries(reportingFemaleSterilizationFPRegistries);
+            reportingFemaleSterilizationFPRegistries.forEach(function (femaleSterilizationFPRegistry) {
                 updateFPRegistriesWithSerialNumberAndAddressDetails(femaleSterilizationFPRegistry, ++serialNumber);
-                updateSterilizationAndFollowupVisitDatesFormat(femaleSterilizationFPRegistry);
+                updateSterilizationDetailsFormat(femaleSterilizationFPRegistry);
+                updateHusbandAge(femaleSterilizationFPRegistry);
+            });
+            return reportingFemaleSterilizationFPRegistries;
+        };
+
+        var sortRegistries = function (registries) {
+            return _.sortBy(registries, function (registry) {
+                return registry.fpDetails.fpAcceptanceDate;
             });
         };
 
-        var updateSterilizationAndFollowupVisitDatesFormat = function (sterilizationFPRegistry) {
+        var sortSterilizationRegistries = function (registries) {
+            return _.sortBy(registries, function (registry) {
+                return registry.fpDetails.sterilizationDate;
+            });
+        };
+
+
+        var updateSterilizationDetailsFormat = function (sterilizationFPRegistry) {
+            sterilizationFPRegistry.fpDetails.typeOfSterilization = sterilizationFPRegistry.fpDetails.typeOfSterilization ?
+                sterilizationFPRegistry.fpDetails.typeOfSterilization : '';
             sterilizationFPRegistry.fpDetails.sterilizationDate = formatDate(sterilizationFPRegistry.fpDetails.sterilizationDate);
             sterilizationFPRegistry.fpDetails.followupVisitDates = sterilizationFPRegistry.fpDetails.followupVisitDates.map(function (date) {
                 return formatDate(date);
             });
         };
 
+        var updateHusbandAge = function (fpRegisterEntry) {
+            fpRegisterEntry.husbandAge = fpRegisterEntry.husbandAge ? fpRegisterEntry.husbandAge : '';
+        };
+
         var updateFPRegistriesWithSerialNumberAndAddressDetails = function (entry, serialNumber) {
+            updateEducationLevelDetails(entry);
             entry.serialNumber = serialNumber;
             if (entry.fpDetails.fpAcceptanceDate) {
                 entry.fpDetails.fpAcceptanceDate = formatDate(entry.fpDetails.fpAcceptanceDate);
-            }
-            if(entry.fpDetails.lmpDate) {
-                entry.fpDetails.lmpDate = formatDate(entry.fpDetails.lmpDate);
             }
             updateAddressDetails(entry);
             entry.casteReligionDetails = $filter('friendlyName')(entry.caste);
@@ -127,7 +162,7 @@ angular.module('drishtiSiteApp')
                 var refillsForGivenMonth = _.filter(entry.fpDetails.refills, function (refill) {
                     return $moment(refill.date).format(MONTH_FORMAT) === month;
                 });
-                entry.fpDetails.reportingRefills[month] = _.map(refillsForGivenMonth, function (refill) {
+                entry.fpDetails.reportingRefills[month] = _.map(refillsForGivenMonth,function (refill) {
                     return $moment(refill.date).format(DAY_MONTH_FORMAT) + ' (' + refill.quantity + ')';
                 }).join(NEW_LINE);
             });
@@ -138,6 +173,15 @@ angular.module('drishtiSiteApp')
             var fatherName = fpRegisterEntry.husbandName ? ', W/O ' + $filter('humanizeAndTitleize')(fpRegisterEntry.husbandName) : '';
             var village = fpRegisterEntry.village ? ', C/O ' + $filter('humanizeAndTitleize')(fpRegisterEntry.village) : '';
             fpRegisterEntry.addressDetails = motherName + fatherName + village;
+        };
+
+        var updateEducationLevelDetails = function (fpRegisterEntry) {
+            fpRegisterEntry.wifeHusbandEducationLevels =
+                fpRegisterEntry.wifeEducationLevel ? fpRegisterEntry.wifeEducationLevel : '';
+            fpRegisterEntry.wifeHusbandEducationLevels +=
+                (fpRegisterEntry.wifeEducationLevel && fpRegisterEntry.husbandEducationLevel) ? ' / ' : '';
+            fpRegisterEntry.wifeHusbandEducationLevels +=
+                fpRegisterEntry.husbandEducationLevel ? fpRegisterEntry.husbandEducationLevel : '';
         };
 
         var updateRegisterWithGeneratedDate = function (register) {

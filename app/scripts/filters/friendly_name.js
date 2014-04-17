@@ -43,7 +43,10 @@ angular.module('drishtiSiteApp.filters')
                 anm: 'ANM',
                 asha: 'Asha',
                 others: 'Others',
-                aww: 'AWW'
+                aww: 'AWW',
+                // Upt Result
+                positive: '+Ve',
+                negative: '-Ve'
             };
             /*jshint camelcase: true*/
             return input ?
