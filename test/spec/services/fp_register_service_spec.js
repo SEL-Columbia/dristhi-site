@@ -27,14 +27,14 @@ describe('FP Register Service: ', function () {
                     "religion": "Hindu",
                     "numberOfLivingMaleChildren": "1",
                     "numberOfLivingFemaleChildren": "1",
-                    "lmpDate": "2014-05-12",
-                    "uptResult": "+ve",
                     "wifeEducationLevel": "illiterate",
                     "husbandEducationLevel": "illiterate",
                     "fpDetails": {
                         "fpAcceptanceDate": "2014-02-23",
                         "iudPlace": "district hospital",
-                        "remarks": "Follow up in 1 month"
+                        "remarks": "Follow up in 1 month",
+                        "lmpDate": "2014-05-12",
+                        "uptResult": "+ve"
                     }
                 },
                 {
@@ -49,14 +49,14 @@ describe('FP Register Service: ', function () {
                     "religion": "Hindu",
                     "numberOfLivingMaleChildren": "1",
                     "numberOfLivingFemaleChildren": "1",
-                    "lmpDate": "2014-05-12",
-                    "uptResult": "+ve",
                     "wifeEducationLevel": "illiterate",
                     "husbandEducationLevel": "illiterate",
                     "fpDetails": {
                         "fpAcceptanceDate": "2014-02-25",
                         "iudPlace": "phc",
-                        "remarks": "Follow up in 1 month"
+                        "remarks": "Follow up in 1 month",
+                        "lmpDate": "2014-05-12",
+                        "uptResult": "+ve"
                     }
 
                 }
@@ -112,24 +112,22 @@ describe('FP Register Service: ', function () {
                             {
                                 "date": "2014-10-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-11-02",
                                 "quantity": "10"
-
                             },
                             {
                                 "date": "2014-11-12",
                                 "quantity": "10"
-
                             },
                             {
                                 "date": "2014-11-22",
                                 "quantity": "10"
-
                             }
-                        ]
+                        ],
+                        "lmpDate": "",
+                        "uptResult": ""
                     }
                 },
                 {
@@ -143,8 +141,6 @@ describe('FP Register Service: ', function () {
                     "religion": "Hindu",
                     "numberOfLivingMaleChildren": "1",
                     "numberOfLivingFemaleChildren": "1",
-                    "lmpDate": "2014-05-12",
-                    "uptResult": "+ve",
                     "wifeEducationLevel": "illiterate",
                     "husbandEducationLevel": "illiterate",
                     "fpDetails": {
@@ -153,27 +149,22 @@ describe('FP Register Service: ', function () {
                             {
                                 "date": "2015-01-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2015-02-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2015-03-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-04-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-05-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-06-23",
@@ -210,7 +201,9 @@ describe('FP Register Service: ', function () {
                                 "quantity": "10"
 
                             }
-                        ]
+                        ],
+                        "lmpDate": "2014-05-12",
+                        "uptResult": "+ve"
                     }
                 }
             ],
@@ -284,14 +277,14 @@ describe('FP Register Service: ', function () {
                     "religion": "Hindu",
                     "numberOfLivingMaleChildren": "1",
                     "numberOfLivingFemaleChildren": "1",
-                    "lmpDate": "2014-05-12",
-                    "uptResult": "+ve",
                     "wifeEducationLevel": "illiterate",
                     "husbandEducationLevel": "illiterate",
                     "fpDetails": {
                         "fpAcceptanceDate": "23-02-2014",
                         "iudPlace": "district hospital",
-                        "remarks": "Follow up in 1 month"
+                        "remarks": "Follow up in 1 month",
+                        "lmpDate": "12-05-2014",
+                        "uptResult": "+ve"
                     },
                     "serialNumber": 1,
                     "addressDetails": "Saranya, W/O Manjunatha, C/O Hosa Agrahara",
@@ -309,14 +302,14 @@ describe('FP Register Service: ', function () {
                     "religion": "Hindu",
                     "numberOfLivingMaleChildren": "1",
                     "numberOfLivingFemaleChildren": "1",
-                    "lmpDate": "2014-05-12",
-                    "uptResult": "+ve",
                     "wifeEducationLevel": "illiterate",
                     "husbandEducationLevel": "illiterate",
                     "fpDetails": {
                         "fpAcceptanceDate": "25-02-2014",
                         "iudPlace": "phc",
-                        "remarks": "Follow up in 1 month"
+                        "remarks": "Follow up in 1 month",
+                        "lmpDate": "12-05-2014",
+                        "uptResult": "+ve"
                     },
                     "serialNumber": 2,
                     "addressDetails": "Suganya, W/O Raghu, C/O Hosa Agrahara",
@@ -408,6 +401,8 @@ describe('FP Register Service: ', function () {
 
                             }
                         ],
+                        "lmpDate": "",
+                        "uptResult": "",
                         "reportingRefills": {
                             "Apr": "",
                             "May": "",
@@ -438,8 +433,6 @@ describe('FP Register Service: ', function () {
                     "religion": "Hindu",
                     "numberOfLivingMaleChildren": "1",
                     "numberOfLivingFemaleChildren": "1",
-                    "lmpDate": "2014-05-12",
-                    "uptResult": "+ve",
                     "wifeEducationLevel": "illiterate",
                     "husbandEducationLevel": "illiterate",
                     "fpDetails": {
@@ -458,54 +451,46 @@ describe('FP Register Service: ', function () {
                             {
                                 "date": "2015-03-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-04-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-05-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-06-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-07-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-08-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-09-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-10-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-11-23",
                                 "quantity": "20"
-
                             },
                             {
                                 "date": "2014-12-22",
                                 "quantity": "10"
-
                             }
                         ],
+                        "lmpDate": "12-05-2014",
+                        "uptResult": "+ve",
                         "reportingRefills": {
                             "Apr": "23 Apr (20)",
                             "May": "23 May (20)",
@@ -586,17 +571,18 @@ describe('FP Register Service: ', function () {
                 }
             ],
             "reportingYear": 2014,
-            "generatedDate": "04-12-2014",
+            "generatedDate": "24-02-2014",
+            "startOfReportingYear": 2013,
+            "endOfReportingYear": 2014,
             "anmDetails": {
                 "location": {
                     "phc": "phc"
                 },
                 "name": "Demo 1"
-            },
-            "endOfReportingYear": 2015
+            }
         };
         Timecop.install();
-        Timecop.freeze(Date.parse('2014-12-04'));
+        Timecop.freeze(Date.parse('2014-02-24'));
 
         var expectedRegisterDownloadURL = '/register_download_url';
 
@@ -615,7 +601,5 @@ describe('FP Register Service: ', function () {
         expect(url).toEqual('https://smartregistries.org/json-to-xls' + expectedRegisterDownloadURL);
         Timecop.returnToPresent();
         Timecop.uninstall();
-    })
-    ;
-})
-;
+    });
+});
