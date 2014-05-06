@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .controller('ANMDataSummaryCtrl', function ($scope, ANMService, RegisterService) {
+    .controller('ANMDataSummaryCtrl', function ($scope, ANMService, RegisterService, $moment) {
         'use strict';
 
         var REPORT_MONTH_END_DAY = 25;
@@ -28,7 +28,7 @@ angular.module('drishtiSiteApp')
             var downloadStatusForType = (type.toLowerCase() + 'RegisterDownloadStatus');
             anm[downloadStatusForType] = DownloadStatus.Preparing;
             RegisterService['prepareRegisterFor' + type](anm)
-            .then(function (data) {
+                .then(function (data) {
                     anm[type.toLowerCase() + 'RegisterDownloadStatus'] = DownloadStatus.Ready;
                     anm[type.toLowerCase() + 'Register'] = data;
                 }, function () {
@@ -69,4 +69,9 @@ angular.module('drishtiSiteApp')
         var nextMonth = function (today) {
             return today.getMonth() + 1;
         };
+
+        $scope.fileNameFor = function (name, register) {
+            return name + ' ' + register + ' ' + $moment().format('DD-MM-YYYY')+'.xls';
+        };
+
     });
