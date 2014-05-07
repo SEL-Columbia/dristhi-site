@@ -1,5 +1,5 @@
 angular.module('drishtiSiteApp')
-    .service('RegisterService', function (ECRegisterService, FPRegisterService, ANCRegisterService, ChildRegisterService) {
+    .service('RegisterService', function (ECRegisterService, FPRegisterService, ANCRegisterService, ChildRegisterService, PNCRegisterService) {
         'use strict';
 
         return {

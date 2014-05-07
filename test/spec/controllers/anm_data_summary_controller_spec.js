@@ -37,6 +37,10 @@ describe('ANM Data Summary Controller', function () {
             prepareRegisterForChild: function () {
                 prepareRegisterForDeferredResponse = q.defer();
                 return prepareRegisterForDeferredResponse.promise;
+            },
+            prepareRegisterForPNC: function () {
+                prepareRegisterForDeferredResponse = q.defer();
+                return prepareRegisterForDeferredResponse.promise;
             }
         };
         createController = function () {
@@ -172,6 +176,19 @@ describe('ANM Data Summary Controller', function () {
             scope.$apply();
             expect(anm.childRegister).toEqual('/download_url');
             expect(anm.childRegisterDownloadStatus).toEqual('ready');
+        });
+
+        it('should be able to download PNC Printable Register for selected ANM', function () {
+            spyOn(registerService, 'prepareRegisterForPNC').andCallThrough();
+            var anm = new ANM('demo1', 'demo1 name', 'bherya - b', 0, 0, 0, 0, 0);
+
+            createController();
+            scope.getRegister(anm, 'PNC');
+
+            prepareRegisterForDeferredResponse.resolve('/download_url');
+            scope.$apply();
+            expect(anm.pncRegister).toEqual('/download_url');
+            expect(anm.pncRegisterDownloadStatus).toEqual('ready');
         });
 
         it('should remove nrhmReportDownloadStatus when register download url is not returned from Register Service', function () {

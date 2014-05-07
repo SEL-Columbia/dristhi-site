@@ -36,7 +36,14 @@ angular.module('drishtiSiteApp.filters')
                 ab_positive: 'AB+',
                 ab_negative: 'AB-',
                 o_positive: 'O+',
-                o_negative: 'O-'
+                o_negative: 'O-',
+                home: 'Home',
+                phc: 'PHC',
+                sub_center: 'SubCenter',
+                anm: 'ANM',
+                asha: 'Asha',
+                others: 'Others',
+                aww: 'AWW'
             };
             /*jshint camelcase: true*/
             return input ?
