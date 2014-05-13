@@ -480,7 +480,7 @@ describe('FP Register Service: ', function () {
                         }
                     },
                     "wifeHusbandEducationLevels": "illiterate / illiterate",
-                    "serialNumber": 2,
+                    "serialNumber": 1,
                     "addressDetails": "Saranya, W/O Manjunatha, C/O Hosa Agrahara",
                     "casteReligionDetails": "Others / Hindu"
                 },
@@ -541,7 +541,7 @@ describe('FP Register Service: ', function () {
                         }
                     },
                     "wifeHusbandEducationLevels": "illiterate",
-                    "serialNumber": 1,
+                    "serialNumber": 2,
                     "addressDetails": "Saranya, W/O Manjunatha, C/O Hosa Agrahara",
                     "casteReligionDetails": "Others / Hindu"
                 }
