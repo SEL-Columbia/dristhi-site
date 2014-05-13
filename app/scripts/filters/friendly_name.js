@@ -16,7 +16,7 @@ angular.module('drishtiSiteApp.filters')
                 r_others: 'Others',
                 //FP Method
                 ocp: 'OCP',
-                iud: 'IUD',
+                iud: 'IUCD',
                 condom: 'Condom',
                 female_sterilization: 'Female Sterilization',
                 male_sterilization: 'Male Sterilization',
