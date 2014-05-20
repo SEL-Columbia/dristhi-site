@@ -78,6 +78,12 @@ angular.module('drishtiSiteApp')
         var defaultImmunizationsAndVitaminADosesOfAllChildrenWhenThereIsNoValue =
             function (childRegisterEntries, allImmunizationsDefault, allVitaminADosesDefault) {
                 childRegisterEntries.forEach(function (entry) {
+                    if (entry.immunizations === null) {
+                        entry.immunizations = {};
+                    }
+                    if (entry.vitaminADoses === null) {
+                        entry.vitaminADoses = {};
+                    }
                     entry.immunizations = _.defaults(entry.immunizations, allImmunizationsDefault);
                     entry.vitaminADoses = _.defaults(entry.vitaminADoses, allVitaminADosesDefault);
                 });
