@@ -1,0 +1,49 @@
+<span ng-controller="ArchivesCtrl">
+        <script type="text/ng-template" id="archived-report-modal.html">
+            <div class="modal" role="dialog" aria-labelledby="archived-report-modal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" ng-click="cancel()" aria-hidden="true">&times;</button>
+                            <h4>Archives</h4>
+                        </div>
+                        <div class="modal-body">
+                            <label class="small-text">Year:
+                                <select autofocus ng-model="selectedYear.year" ng-options="y as y for y in years">
+                                    <option value="">-- select year --</option>
+                                </select>
+                            </label>
+                            <label class="small-text">Month:
+                                <select ng-disabled="!selectedYear.year" ng-model="selectedMonth.month"
+                                        ng-options="m for m in months()">
+                                    <option value="">-- select month --</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+                            <span ng-switch on="nrhmReportDownloadStatus">
+                                <button ng-switch-when="preparing"
+                                        class="btn btn-primary"
+                                        ng-disabled="true">Preparing...
+                                </button>
+                                <a ng-switch-when="ready"
+                                   class="btn btn-primary"
+                                   ng-href="{{downloadURL}}"
+                                   ng-click="close()">Excel
+                                </a>
+                                <button ng-switch-default
+                                        ng-disabled="!(selectedYear.year && selectedMonth.month)"
+                                        class="btn btn-primary"
+                                        ng-click="downloadReport()">Download
+                                </button>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+         <a ng-click="open()" class="enabled-link">Archives</a>
+</span>

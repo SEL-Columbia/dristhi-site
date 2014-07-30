@@ -1,0 +1,66 @@
+<div ng-controller="ANMDataSummaryCtrl">
+    <h3 class="th-border">ANM Data</h3>
+
+    <div class="row-fluid m10 div-th th-border">
+        <div class="span3"></div>
+        <div class="span1">EC</div>
+        <div class="span1">FP</div>
+        <div class="span1">ANC</div>
+        <div class="span1">PNC</div>
+        <div class="span1">Child</div>
+        <div class="span4">NRHM Reports</div>
+    </div>
+    <div ng-repeat="anm in anms" class="row-fluid m10 tr-border">
+        <div class="span3">
+            <b>{{ anm.name }}</b><br> {{ anm.location.sub_center | humanizeAndTitleize}}
+        </div>
+        <div class="span1">
+            <span ng-switch="" on="anm.ecRegisterDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing EC register.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'ecRegisterDownloadStatus')" ng-href="{{anm.ecRegister}}" class="enabled-link" download="{{fileNameFor(anm.name, 'EC Register')}}">Excel</a>
+                <a ng-switch-default="" ng-click="getRegister(anm, 'EC')" ng-class="(anm.ecCount == 0) ? 'disabled-link' : 'enabled-link'">{{ anm.ecCount }}</a>
+            </span>
+        </div>
+        <div class="span1">
+            <span ng-switch="" on="anm.fpRegisterDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing FP register.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'fpRegisterDownloadStatus')" ng-href="{{anm.fpRegister}}" class="enabled-link" download="{{fileNameFor(anm.name, 'FP Register')}}">Excel</a>
+                <a ng-switch-default="" ng-click="getRegister(anm, 'FP')" ng-class="(anm.fpCount == 0) ? 'disabled-link' : 'enabled-link'">{{ anm.fpCount }}</a>
+            </span>
+        </div>
+        <div class="span1">
+            <span ng-switch="" on="anm.ancRegisterDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing ANC register.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'ancRegisterDownloadStatus')" ng-href="{{anm.ancRegister}}" download="{{fileNameFor(anm.name, 'ANC Register')}}">Excel</a>
+                <a ng-switch-default="" ng-click="getRegister(anm, 'ANC')" ng-class="(anm.ancCount == 0) ? 'disabled-link' : 'enabled-link'">{{ anm.ancCount }}</a>
+            </span>
+        </div>
+        <div class="span1">
+            <span ng-switch="" on="anm.pncRegisterDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing PNC register.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'pncRegisterDownloadStatus')" ng-href="{{anm.pncRegister}}" download="{{fileNameFor(anm.name, 'PNC Register')}}">Excel</a>
+                <a ng-switch-default="" ng-click="getRegister(anm, 'PNC')" ng-class="(anm.pncCount == 0) ? 'disabled-link' : 'enabled-link'">{{ anm.pncCount }}</a>
+            </span>
+        </div>
+        <div class="span1">
+            <span ng-switch="" on="anm.childRegisterDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing Child register.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'childRegisterDownloadStatus')" ng-href="{{anm.childRegister}}" download="{{fileNameFor(anm.name, 'Child Register')}}">Excel</a>
+                <a ng-switch-default="" ng-click="getRegister(anm, 'Child')" ng-class="(anm.childCount == 0) ? 'disabled-link' : 'enabled-link'">{{ anm.childCount }}</a>
+            </span>
+        </div>
+
+        <div class="span4">
+            <span ng-switch="" on="anm.nrhmReportDownloadStatus">
+                <span ng-switch-when="preparing">Please wait, preparing report.</span>
+                <a ng-switch-when="ready" ng-click="goBackToReadyState(anm, 'nrhmReportDownloadStatus')" ng-href="{{anm.excelReport}}" class="enabled-link" download="{{fileNameFor(anm.name, 'NRHM Report')}}">Excel</a>
+                <a ng-switch-default="" ng-click="excelReportsForANM(anm, currentReportMonth(), currentReportYear())" class="enabled-link">Download
+                    {{currentReportMonth()}}/{{currentReportYear()}}</a>
+            </span>
+            <span>|</span>
+
+            <span ng-include="'views/partials/archived-reports.html'"></span>
+        </div>
+
+    </div>
+</div>
